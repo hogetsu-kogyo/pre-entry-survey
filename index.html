@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src https://rfqeftphtqlfsbcyibbm.supabase.co; img-src data:; base-uri 'none'; form-action 'self'; object-src 'none">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f5f7f5">
+<title>入社前アンケート｜回答</title>
+<style>
+:root{color-scheme:light;--bg:#f5f7f5;--paper:#fff;--ink:#263632;--muted:#75837e;--line:#e1e9e4;--accent:#168d82;--accent-deep:#0c6e66;--soft:#e7f4f1;--shadow:0 12px 30px rgba(36,65,57,.07)}
+*{box-sizing:border-box}html{min-height:100%;background:var(--bg)}body{margin:0;min-height:100vh;min-height:100dvh;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",sans-serif;-webkit-font-smoothing:antialiased}button{font:inherit;-webkit-tap-highlight-color:transparent;touch-action:manipulation}button:focus-visible{outline:3px solid #77c8bd;outline-offset:3px}[hidden]{display:none!important}
+#mainContent{flex:1;display:flex;flex-direction:column}.app{width:100%;max-width:540px;min-height:100vh;min-height:100dvh;margin:0 auto;padding:env(safe-area-inset-top) 20px calc(18px + env(safe-area-inset-bottom));display:flex;flex-direction:column}.topbar{min-height:62px;display:flex;align-items:center;gap:11px;padding:9px 0 15px;border-bottom:1px solid var(--line)}.mark{width:38px;height:38px;flex:0 0 38px;border-radius:12px;background:var(--accent);color:white;display:grid;place-items:center;font-family:Georgia,serif;font-size:21px;font-weight:700}.brand{min-width:0}.eyebrow{display:block;color:var(--muted);font-size:9px;font-weight:850;letter-spacing:.16em;line-height:1.4}.brand h1{margin:2px 0 0;font-size:17px;font-weight:800;letter-spacing:.02em}.demo-tag,.step-chip{margin-left:auto;padding:7px 10px;border:1px solid #c8ded8;border-radius:999px;color:var(--accent-deep);font-size:10px;font-weight:800;white-space:nowrap}.progress-area{margin-top:20px}.progress-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-size:12px;font-weight:800}.progress-percent{color:var(--muted);font-weight:600}.progress-track{height:5px;background:#e0e7e2;border-radius:999px;overflow:hidden}.progress-fill{width:33.33%;height:100%;background:var(--accent);border-radius:inherit;transition:width .2s ease}.intro{margin:17px 0 14px;color:var(--muted);font-size:12px;line-height:1.7}.question-screen{display:flex;flex:1;flex-direction:column}.question-card{position:relative;background:var(--paper);border:1px solid var(--line);border-radius:23px;padding:23px 21px 24px;min-height:216px;display:flex;flex-direction:column;justify-content:center;box-shadow:var(--shadow)}.q-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px;color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.14em}.q-top b{color:#b5c5bf;font-size:13px;letter-spacing:0;font-variant-numeric:tabular-nums}.question-card h2{margin:0;font-size:clamp(21px,5.8vw,27px);line-height:1.62;font-weight:780;letter-spacing:.01em;overflow-wrap:anywhere}.q-hint{margin:14px 0 0;color:var(--muted);font-size:12px;line-height:1.65}.answer-area{margin-top:24px}.scale-labels{display:flex;justify-content:space-between;align-items:start;gap:8px;color:var(--muted);font-size:10px;line-height:1.5}.scale-labels span{max-width:48%}.scale-labels span:last-child{text-align:right}.answer-options{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:start;gap:0;margin-top:11px}.scale-choice{border:0;padding:6px 0 4px;min-width:0;min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:8px;background:transparent;color:var(--muted);cursor:pointer;border-radius:12px}.circle{display:block;flex:0 0 auto;width:var(--diameter);height:var(--diameter);border:2px solid var(--accent);border-radius:50%;background:transparent;transition:background .12s ease,box-shadow .12s ease,transform .12s ease}.scale-choice[data-value="1"],.scale-choice[data-value="6"]{--diameter:46px}.scale-choice[data-value="2"],.scale-choice[data-value="5"]{--diameter:40px}.scale-choice[data-value="3"],.scale-choice[data-value="4"]{--diameter:34px}.scale-choice[aria-checked="true"] .circle{background:var(--accent);box-shadow:0 0 0 4px var(--soft);transform:scale(1.02)}.choice-number{font-size:11px;line-height:1.1;color:#82928b;font-variant-numeric:tabular-nums}.scale-choice[aria-checked="true"] .choice-number{color:var(--accent-deep);font-weight:900}.status{min-height:17px;margin:9px 0 0;text-align:center;font-size:10px;line-height:1.5;color:var(--muted)}.retry-question{display:block;margin:8px auto 0;min-height:34px;padding:6px 12px;border:1px solid #d7e1dc;border-radius:10px;background:transparent;color:var(--accent-deep);font-size:11px;font-weight:800;cursor:pointer}.retry-question[hidden]{display:none}.bottom-actions{display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:center;margin-top:auto;padding-top:18px}.back,.next{min-height:58px;border-radius:17px;font-weight:800;cursor:pointer;transition:transform .12s ease,opacity .12s ease}.back{padding:0 16px;border:1px solid #d7e1dc;background:transparent;color:var(--ink);font-size:14px;white-space:nowrap}.back:disabled{opacity:.35;cursor:not-allowed}.next{padding:0 17px;display:flex;align-items:center;justify-content:center;gap:12px;border:0;background:var(--accent);color:#fff;font-size:16px;box-shadow:0 8px 17px rgba(22,141,130,.15)}.next:disabled{background:#c0ceca;box-shadow:none;cursor:not-allowed}.next:active,.back:not(:disabled):active{transform:scale(.985)}.next span{font-size:19px;line-height:1}.demo-note{margin:12px 0 0;text-align:center;font-size:10px;color:#99a59f;line-height:1.5}.page-footer{padding-top:15px;text-align:center;font-size:10px;color:#a2ada8}.complete-screen{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 6px}.complete-icon{width:76px;height:76px;margin-bottom:23px;border-radius:50%;display:grid;place-items:center;background:var(--soft);color:var(--accent);font-size:40px;font-weight:500}.complete-eyebrow{margin:0;color:var(--accent);font-size:10px;letter-spacing:.18em;font-weight:900}.complete-screen h2{margin:12px 0 0;font-size:24px;line-height:1.55}.complete-copy{margin:12px 0 27px;color:var(--muted);font-size:13px;line-height:1.9}.restart{width:100%;max-width:330px}.progress-track[aria-valuenow="1"]{}@media(max-width:360px){.app{padding-right:15px;padding-left:15px}.question-card{min-height:196px;padding:20px 17px}.question-card h2{font-size:21px}.answer-area{margin-top:20px}.scale-choice[data-value="1"],.scale-choice[data-value="6"]{--diameter:42px}.scale-choice[data-value="2"],.scale-choice[data-value="5"]{--diameter:36px}.scale-choice[data-value="3"],.scale-choice[data-value="4"]{--diameter:30px}.bottom-actions{gap:8px}.back{padding:0 12px}.next{font-size:15px;padding:0 12px}.scale-labels{font-size:9px}}@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* Variant-specific visual direction */
+.v1 .progress-area{margin-top:22px}.v1 .question-card{min-height:230px}.v1 .question-card h2{font-size:clamp(21px,5.6vw,26px)}
+.v2{background:#fff;--bg:#fff;--ink:#143b36;--muted:#71827d;--accent:#15988c;--accent-deep:#0b756b;--line:#edf0ed;--shadow:none}.v2 .topbar{min-height:72px;padding-top:16px}.v2 .question-card{background:transparent;border:0;box-shadow:none;padding:24px 4px 13px;min-height:245px}.v2 .question-heading{display:flex;align-items:center;gap:12px;margin-bottom:22px}.v2 .q-label{font-size:12px;font-weight:800;color:var(--muted)}.v2 .q-label b{display:inline-block;margin-left:6px;color:var(--accent);font-variant-numeric:tabular-nums}.v2 .mini-rule{height:1px;flex:1;background:var(--line)}.v2 .question-card h2{font-size:clamp(23px,6.2vw,29px);line-height:1.65}.v2 .q-hint{font-size:12px}.v2 .answer-area{border-top:1px solid var(--line);padding-top:22px;margin-top:4px}.v2 .answer-options{margin-top:15px}.v2 .circle{border-width:2.5px}.v2 .bottom-actions{padding-top:26px}
+.v3{--bg:#eef3f1;--paper:#fff;--ink:#203d38;--muted:#70827c;--accent:#167f73;--accent-deep:#0d635a;--soft:#e0f1ed}.v3 .topbar{border-bottom:0}.v3 .brand-icon{width:36px;height:36px;border:9px solid var(--accent);border-radius:50%;color:transparent;flex:0 0 36px}.v3 .progress-area{padding:13px 15px 15px;border-radius:16px;background:#e2ebe7;margin-top:14px}.v3 .intro,.v3 .prompt-row{margin:15px 0 14px}.v3 .prompt-row{display:flex;align-items:center;justify-content:space-between;gap:8px}.v3 .prompt-badge{display:inline-flex;align-items:center;min-height:28px;padding:0 10px;background:#dcebe5;border-radius:999px;color:#3a7166;font-size:10px;font-weight:800}.v3 .prompt-small{font-size:10px;color:var(--muted);white-space:nowrap}.v3 .question-card{border:0;border-radius:25px;min-height:235px}.v3 .q-top{margin-bottom:21px}.v3 .question-card h2{font-size:clamp(22px,6vw,28px)}.v3 .answer-area{padding:18px 12px 9px;border-radius:19px;background:#fff;border:1px solid var(--line)}.v3 .bottom-actions{margin-top:15px}.v3 .demo-note{margin-top:13px}
+.v4{--bg:#f8faf8;--paper:#fff;--ink:#273934;--muted:#798780;--accent:#168d82;--accent-deep:#0b7067;--soft:#e6f3f0}.v4 .topbar{min-height:56px;padding-bottom:11px}.v4 .brand{display:flex;align-items:baseline;gap:8px}.v4 .brand h1{font-size:16px}.v4 .subbrand{font-size:10px;color:var(--muted)}.v4 .progress-area{margin-top:15px}.v4 .intro{margin:12px 0 11px;font-size:11px}.v4 .question-card{min-height:190px;padding:19px 18px;border-radius:18px}.v4 .q-top{margin-bottom:13px}.v4 .question-card h2{font-size:clamp(20px,5.4vw,24px);line-height:1.6}.v4 .q-top b i{font-style:normal;color:#99a79f;font-weight:600}.v4 .answer-area{margin-top:16px;padding:16px 12px 10px;background:#fff;border:1px solid var(--line);border-radius:18px}.v4 .answer-title{margin:0 0 13px;font-size:12px;font-weight:800}.v4 .scale-labels{font-size:9px}.v4 .answer-options{margin-top:8px}.v4 .scale-choice{min-height:66px}.v4 .scale-choice[data-value="1"],.v4 .scale-choice[data-value="6"]{--diameter:41px}.v4 .scale-choice[data-value="2"],.v4 .scale-choice[data-value="5"]{--diameter:35px}.v4 .scale-choice[data-value="3"],.v4 .scale-choice[data-value="4"]{--diameter:30px}.v4 .status{font-size:9px;margin-top:6px}.v4 .bottom-actions{padding-top:12px}.v4 .back,.v4 .next{min-height:54px;border-radius:15px}.v4 .demo-note{margin-top:9px}
+
+/* Privacy notice and consent gate */
+.consent-screen{display:flex;flex:1;flex-direction:column;gap:14px;padding:23px 0 10px;min-width:0}
+.consent-heading{padding:0 2px}
+.consent-eyebrow{margin:0 0 7px;color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.16em}
+.consent-heading h2{margin:0;font-size:clamp(22px,5.8vw,27px);line-height:1.45;letter-spacing:.01em}
+.consent-lead{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.8}
+.consent-card{background:var(--paper);border:1px solid var(--line);border-radius:21px;padding:18px 17px 16px;box-shadow:var(--shadow);min-width:0}
+.policy-title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.policy-title-row h3{font-size:16px;line-height:1.45;margin:0}
+.policy-draft{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;padding:5px 8px;border-radius:999px;background:var(--soft);color:var(--accent-deep);font-size:9px;font-weight:850}
+.policy-scroll{max-height:clamp(230px,38dvh,370px);overflow:auto;overscroll-behavior:contain;padding:0 5px 0 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);scrollbar-width:thin}
+.policy-scroll p{margin:7px 0 11px;color:var(--muted);font-size:11px;line-height:1.8}
+.policy-scroll .policy-intro{margin-top:12px}
+.policy-scroll h4{margin:13px 0 0;color:var(--ink);font-size:12px;line-height:1.6}
+.policy-warning{margin:11px 0 0;color:var(--muted);font-size:10px;line-height:1.7}
+.consent-check{display:flex;align-items:flex-start;gap:11px;min-height:58px;padding:13px 12px;border:1px solid var(--line);border-radius:15px;background:var(--paper);font-size:12px;line-height:1.75;font-weight:700;cursor:pointer;touch-action:manipulation}
+.consent-check input{position:absolute;opacity:0;width:1px;height:1px}
+.consent-checkmark{display:grid;place-items:center;flex:0 0 24px;width:24px;height:24px;margin-top:1px;border:2px solid #a9b8b1;border-radius:6px;background:#fff;color:#fff;transition:background .12s,border-color .12s}
+.consent-checkmark::after{content:"✓";font-size:16px;font-weight:900;opacity:0;transform:scale(.6);transition:opacity .12s,transform .12s}
+.consent-check input:checked + .consent-checkmark{background:var(--accent);border-color:var(--accent)}
+.consent-check input:checked + .consent-checkmark::after{opacity:1;transform:scale(1)}
+.consent-check input:focus-visible + .consent-checkmark{outline:3px solid #77c8bd;outline-offset:3px}
+.consent-start{width:100%;min-height:60px}
+.consent-start:disabled{background:#c0ceca;box-shadow:none;cursor:not-allowed;opacity:1}
+.consent-footnote{margin:-3px 0 0;text-align:center;font-size:10px;line-height:1.6;color:#8b9891}
+.v2 .consent-card{box-shadow:none;border-radius:14px}
+.v2 .consent-heading h2{font-family:Georgia,-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",serif;font-weight:750}
+.v3 .consent-screen{padding-top:16px}
+.v3 .consent-card{border:0;border-radius:24px}
+.v3 .policy-scroll{max-height:clamp(220px,35dvh,350px)}
+.v4 .consent-screen{gap:10px;padding-top:15px}
+.v4 .consent-heading h2{font-size:22px}
+.v4 .consent-card{padding:14px;border-radius:17px}
+.v4 .policy-scroll{max-height:clamp(190px,32dvh,300px)}
+.v4 .policy-scroll p{font-size:10px;line-height:1.65}
+.v4 .consent-check{min-height:54px;padding:10px;font-size:11px}
+.v4 .consent-start{min-height:54px;border-radius:15px}
+@media(max-width:360px){.consent-screen{gap:11px;padding-top:17px}.consent-card{padding:15px 13px}.policy-scroll{max-height:34dvh}.consent-heading h2{font-size:21px}.consent-check{font-size:11px;padding:10px}.consent-footnote{font-size:9px}}
+
+
+/* Welcome / top screen */
+.home-screen{flex:1;display:flex;flex-direction:column;align-items:stretch;padding:21px 0 12px;animation:homeIn .22s ease both}
+.home-visual{position:relative;width:124px;height:124px;margin:4px auto 19px;display:grid;place-items:center;flex:0 0 auto}
+.home-visual-ring{position:absolute;inset:6px;border:1.5px solid var(--accent);border-radius:50%;opacity:.38;transform:none}
+.ring-two{inset:15px;border-style:dashed;opacity:.25;transform:none;border-radius:50%}
+.home-visual-core{width:72px;height:72px;border-radius:24px;display:grid;place-items:center;background:var(--soft);color:var(--accent-deep);font-family:Georgia,serif;font-size:35px;font-weight:800;box-shadow:0 5px 16px rgba(22,90,80,.08)}
+.visual-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--accent)}.dot-one{top:9px;right:22px}.dot-two{left:10px;bottom:27px;width:7px;height:7px;opacity:.6}.dot-three{right:13px;bottom:22px;width:6px;height:6px;opacity:.38}
+.home-eyebrow{margin:0 0 8px;text-align:center;color:var(--accent);font-size:10px;font-weight:900;letter-spacing:.22em}
+.home-screen h2{margin:0;text-align:center;font-size:clamp(27px,7.1vw,34px);line-height:1.48;letter-spacing:.015em;font-weight:850;overflow-wrap:anywhere}
+.home-lead{max-width:380px;margin:14px auto 20px;text-align:center;color:var(--muted);font-size:13px;line-height:1.9}
+.home-info{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 17px}
+.home-info-item{display:flex;align-items:center;gap:10px;min-width:0;padding:13px 12px;background:var(--paper);border:1px solid var(--line);border-radius:16px}
+.home-info-icon{width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:11px;background:var(--soft);color:var(--accent-deep);font-size:14px;font-weight:900}
+.home-info-item b,.home-info-item strong{display:block}.home-info-item b{margin-bottom:3px;color:var(--muted);font-size:9px;line-height:1.4;font-weight:700}.home-info-item strong{color:var(--ink);font-size:14px;line-height:1.3}
+.home-note{display:flex;align-items:flex-start;gap:9px;margin:0 0 17px;padding:12px 13px;border-radius:14px;background:var(--soft)}
+.home-note-mark{display:grid;place-items:center;width:19px;height:19px;flex:0 0 19px;border:1px solid var(--accent);border-radius:50%;color:var(--accent-deep);font-size:11px;font-weight:900}
+.home-note p{margin:0;color:var(--muted);font-size:10px;line-height:1.75}
+.home-start{width:100%;min-height:60px;border-radius:18px;margin-top:auto}
+.home-footnote{margin:11px 0 0;text-align:center;color:#99a59f;font-size:9px;line-height:1.6}
+@keyframes homeIn{from{opacity:.45;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.v2 .home-screen{padding-top:28px}.v2 .home-visual{margin-bottom:26px}.v2 .home-visual-core{border-radius:50%;background:#e9f6f3;box-shadow:none}.v2 .home-screen h2{font-family:Georgia,-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN",serif;font-weight:750}.v2 .home-info-item{border-radius:12px;background:#fff}.v2 .home-note{background:#f3f8f6;border:1px solid #e5efeb}.v2 .home-start{border-radius:999px}
+.v3 .home-screen{padding:15px 0 12px}.v3 .home-visual{width:112px;height:112px;margin-bottom:14px}.v3 .home-visual-core{border-radius:50%;width:67px;height:67px}.v3 .home-info{gap:8px}.v3 .home-info-item{border:0;background:#fff;box-shadow:0 4px 18px rgba(36,65,57,.045)}.v3 .home-note{border:1px solid #dce8e3;background:#fff}.v3 .home-start{margin-top:auto}
+.v4 .home-screen{padding-top:14px}.v4 .home-visual{width:91px;height:91px;margin:1px auto 12px}.v4 .home-visual-core{width:55px;height:55px;border-radius:18px;font-size:27px}.v4 .home-screen h2{font-size:clamp(24px,6.2vw,29px);line-height:1.42}.v4 .home-lead{margin:10px auto 13px;font-size:11px;line-height:1.75}.v4 .home-info{gap:7px;margin-bottom:11px}.v4 .home-info-item{padding:10px 8px;gap:7px;border-radius:13px}.v4 .home-info-icon{width:29px;height:29px;flex-basis:29px;border-radius:9px;font-size:12px}.v4 .home-info-item b{font-size:8px}.v4 .home-info-item strong{font-size:12px}.v4 .home-note{padding:9px 10px;margin-bottom:12px;gap:7px}.v4 .home-note p{font-size:9px}.v4 .home-start{min-height:54px;border-radius:15px}.v4 .home-footnote{font-size:8px}
+@media(max-width:360px){.home-screen{padding-top:14px}.home-visual{width:104px;height:104px;margin-bottom:13px}.home-visual-core{width:63px;height:63px}.home-screen h2{font-size:26px}.home-lead{font-size:12px;margin:11px auto 15px}.home-info-item{padding:11px 8px;gap:7px}.home-info-icon{width:30px;height:30px;flex-basis:30px}.home-info-item strong{font-size:12px}.home-note{padding:10px}.home-note p{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.home-screen{animation:none}}
+
+
+/* Friendly survey pictogram */
+.home-visual{display:block}
+.home-svg{display:block;width:100%;height:100%;overflow:visible}
+
+.name-field{display:flex;flex-direction:column;gap:7px;margin:0 0 16px}
+.name-field label{font-size:14px;font-weight:800}
+.name-field .required{color:#b42318;font-size:12px;margin-left:4px}
+.name-field input{width:100%;min-height:50px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;background:#fff;color:var(--ink);font:inherit;appearance:none}
+.name-field input:focus-visible{outline:3px solid #77c8bd;outline-offset:2px}
+.name-field small{color:var(--muted);font-size:12px}
+
+</style>
+</head>
+<body class="v2">
+<div class="app">
+<header class="topbar"><div class="brand"><span class="eyebrow">YOUR RESPONSE</span><h1>入社前アンケート</h1></div><span class="step-chip">直感で回答</span></header>
+<main id="mainContent">
+<section id="homeScreen" class="home-screen" aria-labelledby="homeTitle">
+  <div class="home-visual" aria-hidden="true">
+    <svg class="home-svg" viewBox="0 0 140 140" focusable="false">
+      <circle cx="70" cy="70" r="57" fill="var(--soft)" opacity=".9"/>
+      <circle cx="112" cy="31" r="4" fill="var(--accent)" opacity=".55"/>
+      <circle cx="27" cy="98" r="3" fill="var(--accent)" opacity=".35"/>
+      <rect x="43" y="31" width="54" height="78" rx="10" fill="#fff" stroke="var(--accent)" stroke-width="2.4"/>
+      <rect x="56" y="24" width="28" height="15" rx="7.5" fill="var(--accent)"/>
+      <path d="M53 55l3.5 3.5 6.5-7" fill="none" stroke="var(--accent-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M68 55h17" fill="none" stroke="#a8bbb4" stroke-width="2.8" stroke-linecap="round"/>
+      <path d="M53 72l3.5 3.5 6.5-7" fill="none" stroke="var(--accent-deep)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M68 72h17" fill="none" stroke="#a8bbb4" stroke-width="2.8" stroke-linecap="round"/>
+      <circle cx="57" cy="90" r="4" fill="var(--soft)" stroke="var(--accent)" stroke-width="1.7"/>
+      <path d="M68 90h17" fill="none" stroke="#a8bbb4" stroke-width="2.8" stroke-linecap="round"/>
+    </svg>
+  </div>
+  <p class="home-eyebrow">WELCOME</p>
+  <h2 id="homeTitle">あなたの感じ方を、<br>教えてください。</h2>
+  <p class="home-lead">いくつかの職場の場面を想像しながら、あなたの気持ちに近い答えを選ぶアンケートです。</p>
+  <div class="home-info" aria-label="アンケート概要">
+    <div class="home-info-item"><span class="home-info-icon" aria-hidden="true">◷</span><span><b>所要時間の目安</b><strong>約3〜5分</strong></span></div>
+    <div class="home-info-item"><span class="home-info-icon" aria-hidden="true">20</span><span><b>質問数</b><strong>全20問</strong></span></div>
+  </div>
+  <div class="home-note"><span class="home-note-mark" aria-hidden="true">i</span><p>正解・不正解はありません。普段の自分に近い気持ちを、直感的に選んでください。回答前にプライバシーポリシーをご確認いただきます。</p></div>
+  <button id="openConsentButton" type="button" class="next home-start">アンケートをはじめる <span aria-hidden="true">→</span></button>
+  <p class="home-footnote">回答は送信後、採用担当者が確認します。所要時間は約3〜5分です。</p>
+</section>
+
+<section id="consentScreen" class="consent-screen" aria-labelledby="consentTitle" hidden>
+  <div class="consent-heading">
+    <p class="consent-eyebrow">BEFORE YOU BEGIN</p>
+    <h2 id="consentTitle">回答の前にご確認ください</h2>
+    <p class="consent-lead">プライバシーポリシーをご確認のうえ、同意いただくとアンケートを開始できます。</p>
+  </div>
+  <article class="consent-card">
+    <div class="policy-title-row"><h3>プライバシーポリシー</h3><span class="policy-draft">デモ用文案</span></div>
+    <div class="policy-scroll" tabindex="0" aria-label="プライバシーポリシー本文">
+      <p class="policy-intro">このアンケートで取得する情報の取り扱いについて、以下をご確認ください。本画面の文面はデモ用のたたき台です。</p>
+      <h4>1. 取得する情報</h4>
+      <p>お名前、アンケートへの回答内容、回答日時などを取得する想定です。</p>
+      <h4>2. 利用目的</h4>
+      <p>回答は、職場環境との相性を確認し、採用担当者が選考や入社後の受け入れを検討するために利用します。回答内容がマッチング判断の基準として扱われる場合があります。</p>
+      <h4>3. 閲覧と管理</h4>
+      <p>回答情報は、業務上必要な権限を持つ採用担当者など、会社が認めた担当者が確認する想定です。情報へのアクセスは適切に管理します。</p>
+      <h4>4. 保管期間と削除</h4>
+      <p>回答情報の具体的な保管期間は、本番運用の開始前に会社のルールに沿って定めます。保管の必要がなくなった情報は、適切な方法で削除します。</p>
+      <h4>5. 第三者提供・委託</h4>
+      <p>法令に基づく場合などを除き、本人の同意なく回答情報を第三者に提供しない方針です。システム運用を外部に委託する場合は、委託先や取り扱いについて正式なポリシーに明記します。</p>
+      <h4>6. お問い合わせ</h4>
+      <p>情報の取り扱いに関するお問い合わせ先：採用担当窓口（正式な部署名・連絡先を本番公開前に記載します）。</p>
+    </div>
+    <p class="policy-warning">※これは画面デモ用の文案です。本番公開前に、利用目的・閲覧権限・保存期間・委託先・問い合わせ先を会社の実際の運用に合わせて確定してください。</p>
+  </article>
+  <div class="name-field"><label for="applicantName">お名前 <span class="required">必須</span></label><input id="applicantName" type="text" maxlength="100" autocomplete="name" placeholder="例：山田 花子" required><small>回答を送信するために必要です。</small></div>
+  <label class="consent-check"><input id="privacyConsent" type="checkbox"><span class="consent-checkmark" aria-hidden="true"></span><span>プライバシーポリシーを確認し、個人情報の取り扱いに同意します。</span></label>
+  <button id="beginSurveyButton" type="button" class="next consent-start" disabled>同意して回答を始める <span aria-hidden="true">→</span></button>
+  <p class="consent-footnote">同意して開始すると回答画面に進みます。回答は最後の設問の送信時に保存されます。</p>
+</section>
+<section id="questionScreen" class="question-screen" hidden aria-labelledby="questionText">
+<section class="progress-area"><div class="progress-meta"><span id="progressText">1 / 3</span><span id="progressPercent" class="progress-percent">33%</span></div><div class="progress-track" id="progressTrack" role="progressbar" aria-label="回答の進み具合" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1"><div class="progress-fill" id="progressFill"></div></div></section>
+<p class="intro">正解・不正解はありません。近い気持ちを選んでください。</p>
+<section class="question-card"><div class="question-heading"><span class="q-label">質問 <b id="questionNumber">01</b></span><span class="mini-rule"></span></div><h2 id="questionText">質問を読み込んでいます…</h2><p class="q-hint">この状況を想像して選択してください。</p></section>
+<section class="answer-area"><div class="scale-labels"><span>全く平気</span><span>とても嫌な気持ちになる</span></div><div class="answer-options" id="answerOptions" role="radiogroup" aria-label="気持ちの度合い"><button type="button" class="scale-choice" data-value="1" role="radio" aria-checked="false" aria-label="1：全く平気"><span class="circle" aria-hidden="true"></span><span class="choice-number">1</span></button><button type="button" class="scale-choice" data-value="2" role="radio" aria-checked="false" aria-label="2"><span class="circle" aria-hidden="true"></span><span class="choice-number">2</span></button><button type="button" class="scale-choice" data-value="3" role="radio" aria-checked="false" aria-label="3"><span class="circle" aria-hidden="true"></span><span class="choice-number">3</span></button><button type="button" class="scale-choice" data-value="4" role="radio" aria-checked="false" aria-label="4"><span class="circle" aria-hidden="true"></span><span class="choice-number">4</span></button><button type="button" class="scale-choice" data-value="5" role="radio" aria-checked="false" aria-label="5"><span class="circle" aria-hidden="true"></span><span class="choice-number">5</span></button><button type="button" class="scale-choice" data-value="6" role="radio" aria-checked="false" aria-label="6：とても嫌な気持ちになる"><span class="circle" aria-hidden="true"></span><span class="choice-number">6</span></button></div><p class="status" id="statusText" aria-live="polite">丸をタップして回答してください</p><button id="retryQuestionButton" type="button" class="retry-question" hidden>質問を再読み込み</button></section>
+<nav class="bottom-actions"><button id="backButton" class="back" disabled>← 戻る</button><button id="nextButton" class="next" disabled>次へ進む <span>→</span></button></nav>
+<p class="demo-note">回答は自動で次の設問へ進みます。</p>
+</section>
+<section id="completeScreen" class="complete-screen" hidden aria-labelledby="completeTitle">
+<div class="complete-icon" aria-hidden="true">✓</div>
+<p class="complete-eyebrow">ALL DONE</p>
+<h2 id="completeTitle">回答を送信しました</h2>
+<p class="complete-copy" id="completeCopy">ご回答ありがとうございました。</p>
+<button id="restartButton" type="button" class="next restart">最初からやり直す <span>↻</span></button>
+</section>
+</main>
+<div class="page-footer">入社前アンケート</div>
+</div>
+<script>
+/* 質問文はSupabase Edge Functionから1問ずつ取得します。 */
+const QUESTION_COUNT = 20;
+const QUESTIONS = Array(QUESTION_COUNT).fill(null);
+const QUESTION_API_URL = 'https://rfqeftphtqlfsbcyibbm.supabase.co/functions/v1/get-survey-questions';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_AWir5tre7LTuMFEhAUKo-g_ztHgdit-';
+const state = { index: 0, answers: Array(QUESTION_COUNT).fill(null), timer: null };
+let questionRequestSequence = 0;
+let loadingQuestionIndex = null;
+let questionLoadFailedIndex = null;
+const $ = (id) => document.getElementById(id);
+const screen = $('questionScreen');
+const complete = $('completeScreen');
+const consentScreen = $('consentScreen');
+const homeScreen = $('homeScreen');
+const openConsentButton = $('openConsentButton');
+const consentCheckbox = $('privacyConsent');
+const beginSurveyButton = $('beginSurveyButton');
+const count = QUESTION_COUNT;
+const options = $('answerOptions');
+
+function render() {
+  cancelTimer();
+  const n = state.index + 1;
+  const pct = Math.round((n / count) * 100);
+  const question = QUESTIONS[state.index];
+  const isLoading = loadingQuestionIndex === state.index;
+  const loadFailed = questionLoadFailedIndex === state.index;
+  $('questionText').textContent = question || (loadFailed ? '質問を読み込めませんでした。' : '質問を読み込んでいます…');
+  $('questionNumber').textContent = String(n).padStart(2, '0');
+  if ($('questionTotal')) $('questionTotal').textContent = String(count).padStart(2, '0');
+  $('progressText').textContent = `${n} / ${count}`;
+  $('progressPercent').textContent = `${pct}%`;
+  $('progressFill').style.width = `${pct}%`;
+  $('progressTrack').setAttribute('aria-valuemax', String(count));
+  $('progressTrack').setAttribute('aria-valuenow', String(n));
+  options.querySelectorAll('button[data-value]').forEach((button) => {
+    const chosen = Number(button.dataset.value) === state.answers[state.index];
+    button.setAttribute('aria-checked', String(chosen));
+    button.disabled = !question || isLoading;
+  });
+  $('backButton').disabled = state.index === 0 || isLoading;
+  $('nextButton').disabled = !question || isLoading || state.answers[state.index] === null;
+  $('nextButton').innerHTML = state.index === count - 1
+    ? '回答を送信する <span aria-hidden="true">→</span>'
+    : '次へ進む <span aria-hidden="true">→</span>';
+  $('statusText').textContent = isLoading
+    ? '質問を読み込んでいます…'
+    : loadFailed
+      ? '通信状況を確認して「質問を再読み込み」を押してください。'
+      : state.answers[state.index] === null
+        ? '丸をタップして回答してください'
+        : `${state.answers[state.index]} を選択しました`;
+  $('retryQuestionButton').hidden = !loadFailed;
+}
+async function loadQuestion(index, forceReload = false) {
+  // Every navigation invalidates any slower request for a previous question.
+  const requestId = ++questionRequestSequence;
+  if (!forceReload && typeof QUESTIONS[index] === 'string' && QUESTIONS[index].trim()) {
+    loadingQuestionIndex = null;
+    questionLoadFailedIndex = null;
+    if (state.index === index) render();
+    return;
+  }
+  loadingQuestionIndex = index;
+  questionLoadFailedIndex = null;
+  if (state.index === index) render();
+  try {
+    const response = await fetch(`${QUESTION_API_URL}?number=${index + 1}`, {
+      method: 'GET',
+      headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Accept': 'application/json' },
+      cache: 'no-store'
+    });
+    let payload = null;
+    try { payload = await response.json(); } catch (_) {}
+    if (!response.ok || !payload || payload.number !== index + 1 || typeof payload.question !== 'string' || !payload.question.trim()) {
+      throw new Error((payload && payload.error) || '質問データを確認できませんでした。');
+    }
+    if (requestId !== questionRequestSequence) return;
+    QUESTIONS[index] = payload.question;
+    loadingQuestionIndex = null;
+    questionLoadFailedIndex = null;
+    if (state.index === index) render();
+  } catch (error) {
+    if (requestId !== questionRequestSequence) return;
+    loadingQuestionIndex = null;
+    questionLoadFailedIndex = index;
+    console.error('question load failed', error);
+    if (state.index === index) render();
+  }
+}
+function choose(value) {
+  if (typeof QUESTIONS[state.index] !== 'string' || loadingQuestionIndex === state.index) return;
+  cancelTimer();
+  state.answers[state.index] = value;
+  render();
+  $('statusText').textContent = `${value} を選択しました。次の設問へ進みます`;
+  state.timer = window.setTimeout(advance, 650);
+}
+async function advance() {
+  cancelTimer();
+  if (state.answers[state.index] === null) {
+    $('statusText').textContent = '先に回答を選択してください';
+    return;
+  }
+  if (state.index < count - 1) {
+    state.index += 1;
+    await loadQuestion(state.index);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    await submitResponses();
+  }
+}
+async function back() {
+  if (state.index === 0 || loadingQuestionIndex === state.index) return;
+  cancelTimer();
+  state.index -= 1;
+  await loadQuestion(state.index);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+const pageLoadedAt = Date.now();
+let isSubmitting = false;
+
+async function submitResponses() {
+  if (isSubmitting) return;
+  const applicantName = $('applicantName').value.trim();
+  if (!applicantName) { $('statusText').textContent = 'お名前を入力してください。'; return; }
+  if (!consentCheckbox.checked) { $('statusText').textContent = 'プライバシーポリシーへの同意が必要です。'; return; }
+  isSubmitting = true;
+  $('nextButton').disabled = true;
+  $('statusText').textContent = '回答を送信しています…';
+  try {
+    const waitMs = Math.max(0, 7000 - (Date.now() - pageLoadedAt));
+    if (waitMs > 0) await new Promise(resolve => window.setTimeout(resolve, waitMs));
+    if (state.answers.length !== 20 || state.answers.some(value => !Number.isInteger(value) || value < 1 || value > 6)) throw new Error('20問すべての回答を確認してください。');
+    const answerObject = Object.fromEntries(state.answers.map((value, index) => [String(index + 1), value]));
+    const response = await fetch('https://rfqeftphtqlfsbcyibbm.supabase.co/functions/v1/submit-survey', {
+      method: 'POST',
+      headers: {'apikey':'sb_publishable_AWir5tre7LTuMFEhAUKo-g_ztHgdit-','Content-Type':'application/json'},
+      body: JSON.stringify({applicant_name:applicantName,answers:answerObject,website:'',elapsedMs:Date.now()-pageLoadedAt})
+    });
+    let responseBody = null;
+    try { responseBody = await response.json(); } catch (_) {}
+    if (!response.ok || !responseBody || responseBody.ok !== true) throw new Error((responseBody && responseBody.error) || '送信を完了できませんでした。時間をおいて再度お試しください。');
+    $('completeCopy').textContent = applicantName + ' 様、ご回答ありがとうございました。回答を受け付けました。';
+    screen.hidden = true; complete.hidden = false;
+    window.scrollTo({top:0,behavior:'smooth'});
+  } catch (error) {
+    render();
+    $('statusText').textContent = error && error.message ? '送信に失敗しました：' + error.message : '送信に失敗しました。通信状況を確認して再度お試しください。';
+  } finally {
+    isSubmitting = false;
+    if (!screen.hidden) $('nextButton').disabled = state.answers[state.index] === null;
+  }
+}
+
+function cancelTimer() {
+  if (state.timer !== null) {
+    window.clearTimeout(state.timer);
+    state.timer = null;
+  }
+}
+function restart() {
+  cancelTimer();
+  questionRequestSequence += 1;
+  loadingQuestionIndex = null;
+  questionLoadFailedIndex = null;
+  state.index = 0;
+  state.answers = Array(count).fill(null);
+  complete.hidden = true;
+  screen.hidden = true;
+  consentScreen.hidden = true;
+  homeScreen.hidden = false;
+  consentCheckbox.checked = false;
+  $('applicantName').value = '';
+  updateConsentState();
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function updateConsentState() {
+  beginSurveyButton.disabled = !consentCheckbox.checked || !$('applicantName').value.trim();
+}
+async function beginSurvey() {
+  if (!consentCheckbox.checked || !$('applicantName').value.trim()) return;
+  homeScreen.hidden = true;
+  consentScreen.hidden = true;
+  complete.hidden = true;
+  screen.hidden = false;
+  await loadQuestion(state.index);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+options.querySelectorAll('button[data-value]').forEach((button) => {
+  button.addEventListener('click', () => choose(Number(button.dataset.value)));
+});
+$('backButton').addEventListener('click', back);
+$('retryQuestionButton').addEventListener('click', () => loadQuestion(state.index, true));
+$('nextButton').addEventListener('click', advance);
+$('restartButton').addEventListener('click', restart);
+openConsentButton.addEventListener('click', () => {
+  homeScreen.hidden = true;
+  consentScreen.hidden = false;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+consentCheckbox.addEventListener('change', updateConsentState);
+$('applicantName').addEventListener('input', updateConsentState);
+beginSurveyButton.addEventListener('click', beginSurvey);
+updateConsentState();
+homeScreen.hidden = false;
+consentScreen.hidden = true;
+screen.hidden = true;
+complete.hidden = true;
+render();
+</script>
+</body>
+</html>

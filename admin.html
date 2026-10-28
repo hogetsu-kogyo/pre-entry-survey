@@ -1,0 +1,740 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; connect-src https://rfqeftphtqlfsbcyibbm.supabase.co; img-src data:; base-uri 'none'; form-action 'self'; object-src 'none">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f7f5">
+<title>入社前アンケート｜管理者画面</title>
+<style>
+  :root {
+    --bg: #f5f7f5;
+    --surface: #ffffff;
+    --text: #143b36;
+    --muted: #71827d;
+    --line: #e1e9e4;
+    --navy: #15988c;
+    --navy-2: #0b756b;
+    --green: #18794e;
+    --green-bg: #e7f4f1;
+    --red: #b42318;
+    --red-bg: #fff0ef;
+    --blue-bg: #f3f8f6;
+    --shadow: 0 6px 22px rgba(36, 65, 57, .045);
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic UI", "Yu Gothic", Meiryo, sans-serif; font-size: 14px; line-height: 1.55; }
+  button, input, select { font: inherit; }
+  button, select { cursor: pointer; }
+  .topbar { background: var(--navy); color: #fff; padding: 18px 28px; box-shadow: 0 2px 9px rgba(18, 30, 47, .16); }
+  .topbar-inner { max-width: 1440px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .brand { display: flex; gap: 13px; align-items: center; }
+  .brand-mark { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 11px; color: var(--navy); background: #fff; font-size: 20px; font-weight: 800; }
+  h1 { margin: 0; font-size: 19px; font-weight: 700; letter-spacing: .015em; }
+  .brand-sub { margin-top: 2px; color: #d7e0ec; font-size: 12px; }
+  .admin-label { border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: 6px 11px; color: #eef3fa; font-size: 12px; white-space: nowrap; }
+  main { max-width: 1440px; margin: 0 auto; padding: 24px 28px 36px; }
+  .page-heading { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 17px; }
+  .page-heading h2 { font-size: 22px; margin: 0 0 3px; letter-spacing: -.02em; }
+  .page-heading p { color: var(--muted); margin: 0; }
+  .admin-verified { background: #e8f6ee; color: #17623f; border: 1px solid #b9e2ca; padding: 6px 10px; border-radius: 8px; font-size: 12px; white-space: nowrap; }
+  .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-bottom: 19px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); padding: 15px 18px; }
+  .stat-top { display: flex; justify-content: space-between; align-items: center; color: var(--muted); font-size: 12px; }
+  .stat-num { font-size: 28px; font-weight: 750; line-height: 1.2; margin-top: 8px; letter-spacing: -.03em; }
+  .stat-note { color: var(--muted); font-size: 11px; margin-top: 4px; }
+  .stat-icon { width: 31px; height: 31px; display: grid; place-items: center; border-radius: 9px; background: #eef2f7; color: var(--navy-2); font-weight: 700; }
+  .stat.invalid .stat-icon { background: var(--red-bg); color: var(--red); }
+  .stat.pass .stat-icon { background: var(--green-bg); color: var(--green); }
+  .workspace { display: grid; grid-template-columns: minmax(520px, 1.05fr) minmax(450px, .95fr); gap: 18px; align-items: start; }
+  .panel { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: var(--shadow); overflow: hidden; min-width: 0; }
+  .panel-head { padding: 18px 20px 14px; border-bottom: 1px solid var(--line); }
+  .panel-title-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .panel h3 { margin: 0; font-size: 16px; font-weight: 750; }
+  .result-count { color: var(--muted); font-size: 12px; white-space: nowrap; }
+  .filters { display: grid; grid-template-columns: minmax(180px, 1fr) 140px; gap: 10px; margin-top: 13px; }
+  .search-wrap { position: relative; }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #7a8798; pointer-events: none; font-size: 15px; }
+  input[type="search"], select { width: 100%; border: 1px solid #d6dde7; border-radius: 9px; background: #fff; color: var(--text); padding: 10px 11px; outline: none; }
+  input[type="search"] { padding-left: 34px; }
+  input:focus, select:focus { border-color: #7597c4; box-shadow: 0 0 0 3px rgba(66, 112, 170, .12); }
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; text-align: left; }
+  thead th { background: #f8fafc; color: #667386; font-size: 11px; font-weight: 700; letter-spacing: .02em; white-space: nowrap; padding: 11px 13px; border-bottom: 1px solid var(--line); }
+  tbody tr { cursor: pointer; border-bottom: 1px solid #edf0f4; transition: background .12s ease; }
+  tbody tr:last-child { border-bottom: 0; }
+  tbody tr:hover { background: #f7faff; }
+  tbody tr.selected { background: #edf4ff; box-shadow: inset 3px 0 0 #4776b8; }
+  td { padding: 14px 13px; vertical-align: middle; white-space: nowrap; }
+  .person { font-weight: 700; color: #263448; }
+  .person-sub { display: block; font-size: 11px; font-weight: 400; color: var(--muted); margin-top: 2px; }
+  .badge { display: inline-flex; align-items: center; justify-content: center; gap: 5px; border-radius: 999px; padding: 4px 9px; font-size: 11px; font-weight: 750; white-space: nowrap; }
+  .badge.pass { color: var(--green); background: var(--green-bg); }
+  .badge.invalid { color: var(--red); background: var(--red-bg); }
+  .count-chip { min-width: 26px; text-align: center; display: inline-block; border: 1px solid #dfe5ed; color: #48566a; padding: 2px 7px; border-radius: 7px; font-size: 12px; background: #fff; }
+  .count-chip.has-risk { color: var(--red); border-color: #f2b9b4; background: #fff8f7; font-weight: 750; }
+  .empty { text-align: center; color: var(--muted); padding: 32px 14px; }
+  .detail-head { padding: 19px 20px 17px; border-bottom: 1px solid var(--line); }
+  .detail-kicker { color: var(--muted); text-transform: uppercase; font-size: 10px; letter-spacing: .1em; font-weight: 750; margin-bottom: 6px; }
+  .detail-person-row { display: flex; justify-content: space-between; align-items: start; gap: 12px; }
+  .detail-name { font-size: 21px; letter-spacing: -.025em; font-weight: 800; margin: 0; }
+  .detail-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px; color: var(--muted); font-size: 12px; }
+  .reason { margin-top: 15px; border-radius: 10px; border: 1px solid #f0b7b3; background: var(--red-bg); padding: 12px 14px; }
+  .reason-title { color: var(--red); font-size: 12px; font-weight: 800; margin-bottom: 4px; }
+  .reason-questions { color: #7f1d1d; font-size: 14px; font-weight: 800; }
+  .reason-note { font-size: 11px; color: #8f3d37; margin-top: 5px; }
+  .pass-reason { margin-top: 15px; border-radius: 10px; border: 1px solid #b9e2ca; background: #f0faf4; padding: 12px 14px; color: #17623f; }
+  .pass-reason strong { display: block; font-size: 12px; margin-bottom: 3px; }
+  .pass-reason span { font-size: 12px; }
+  .scale-legend { display: flex; flex-wrap: wrap; gap: 8px 13px; align-items: center; margin: 15px 20px 4px; color: var(--muted); font-size: 11px; }
+  .legend-swatch { display: inline-block; width: 9px; height: 9px; border-radius: 3px; background: #fff0ef; border: 1px solid #eeaaa4; margin-right: 5px; vertical-align: -1px; }
+  .target-note { color: #48617f; background: #f2f6fb; padding: 2px 6px; border-radius: 5px; font-weight: 650; }
+  .answers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; padding: 14px 20px 20px; }
+  .answer { position: relative; border: 1px solid #e0e6ed; border-radius: 10px; padding: 10px 9px; min-height: 74px; background: #fff; }
+  .answer-top { display: flex; justify-content: space-between; align-items: center; gap: 5px; margin-bottom: 8px; }
+  .q-number { font-size: 12px; font-weight: 800; color: #41516a; }
+  .q-target { font-size: 9px; color: #58708e; border: 1px solid #d8e2ee; border-radius: 4px; padding: 1px 4px; white-space: nowrap; }
+  .answer-value { display: flex; align-items: baseline; gap: 4px; font-weight: 800; font-size: 17px; color: #34445a; }
+  .answer-value small { font-size: 10px; font-weight: 500; color: var(--muted); }
+  .answer.flagged { border-color: #e5a19c; background: #fff1f0; box-shadow: inset 0 0 0 1px rgba(180,35,24,.04); }
+  .answer.flagged .q-number, .answer.flagged .answer-value { color: var(--red); }
+  .answer.flagged .q-target { background: #b42318; color: white; border-color: #b42318; }
+  .detail-foot { border-top: 1px solid var(--line); background: #fafbfd; padding: 12px 20px; color: var(--muted); font-size: 11px; }
+  .no-selection { min-height: 300px; padding: 40px 24px; display: grid; place-items: center; text-align: center; color: var(--muted); }
+  .no-selection .symbol { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: #edf2f8; color: #62738b; font-size: 23px; margin: 0 auto 12px; }
+  .no-selection strong { color: #354258; display: block; margin-bottom: 5px; }
+  .bottom-note { margin-top: 16px; color: #667386; font-size: 11px; display: flex; align-items: start; gap: 7px; }
+  .bottom-note .info { flex: 0 0 auto; width: 17px; height: 17px; display: grid; place-items: center; background: #e6ecf4; color: #465b76; border-radius: 50%; font-size: 11px; font-weight: 800; }
+  @media (max-width: 1120px) {
+    main { padding: 20px 16px 28px; }
+    .topbar { padding: 16px; }
+    .workspace { grid-template-columns: 1fr; }
+    .answers { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  }
+  @media (max-width: 650px) {
+    .topbar-inner, .page-heading { align-items: start; }
+    .admin-label { display: none; }
+    .page-heading { flex-direction: column; }
+    .stats { grid-template-columns: 1fr; gap: 9px; }
+    .stat { padding: 12px 14px; }
+    .stat-num { font-size: 24px; }
+    .filters { grid-template-columns: 1fr; }
+    .answers { grid-template-columns: repeat(4, minmax(0, 1fr)); padding-left: 13px; padding-right: 13px; }
+    .panel-head, .detail-head { padding-left: 14px; padding-right: 14px; }
+    td { padding: 12px 10px; }
+    thead th { padding: 10px; }
+    .scale-legend { margin-left: 14px; margin-right: 14px; }
+    .detail-name { font-size: 19px; }
+  }
+
+  .login-gate { min-height:100dvh; display:grid; place-items:center; padding:24px 16px; background:var(--bg); }
+  .login-card { width:min(100%, 430px); border:1px solid var(--line); background:#fff; border-radius:20px; padding:30px; box-shadow:0 12px 36px rgba(25,39,58,.08); }
+  .login-brand { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+  .login-mark { width:48px;height:48px;border-radius:14px;background:var(--navy);color:#fff;display:grid;place-items:center;font-size:22px;font-weight:800; }
+  .login-card h1 { color:var(--text); font-size:22px; }
+  .login-card .login-sub { color:var(--muted); margin-top:4px; font-size:13px; }
+  .login-card label { display:block; margin:17px 0 7px; font-weight:700; }
+  .login-card input { width:100%; padding:13px 12px; border:1px solid #d6dde7; border-radius:10px; background:white; color:var(--text); outline:none; }
+  .login-card input:focus { border-color:#7597c4; box-shadow:0 0 0 3px rgba(66,112,170,.12); }
+  .login-submit { width:100%; border:0; border-radius:11px; padding:13px 16px; margin-top:21px; background:var(--navy); color:#fff; font-weight:750; min-height:48px; }
+  .login-submit:disabled { opacity:.6; cursor:wait; }
+  .login-message { min-height:22px; margin-top:13px; font-size:13px; color:var(--red); line-height:1.6; }
+  .login-secondary { width:100%; margin-top:12px; padding:10px 12px; background:#fff; border:1px solid var(--line); border-radius:999px; color:var(--navy-2); font-weight:700; }
+  .login-secondary:hover:not(:disabled) { background:var(--blue-bg); }
+  .login-help { margin:7px 0 0; font-size:11px; color:var(--muted); line-height:1.6; }
+  .login-note { margin-top:15px; color:var(--muted); font-size:11px; line-height:1.7; }
+  .password-setup { border-top:1px solid var(--line); margin-top:16px; padding-top:16px; }
+  .password-setup h2 { font-size:17px; margin:0 0 7px; }
+  .password-setup p { color:var(--muted); margin:0 0 10px; font-size:12px; line-height:1.7; }
+  .login-card input[type="password"] { width:100%; padding:13px 12px; border:1px solid #d8e5df; border-radius:12px; background:#fff; color:var(--text); outline:none; }
+  .top-actions { display:flex; align-items:center; gap:12px; }
+  .session-email { max-width:280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:#eef3fa; font-size:12px; }
+  .signout-button { padding:7px 11px; border-radius:8px; border:1px solid rgba(255,255,255,.35); background:transparent; color:#fff; font-size:12px; white-space:nowrap; }
+  .pager { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 15px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+  .pager-actions { display:flex; gap:8px; }
+  .pager button { border:1px solid #d6dde7; border-radius:8px; background:#fff; padding:7px 11px; color:var(--text); }
+  .pager button:disabled { opacity:.4; cursor:not-allowed; }
+  .data-message { margin:0 0 14px; padding:10px 13px; border-radius:9px; background:#edf4ff; color:#294a72; font-size:12px; }
+  .data-message.error { background:var(--red-bg); color:var(--red); }
+  .data-message[hidden] { display:none!important; }
+  @media(max-width:650px) { .login-card{padding:24px 20px}.top-actions{align-items:flex-end;flex-direction:column;gap:6px}.session-email{max-width:155px;font-size:10px}.signout-button{padding:5px 8px}.pager{padding:11px;flex-wrap:wrap} td{padding:10px 6px;font-size:11px} thead th{padding:8px 6px;font-size:10px} .person-sub{font-size:9px} td:nth-child(2){max-width:82px;white-space:normal;line-height:1.3} td:nth-child(3),td:nth-child(4){padding-left:4px;padding-right:4px} .badge{font-size:9px;padding:3px 6px}.count-chip{font-size:10px;padding:2px 5px;min-width:20px} }
+
+
+  /* Shared visual theme: match applicant's Simple Scale design */
+  body { background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+  .topbar { background: #fff; color: var(--text); box-shadow: none; border-bottom: 1px solid var(--line); }
+  .session-email { color: var(--muted); }
+  .brand-mark, .login-mark { background: var(--navy); color: #fff; border-radius: 12px; }
+  .brand-sub { color: var(--muted); }
+  .admin-label { border-color: #c8ded8; color: var(--navy-2); background: #f3f8f6; }
+  .admin-verified { background: #e7f4f1; color: #0b756b; border-color: #c8ded8; }
+  .stat, .panel { box-shadow: var(--shadow); }
+  .stat-icon { background: #e9f6f3; color: var(--navy-2); }
+  input[type="search"], select, .login-card input { border-color: #d8e5df; border-radius: 12px; }
+  input:focus, select:focus, .login-card input:focus { border-color: #15988c; box-shadow: 0 0 0 3px rgba(21, 152, 140, .13); }
+  thead th { background: #f7faf8; color: #71827d; }
+  tbody tr { border-bottom-color: #edf0ed; }
+  tbody tr:hover { background: #f5faf8; }
+  tbody tr.selected { background: #e7f4f1; box-shadow: inset 3px 0 0 #15988c; }
+  .person, .detail-name, .no-selection strong { color: #143b36; }
+  .count-chip { border-color: #e1e9e4; color: #435b55; }
+  .target-note { color: #0b756b; background: #e9f6f3; }
+  .q-target { color: #0b756b; border-color: #c8ded8; background: #f3f8f6; }
+  .answer { border-color: #e1e9e4; }
+  .answer.flagged .q-target { background: var(--red); color: #fff; border-color: var(--red); }
+  .detail-foot { background: #f7faf8; }
+  .no-selection .symbol, .bottom-note .info { background: #e9f6f3; color: #0b756b; }
+  .login-card { box-shadow: 0 10px 30px rgba(36, 65, 57, .07); }
+  .login-submit { background: #15988c; border-radius: 999px; }
+  .login-submit:hover:not(:disabled) { background: #0c8177; }
+  .signout-button { border-color: #c8ded8; background: #f3f8f6; color: #0b756b; }
+  .signout-button:hover { background: #e7f4f1; }
+  .pager button { border-color: #d8e5df; border-radius: 10px; }
+  .pager button:hover:not(:disabled) { border-color: #15988c; background: #f3f8f6; }
+  .data-message { background: #e9f6f3; color: #0b756b; }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition-duration: .01ms !important; } }
+
+</style>
+</head>
+<body>
+<section class="login-gate" id="loginGate" aria-labelledby="loginTitle">
+  <div class="login-card">
+    <div class="login-brand"><div class="login-mark" aria-hidden="true">A</div><div><h1 id="loginTitle">入社前アンケート</h1><div class="login-sub">管理者ログイン</div></div></div>
+    <p style="color:var(--muted);margin:0;line-height:1.8">登録された管理者アカウントでログインしてください。回答データは管理者権限が確認された場合のみ表示されます。</p>
+    <form id="loginForm" autocomplete="on">
+      <label for="loginEmail">メールアドレス</label>
+      <input id="loginEmail" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="管理者メールアドレス">
+      <label for="loginPassword">パスワード</label>
+      <input id="loginPassword" name="password" type="password" autocomplete="current-password" required maxlength="1024" placeholder="パスワード">
+      <button class="login-submit" id="loginButton" type="submit">ログイン</button>
+    </form>
+    <button class="login-secondary" id="passwordSetupButton" type="button">初回パスワード設定・再設定メールを送る</button>
+    <p class="login-help" id="passwordSetupHelp">上のメールアドレスを入力してから押してください。設定用リンクをメールで送ります。</p>
+    <form id="passwordForm" class="password-setup" hidden>
+      <h2>パスワードを設定</h2>
+      <p>管理者ログインに使う新しいパスワードを設定してください（8文字以上）。</p>
+      <label for="newPassword">新しいパスワード</label>
+      <input id="newPassword" name="newPassword" type="password" autocomplete="new-password" minlength="8" maxlength="1024" required placeholder="8文字以上">
+      <label for="confirmPassword">新しいパスワード（確認）</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="1024" required placeholder="もう一度入力">
+      <button class="login-submit" id="savePasswordButton" type="submit">パスワードを設定してログイン</button>
+    </form>
+    <div class="login-message" id="loginMessage" role="status" aria-live="polite"></div>
+    <div class="login-note">この画面は管理者専用です。利用を許可されていないアカウントでは回答一覧を閲覧できません。</div>
+  </div>
+</section>
+<header class="topbar" id="adminHeader" hidden>
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">A</div>
+      <div>
+        <h1>入社前アンケート</h1>
+        <div class="brand-sub">応募者管理・回答確認</div>
+      </div>
+    </div>
+    <div class="top-actions"><span class="session-email" id="signedInEmail"></span><button class="signout-button" id="signoutButton" type="button">ログアウト</button></div>
+  </div>
+</header>
+<main id="adminMain" hidden>
+  <div class="page-heading">
+    <div>
+      <h2>応募者一覧</h2>
+      <p>保存された回答を検索し、判定結果と20問すべての回答を確認できます。</p>
+    </div>
+    <div class="admin-verified">管理者認証済み</div>
+  </div>
+
+  <section class="stats" aria-label="応募者集計">
+    <div class="stat">
+      <div class="stat-top"><span>回答者数</span><span class="stat-icon">人</span></div>
+      <div class="stat-num" id="statTotal">—</div>
+      <div class="stat-note">アンケート回答済み</div>
+    </div>
+    <div class="stat pass">
+      <div class="stat-top"><span>通過</span><span class="stat-icon">✓</span></div>
+      <div class="stat-num" id="statPass">—</div>
+      <div class="stat-note">判定対象の設問に「6」がない</div>
+    </div>
+    <div class="stat invalid">
+      <div class="stat-top"><span>不適合</span><span class="stat-icon">!</span></div>
+      <div class="stat-num" id="statInvalid">—</div>
+      <div class="stat-note">保存された判定結果</div>
+    </div>
+  </section>
+
+  <div class="workspace">
+    <section class="panel" aria-labelledby="listHeading">
+      <div class="panel-head">
+        <div class="panel-title-row">
+          <h3 id="listHeading">応募者</h3>
+          <span class="result-count" id="resultCount">10名を表示</span>
+        </div>
+        <div class="filters">
+          <label class="search-wrap">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+            <input id="nameSearch" type="search" placeholder="氏名で検索" aria-label="氏名で検索">
+          </label>
+          <select id="statusFilter" aria-label="判定で絞り込み">
+            <option value="all">すべての判定</option>
+            <option value="pass">通過</option>
+            <option value="invalid">不適合</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th scope="col">氏名</th><th scope="col">回答日</th><th scope="col">判定</th><th scope="col">該当設問数</th></tr>
+          </thead>
+          <tbody id="applicantRows"></tbody>
+        </table>
+        <div class="empty" id="emptyState" hidden>条件に一致する応募者はいません。</div>
+      </div>
+      <div class="pager" id="pager"><span id="pagerLabel">回答を読み込みます</span><div class="pager-actions"><button type="button" id="prevPage" disabled>前へ</button><button type="button" id="nextPage" disabled>次へ</button></div></div>
+    </section>
+
+    <section class="panel" aria-labelledby="detailHeading" id="detailPanel">
+      <div class="no-selection" id="noSelection">
+        <div>
+          <div class="symbol" aria-hidden="true">↖</div>
+          <strong>応募者を選択してください</strong>
+          <span>左の一覧から名前をクリックすると、20問すべての回答を確認できます。</span>
+        </div>
+      </div>
+      <div id="detailContent" hidden>
+        <div class="detail-head">
+          <div class="detail-kicker">応募者の回答詳細</div>
+          <div class="detail-person-row">
+            <div>
+              <h3 class="detail-name" id="detailName">—</h3>
+              <div class="detail-meta"><span id="detailDate">回答日 —</span><span id="detailId">応募者ID —</span></div>
+            </div>
+            <span class="badge" id="detailBadge">—</span>
+          </div>
+          <div id="reasonArea"></div>
+        </div>
+        <div class="scale-legend">
+          <span>回答尺度：1〜6</span>
+          <span>1 = 全く平気</span>
+          <span>6 = とても嫌な気持ちになる</span>
+          <span><i class="legend-swatch"></i>判定理由に該当した回答</span>
+        </div>
+        <div class="answers" id="answerGrid" aria-label="20問の回答"></div>
+        <div class="detail-foot">判定対象：<span id="targetSummary">管理設定を読み込み中</span> ／ データベースに保存された判定結果を表示しています。</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="bottom-note"><span class="info">i</span><span>判定はデータベースで保存された結果を表示しています。判定条件は管理設定に基づきサーバー側で処理されます。個人情報を含むため、必要な担当者のみで取り扱ってください。</span></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
+<script>
+(() => {
+  'use strict';
+  const SUPABASE_URL = 'https://rfqeftphtqlfsbcyibbm.supabase.co';
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_AWir5tre7LTuMFEhAUKo-g_ztHgdit-';
+  const PAGE_SIZE = 25;
+  let JUDGMENT_QUESTIONS = [];
+  const CIRCLED_NUMBERS = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩','⑪','⑫','⑬','⑭','⑮','⑯','⑰','⑱','⑲','⑳'];
+  const $ = id => document.getElementById(id);
+  const els = {
+    loginGate: $('loginGate'), loginForm: $('loginForm'), loginEmail: $('loginEmail'), loginPassword: $('loginPassword'), loginButton: $('loginButton'), loginMessage: $('loginMessage'),
+    passwordSetupButton: $('passwordSetupButton'), passwordSetupHelp: $('passwordSetupHelp'), passwordForm: $('passwordForm'), newPassword: $('newPassword'), confirmPassword: $('confirmPassword'), savePasswordButton: $('savePasswordButton'),
+    adminHeader: $('adminHeader'), adminMain: $('adminMain'), signedInEmail: $('signedInEmail'), signoutButton: $('signoutButton'),
+    nameSearch: $('nameSearch'), statusFilter: $('statusFilter'), rows: $('applicantRows'), resultCount: $('resultCount'), emptyState: $('emptyState'),
+    statTotal: $('statTotal'), statPass: $('statPass'), statInvalid: $('statInvalid'), pagerLabel: $('pagerLabel'), prevPage: $('prevPage'), nextPage: $('nextPage'),
+    noSelection: $('noSelection'), detailContent: $('detailContent'), detailName: $('detailName'), detailDate: $('detailDate'), detailId: $('detailId'), detailBadge: $('detailBadge'), reasonArea: $('reasonArea'), answerGrid: $('answerGrid'), targetSummary: $('targetSummary')
+  };
+
+  if (!window.supabase || !window.supabase.createClient) {
+    els.loginMessage.textContent = '認証ライブラリを読み込めませんでした。通信環境を確認して画面を再読み込みしてください。';
+    els.loginButton.disabled = true;
+    return;
+  }
+  const initialAuthParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+  const initialAuthFlowType = initialAuthParams.get('type');
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+    auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true }
+  });
+  let passwordSetupUser = null;
+  let currentPage = 0;
+  let totalCount = 0;
+  let selectedRecord = null;
+  let requestSequence = 0;
+  let debounceTimer = null;
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  }
+  function normalizeAnswers(record) {
+    const raw = record && record.answers;
+    return Array.from({length:20}, (_, i) => {
+      const value = Array.isArray(raw) ? raw[i] : raw && (raw[String(i + 1)] ?? raw[i + 1]);
+      const n = Number(value);
+      return Number.isInteger(n) && n >= 1 && n <= 6 ? n : null;
+    });
+  }
+  function getRiskQuestions(record) {
+    // The database trigger records flagged questions during INSERT.
+    // The browser only displays those saved results; it does not re-run the judgment rule.
+    return Array.isArray(record.flagged_questions)
+      ? record.flagged_questions.map(Number).filter(n => Number.isInteger(n) && n >= 1 && n <= 20)
+      : [];
+  }
+  function getStatus(record) {
+    return record.judgment_status === '不適合' || getRiskQuestions(record).length ? 'invalid' : 'pass';
+  }
+  function statusLabel(status) { return status === 'invalid' ? '不適合' : '通過'; }
+  function dateLabel(value) {
+    if (!value) return '—';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
+  }
+  function dateOnly(value) {
+    if (!value) return '—';
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return String(value);
+    return date.toLocaleDateString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit'});
+  }
+  function setLoginMessage(message, kind = 'error') {
+    els.loginMessage.textContent = message;
+    els.loginMessage.style.color = kind === 'success' ? '#18794e' : 'var(--red)';
+  }
+  async function loadJudgmentSettings() {
+    const { data, error } = await client.from('survey_settings')
+      .select('judgment_questions')
+      .eq('id', 'default')
+      .single();
+    if (error || !data || !Array.isArray(data.judgment_questions) ||
+        data.judgment_questions.length < 1 ||
+        !data.judgment_questions.every(n => Number.isInteger(n) && n >= 1 && n <= 20)) {
+      throw new Error('判定設定を読み込めませんでした。管理者権限とSupabaseの設定を確認してください。');
+    }
+    JUDGMENT_QUESTIONS = [...data.judgment_questions];
+    els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('・');
+  }
+  async function setSignedIn(user) {
+    // Judgment configuration is read from Supabase after admin authorization,
+    // not embedded in the public HTML/JavaScript source.
+    await loadJudgmentSettings();
+    els.loginGate.hidden = true;
+    els.adminHeader.hidden = false;
+    els.adminMain.hidden = false;
+    els.signedInEmail.textContent = user.email || '管理者';
+    currentPage = 0;
+    selectedRecord = null;
+    clearDetail();
+    loadStats();
+    loadRows();
+  }
+  function showLogin(message = '') {
+    els.adminHeader.hidden = true;
+    els.adminMain.hidden = true;
+    els.loginGate.hidden = false;
+    els.loginForm.hidden = false;
+    els.passwordSetupButton.hidden = false;
+    els.passwordSetupHelp.hidden = false;
+    els.passwordForm.hidden = true;
+    els.loginPassword.value = '';
+    if (message) setLoginMessage(message);
+  }
+  function showPasswordSetup(user) {
+    passwordSetupUser = user || null;
+    els.adminHeader.hidden = true;
+    els.adminMain.hidden = true;
+    els.loginGate.hidden = false;
+    els.loginForm.hidden = true;
+    els.passwordSetupButton.hidden = true;
+    els.passwordSetupHelp.hidden = true;
+    els.passwordForm.hidden = false;
+    els.newPassword.value = '';
+    els.confirmPassword.value = '';
+    setLoginMessage('新しいパスワードを設定してください。', 'success');
+  }
+  async function handlePasswordSetupRequest() {
+    const email = els.loginEmail.value.trim();
+    if (!email) {
+      setLoginMessage('先にメールアドレスを入力してください。');
+      els.loginEmail.focus();
+      return;
+    }
+    if (!els.loginEmail.checkValidity()) {
+      setLoginMessage('メールアドレスの形式を確認してください。');
+      els.loginEmail.focus();
+      return;
+    }
+    els.passwordSetupButton.disabled = true;
+    els.passwordSetupButton.textContent = '送信中…';
+    try {
+      const redirectTo = `${window.location.origin}${window.location.pathname}`;
+      const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
+      if (error) throw error;
+      setLoginMessage('設定用メールを送信しました。メール内のリンクを同じブラウザで開き、パスワードを設定してください。メールが届かない場合は迷惑メールフォルダも確認してください。', 'success');
+    } catch (error) {
+      console.error('password setup email failed', error);
+      setLoginMessage('設定用メールを送信できませんでした。時間をおいて再試行するか、Supabaseのメール設定を確認してください。');
+    } finally {
+      els.passwordSetupButton.disabled = false;
+      els.passwordSetupButton.textContent = '初回パスワード設定・再設定メールを送る';
+    }
+  }
+  async function handlePasswordSave(event) {
+    event.preventDefault();
+    const password = els.newPassword.value;
+    const confirmation = els.confirmPassword.value;
+    if (password.length < 8) {
+      setLoginMessage('パスワードは8文字以上で設定してください。');
+      return;
+    }
+    if (password !== confirmation) {
+      setLoginMessage('2つのパスワードが一致していません。');
+      els.confirmPassword.focus();
+      return;
+    }
+    if (!passwordSetupUser) {
+      const { data } = await client.auth.getSession();
+      passwordSetupUser = data && data.session ? data.session.user : null;
+    }
+    if (!passwordSetupUser) {
+      showLogin('設定リンクが無効か期限切れです。もう一度、設定用メールを送ってください。');
+      return;
+    }
+    els.savePasswordButton.disabled = true;
+    els.savePasswordButton.textContent = '設定中…';
+    try {
+      const { data, error } = await client.auth.updateUser({ password });
+      if (error) throw error;
+      const user = data && data.user ? data.user : passwordSetupUser;
+      passwordSetupUser = user;
+      window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+      setLoginMessage('パスワードを設定しました。管理者権限を確認しています。', 'success');
+      await verifyAdminOrSignOut(user);
+    } catch (error) {
+      console.error('password setup failed', error);
+      setLoginMessage('パスワードを設定できませんでした。8文字以上で入力し直すか、設定用メールからやり直してください。');
+    } finally {
+      els.savePasswordButton.disabled = false;
+      els.savePasswordButton.textContent = 'パスワードを設定してログイン';
+    }
+  }
+  async function verifyAdminOrSignOut(user) {
+    // RLS on survey_admins limits this SELECT to the signed-in user's own row.
+    // A SECURITY DEFINER RPC is deliberately avoided for this simple membership check.
+    const { data, error } = await client.from('survey_admins')
+      .select('user_id')
+      .eq('user_id', user.id)
+      .maybeSingle();
+    if (error) throw new Error('管理者権限を確認できませんでした。管理者登録とデータベースの権限設定を確認してください。');
+    if (!data || data.user_id !== user.id) {
+      await client.auth.signOut();
+      throw new Error('このアカウントは管理者として登録されていません。管理者に登録を依頼してください。');
+    }
+    await setSignedIn(user);
+  }
+  async function handleLogin(event) {
+    event.preventDefault();
+    const email = els.loginEmail.value.trim();
+    const password = els.loginPassword.value;
+    if (!email || !password) return;
+    els.loginButton.disabled = true;
+    els.loginButton.textContent = '確認中…';
+    setLoginMessage('ログイン情報を確認しています。', 'success');
+    try {
+      const { data, error } = await client.auth.signInWithPassword({ email, password });
+      if (error || !data.user) throw new Error('ログインできませんでした。メールアドレスとパスワードを確認してください。');
+      await verifyAdminOrSignOut(data.user);
+    } catch (error) {
+      showLogin(error && error.message ? error.message : 'ログイン処理に失敗しました。');
+    } finally {
+      els.loginButton.disabled = false;
+      els.loginButton.textContent = 'ログイン';
+    }
+  }
+  async function handleSignOut() {
+    els.signoutButton.disabled = true;
+    try { await client.auth.signOut(); } finally {
+      els.signoutButton.disabled = false;
+      showLogin('ログアウトしました。');
+    }
+  }
+  function applyFilters(query) {
+    const search = els.nameSearch.value.trim();
+    const status = els.statusFilter.value;
+    if (search) query = query.ilike('applicant_name', `%${search}%`);
+    if (status === 'pass') query = query.eq('judgment_status', '通過');
+    if (status === 'invalid') query = query.eq('judgment_status', '不適合');
+    return query;
+  }
+  async function loadStats() {
+    const results = await Promise.all([
+      client.from('survey_responses').select('id', {count:'exact',head:true}),
+      client.from('survey_responses').select('id', {count:'exact',head:true}).eq('judgment_status','通過'),
+      client.from('survey_responses').select('id', {count:'exact',head:true}).eq('judgment_status','不適合')
+    ]);
+    if (results.some(r => r.error)) {
+      showDataMessage('集計を読み込めませんでした。ログイン状態または管理者権限を確認してください。', true);
+      return;
+    }
+    els.statTotal.textContent = results[0].count ?? 0;
+    els.statPass.textContent = results[1].count ?? 0;
+    els.statInvalid.textContent = results[2].count ?? 0;
+  }
+  function showDataMessage(message, isError = false) {
+    let banner = $('dataMessage');
+    if (!banner) {
+      banner = document.createElement('div');
+      banner.id = 'dataMessage';
+      banner.className = 'data-message';
+      banner.setAttribute('role','status');
+      els.adminMain.insertBefore(banner, els.adminMain.firstChild);
+    }
+    banner.textContent = message;
+    banner.classList.toggle('error', isError);
+    banner.hidden = !message;
+  }
+  async function loadRows() {
+    const seq = ++requestSequence;
+    const from = currentPage * PAGE_SIZE;
+    els.rows.innerHTML = '<tr><td colspan="4" class="empty">読み込み中…</td></tr>';
+    els.emptyState.hidden = true;
+    els.prevPage.disabled = true;
+    els.nextPage.disabled = true;
+    try {
+      let query = client.from('survey_responses').select('id, applicant_name, answers, submitted_at, flagged_questions, judgment_status', {count:'exact'}).order('submitted_at',{ascending:false}).range(from, from + PAGE_SIZE - 1);
+      query = applyFilters(query);
+      const { data, error, count } = await query;
+      if (seq !== requestSequence) return;
+      if (error) throw error;
+      const records = data || [];
+      totalCount = count ?? records.length;
+      renderRows(records);
+      const start = totalCount ? from + 1 : 0;
+      const end = Math.min(from + records.length, totalCount);
+      els.pagerLabel.textContent = `${start}〜${end}件 / ${totalCount}件`;
+      els.prevPage.disabled = currentPage <= 0;
+      els.nextPage.disabled = from + records.length >= totalCount;
+      els.resultCount.textContent = `${totalCount}件`;
+      showDataMessage('');
+      if (selectedRecord && !records.some(r => r.id === selectedRecord.id)) clearDetail();
+    } catch (error) {
+      if (seq !== requestSequence) return;
+      els.rows.innerHTML = '';
+      els.emptyState.hidden = false;
+      els.emptyState.textContent = '回答データを読み込めませんでした。管理者権限と通信状態を確認してください。';
+      els.pagerLabel.textContent = '読み込みに失敗';
+      showDataMessage('データ取得エラー：管理者として登録済みか、RLSとData APIの設定を確認してください。', true);
+      console.error('survey response list failed', error);
+    }
+  }
+  function renderRows(records) {
+    els.emptyState.hidden = records.length > 0;
+    if (!records.length) {
+      els.rows.innerHTML = '';
+      return;
+    }
+    els.rows.innerHTML = records.map(record => {
+      const status = getStatus(record);
+      const risks = getRiskQuestions(record);
+      const selected = selectedRecord && selectedRecord.id === record.id;
+      return `<tr data-id="${escapeHtml(record.id)}" class="${selected ? 'selected' : ''}" tabindex="0" aria-label="${escapeHtml(record.applicant_name)}の詳細を表示">
+        <td><span class="person">${escapeHtml(record.applicant_name)}</span><span class="person-sub">${escapeHtml(record.id.slice(0,8))}</span></td>
+        <td>${escapeHtml(dateOnly(record.submitted_at))}</td>
+        <td><span class="badge ${status}">${statusLabel(status)}</span></td>
+        <td><span class="count-chip ${risks.length ? 'has-risk' : ''}">${risks.length}問</span></td>
+      </tr>`;
+    }).join('');
+    els.rows.querySelectorAll('tr[data-id]').forEach(row => {
+      const open = () => {
+        const record = records.find(r => r.id === row.dataset.id);
+        if (record) { selectedRecord = record; renderRows(records); renderDetail(record); }
+      };
+      row.addEventListener('click', open);
+      row.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); } });
+    });
+  }
+  function clearDetail() {
+    els.noSelection.hidden = false;
+    els.detailContent.hidden = true;
+    selectedRecord = null;
+  }
+  function renderDetail(record) {
+    const risks = getRiskQuestions(record);
+    const status = getStatus(record);
+    const answers = normalizeAnswers(record);
+    els.noSelection.hidden = true;
+    els.detailContent.hidden = false;
+    els.detailName.textContent = record.applicant_name || '氏名未登録';
+    els.detailDate.textContent = `回答日時 ${dateLabel(record.submitted_at)}`;
+    els.detailId.textContent = `回答ID ${record.id}`;
+    els.detailBadge.className = `badge ${status}`;
+    els.detailBadge.textContent = statusLabel(status);
+    if (status === 'invalid') {
+      const questionLabels = risks.map(n => CIRCLED_NUMBERS[n - 1]).join('、');
+      els.reasonArea.innerHTML = `<div class="reason"><div class="reason-title">判定理由に該当した回答の回答があります</div><div class="reason-questions">該当設問：${escapeHtml(questionLabels || '—')}</div><div class="reason-note">該当設問数：${risks.length}問。下の回答欄で強調しています。</div></div>`;
+    } else {
+      els.reasonArea.innerHTML = '<div class="pass-reason"><strong>判定理由に該当する回答はありません</strong><span>データベースに保存された判定結果を表示しています。</span></div>';
+    }
+    const targetSet = new Set(JUDGMENT_QUESTIONS);
+    const flaggedSet = new Set(risks);
+    els.answerGrid.innerHTML = answers.map((value, index) => {
+      const num = index + 1;
+      const isTarget = targetSet.has(num);
+      const isFlagged = flaggedSet.has(num) && value === 6;
+      return `<div class="answer ${isFlagged ? 'flagged' : ''}" ${isFlagged ? 'aria-label="判定対象の設問で回答6"' : ''}>
+        <div class="answer-top"><span class="q-number">${CIRCLED_NUMBERS[index]}</span>${isTarget ? '<span class="q-target">判定対象</span>' : ''}</div>
+        <div class="answer-value">${value ?? '—'}<small>/ 6</small></div>
+      </div>`;
+    }).join('');
+    els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('・');
+  }
+  function handleFilters() {
+    currentPage = 0;
+    selectedRecord = null;
+    clearDetail();
+    loadRows();
+  }
+  els.loginForm.addEventListener('submit', handleLogin);
+  els.passwordSetupButton.addEventListener('click', handlePasswordSetupRequest);
+  els.passwordForm.addEventListener('submit', handlePasswordSave);
+  client.auth.onAuthStateChange((event, session) => {
+    const isSetupFlow = event === 'PASSWORD_RECOVERY' || (initialAuthFlowType === 'invite' && session && session.user);
+    if (isSetupFlow && session && session.user) showPasswordSetup(session.user);
+  });
+  els.signoutButton.addEventListener('click', handleSignOut);
+  els.nameSearch.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(handleFilters, 250);
+  });
+  els.statusFilter.addEventListener('change', handleFilters);
+  els.prevPage.addEventListener('click', () => { if (currentPage > 0) { currentPage--; selectedRecord = null; clearDetail(); loadRows(); } });
+  els.nextPage.addEventListener('click', () => { if ((currentPage + 1) * PAGE_SIZE < totalCount) { currentPage++; selectedRecord = null; clearDetail(); loadRows(); } });
+
+  (async function init() {
+    try {
+      const { data, error } = await client.auth.getSession();
+      if (error) throw error;
+      if (data.session && data.session.user && (initialAuthFlowType === 'invite' || initialAuthFlowType === 'recovery')) {
+        showPasswordSetup(data.session.user);
+        return;
+      }
+      if (!data.session || !data.session.user) {
+        showLogin();
+        if (initialAuthFlowType === 'invite' || initialAuthFlowType === 'recovery') {
+          setLoginMessage('認証リンクを確認できませんでした。設定用メールをもう一度送信してください。');
+          window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+        }
+        return;
+      }
+      await verifyAdminOrSignOut(data.session.user);
+    } catch (error) {
+      showLogin(error && error.message ? error.message : 'ログイン状態を確認できませんでした。');
+    }
+  })();
+})();
+</script>
+</body>
+</html>
