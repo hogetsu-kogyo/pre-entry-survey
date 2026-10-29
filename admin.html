@@ -95,6 +95,9 @@
   .answers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; padding: 14px 20px 20px; }
   .answer { position: relative; border: 1px solid #e0e6ed; border-radius: 10px; padding: 10px 9px; min-height: 74px; background: #fff; }
   .answer.distance-match { border-color:#9ed2b4; background:#eef8f1; }
+  .answer.distance-alert { border-color:#d66b62; background:#fff0ee; box-shadow:inset 0 0 0 1px rgba(180,35,24,.08); }
+  .answer.distance-alert .answer-impact { color:#a12620; font-weight:800; }
+  .answer.distance-alert .q-target { color:#a12620; background:#fff0ee; border-color:#e6a09b; }
   .answer.distance-near { border-color:#e8cc77; background:#fff8df; }
   .answer.distance-far { border-color:#e6a09b; background:#fff0ee; }
   .answer.distance-match .answer-impact { color:#17623f; font-weight:750; }
@@ -334,7 +337,7 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th scope="col">&#x6c0f;&#x540d;</th><th scope="col">&#x56de;&#x7b54;&#x65e5;</th><th scope="col">&#x5224;&#x5b9a;</th><th scope="col">&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#xff08;&#x5168;20&#x554f;&#xff09;</th><th scope="col">&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x4e00;&#x81f4;&#x6570;</th><th scope="col">&#x6b63;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;</th><th scope="col">&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;</th></tr>
+            <tr><th scope="col">&#x6c0f;&#x540d;</th><th scope="col">&#x56de;&#x7b54;&#x65e5;</th><th scope="col">&#x5224;&#x5b9a;</th><th scope="col">&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#xff08;&#x5168;20&#x554f;&#xff09;</th><th scope="col">&#x5f37;&#x3044;&#x4e0d;&#x5feb;&#x611f;&#x306e;&#x56de;&#x7b54;&#x6570;</th><th scope="col">&#x6b63;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;</th><th scope="col">&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;</th></tr>
           </thead>
           <tbody id="applicantRows"></tbody>
         </table>
@@ -367,7 +370,7 @@
           <span>&#x56de;&#x7b54;&#x5c3a;&#x5ea6;&#xff1a;1&#x301c;6</span>
           <span>1 = &#x5168;&#x304f;&#x5e73;&#x6c17;</span>
           <span>6 = &#x3068;&#x3066;&#x3082;&#x5acc;&#x306a;&#x6c17;&#x6301;&#x3061;&#x306b;&#x306a;&#x308b;</span>
-          <span class="target-note">色分け：緑＝基準値と一致／黄＝1〜2段階差／赤＝3段階以上差。基準値6は「強い不快感」を示す値で、緑でも適性が良いという意味ではありません。</span>
+          <span class="target-note">色分け：緑＝基準値1と一致、黄＝基準値から1〜2段階差、赤＝3段階以上差。基準値6の設問で6を選んだ場合は、基準値と一致していても「強い不快感・確認対象」として赤で表示します。色は適性の合否そのものではありません。</span>
         </div>
         <div class="answers" id="answerGrid" aria-label="20&#x554f;&#x306e;&#x56de;&#x7b54;"></div>
         <div class="detail-foot">&#x57fa;&#x6e96;&#x56de;&#x7b54;6&#x306e;&#x8a2d;&#x554f;&#xff1a;<span id="targetSummary">&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span>&#x3002;&#x305d;&#x308c;&#x4ee5;&#x5916;&#x306e;&#x8a2d;&#x554f;&#x306f;&#x57fa;&#x6e96;&#x56de;&#x7b54;1&#x3067;&#x3059;&#x3002;&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#x306f;&#x5168;20&#x554f;&#x3067;&#x7b97;&#x51fa;&#x3057;&#x307e;&#x3059;&#x3002;</div>
@@ -724,7 +727,7 @@
         <td>${escapeHtml(dateOnly(record.submitted_at))}</td>
         <td><span class="badge ${status}">${statusLabel(status)}</span></td>
         <td>${escapeHtml(formatPercent(record.match_percentage))}</td>
-        <td>${scores.targetMatchCount}/${scores.targetTotal}\u554f</td>
+        <td><span class="count-chip has-risk">${scores.targetMatchCount}/${scores.targetTotal}\u554f</span></td>
         <td>${escapeHtml(formatPercent(scores.positivePercent))}</td>
         <td>${escapeHtml(formatPercent(scores.reversePercent))}</td>
       </tr>`;
@@ -765,7 +768,7 @@
     }
     els.reasonArea.insertAdjacentHTML('beforeend', `<div class="endpoint-summary" aria-label="Score summary">
       <div class="endpoint-item"><span>&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#xff08;&#x5168;20&#x554f;&#xff09;</span><strong>${escapeHtml(percentage)}</strong><small>&#x5404;&#x8a2d;&#x554f;&#x306e;&#x57fa;&#x6e96;&#x56de;&#x7b54;&#x3068;&#x306e;&#x5dee;&#x3067;&#x7b97;&#x51fa;</small></div>
-      <div class="endpoint-item"><span>&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x4e00;&#x81f4;&#x6570;</span><strong>${scores.targetMatchCount}/${scores.targetTotal}&#x554f;</strong><small>&#x57fa;&#x6e96;&#x56de;&#x7b54;6&#x3068;&#x5b8c;&#x5168;&#x4e00;&#x81f4;&#x3057;&#x305f;&#x6570;</small></div>
+      <div class="endpoint-item endpoint-negative"><span>&#x5f37;&#x3044;&#x4e0d;&#x5feb;&#x611f;&#x306e;&#x56de;&#x7b54;&#x6570;</span><strong>${scores.targetMatchCount}/${scores.targetTotal}&#x554f;</strong><small>&#x5224;&#x5b9a;&#x5bfe;&#x8c61;8&#x554f;&#x306e;&#x3046;&#x3061;&#x3001;6&#x3092;&#x9078;&#x3093;&#x3060;&#x554f;&#x6570;&#x3067;&#x3059;&#x3002;&#x9ad8;&#x3044;&#x6570;&#x5024;&#x304c;&#x826f;&#x3044;&#x3068;&#x3044;&#x3046;&#x610f;&#x5473;&#x3067;&#x306f;&#x3042;&#x308a;&#x307e;&#x305b;&#x3093;&#x3002</small></div>
       <div class="endpoint-item"><span>&#x6b63;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;</span><strong>${escapeHtml(formatPercent(scores.positivePercent))}</strong><small>&#x56de;&#x7b54;1&#x304c;100&#xff05;&#x3001;6&#x304c;0&#xff05;</small></div>
       <div class="endpoint-item"><span>&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;</span><strong>${escapeHtml(formatPercent(scores.reversePercent))}</strong><small>&#x56de;&#x7b54;1&#x304c;0&#xff05;&#x3001;6&#x304c;100&#xff05;</small></div>
       <p class="endpoint-note">&#x6b63;&#x65b9;&#x5411;&#x30fb;&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#x306f;&#x56de;&#x7b54;&#x50be;&#x5411;&#x3092;&#x898b;&#x308b;&#x305f;&#x3081;&#x306e;&#x53c2;&#x8003;&#x6307;&#x6a19;&#x3067;&#x3059;&#x3002;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x4e00;&#x81f4;&#x6570;&#x306f;&#x3001;&#x5168;20&#x554f;&#x306e;&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#x3068;&#x306f;&#x5225;&#x306b;&#x8868;&#x793a;&#x3057;&#x307e;&#x3059;&#x3002;</p>
@@ -776,14 +779,17 @@
       const baselineValue = targetSet.has(num) ? 6 : 1;
       const difference = value === null ? null : Math.abs(value - baselineValue);
       const baselineLabel = baselineValue === 6
-        ? '基準値：6（強い不快感）'
+        ? '基準値：6（強い不快感・確認対象）'
         : '基準値：1（全く平気）';
-      const toneClass = value === null ? '' : difference === 0 ? 'distance-match' : difference <= 2 ? 'distance-near' : 'distance-far';
+      const strongDiscomfort = baselineValue === 6 && value === 6;
+      const toneClass = value === null ? '' : strongDiscomfort ? 'distance-alert' : difference === 0 ? 'distance-match' : difference <= 2 ? 'distance-near' : 'distance-far';
       const impactLabel = value === null
         ? '未回答'
-        : difference === 0
-          ? (baselineValue === 6 ? '基準値と一致（強い不快感）' : '基準値と一致')
-          : '基準値との差：' + difference + '段階';
+        : strongDiscomfort
+          ? '強い不快感を回答（確認対象）'
+          : difference === 0
+            ? '基準値と一致'
+            : '基準値との差：' + difference + '段階';
       return `<div class="answer ${toneClass}" aria-label="${CIRCLED_NUMBERS[index]}">
         <div class="answer-top"><span class="q-number">${CIRCLED_NUMBERS[index]}</span><span class="q-target">${baselineLabel}</span></div>
         <div class="answer-value">${value === null ? '—' : value}<small>/ 6</small></div>
