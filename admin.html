@@ -718,12 +718,12 @@
       const status = getStatus(record);
       const scores = getScoreSummary(record);
       const selected = selectedRecord && selectedRecord.id === record.id;
-      return `<tr data-id="${escapeHtml(record.id)}" class="${selected ? 'selected' : ''}" tabindex="0" aria-label="${escapeHtml(record.applicant_name)}\\u306e\\u8a73\\u7d30\\u3092\\u8868\\u793a">
+      return `<tr data-id="${escapeHtml(record.id)}" class="${selected ? 'selected' : ''}" tabindex="0" aria-label="${escapeHtml(record.applicant_name)}\u306e\u8a73\u7d30\u3092\u8868\u793a">
         <td><span class="person">${escapeHtml(record.applicant_name)}</span><span class="person-sub">${escapeHtml(record.id.slice(0,8))}</span></td>
         <td>${escapeHtml(dateOnly(record.submitted_at))}</td>
         <td><span class="badge ${status}">${statusLabel(status)}</span></td>
         <td>${escapeHtml(formatPercent(record.match_percentage))}</td>
-        <td>${scores.targetMatchCount}/${scores.targetTotal}\\u554f</td>
+        <td>${scores.targetMatchCount}/${scores.targetTotal}\u554f</td>
         <td>${escapeHtml(formatPercent(scores.positivePercent))}</td>
         <td>${escapeHtml(formatPercent(scores.reversePercent))}</td>
       </tr>`;
@@ -749,18 +749,18 @@
     const scores = getScoreSummary(record);
     els.noSelection.hidden = true;
     els.detailContent.hidden = false;
-    els.detailName.textContent = record.applicant_name || '\\u6c0f\\u540d\\u672a\\u767b\\u9332';
-    els.detailDate.textContent = `\\u56de\\u7b54\\u65e5\\u6642 ${dateLabel(record.submitted_at)}`;
-    els.detailId.textContent = `\\u56de\\u7b54ID ${record.id}`;
+    els.detailName.textContent = record.applicant_name || '\u6c0f\u540d\u672a\u767b\u9332';
+    els.detailDate.textContent = `\u56de\u7b54\u65e5\u6642 ${dateLabel(record.submitted_at)}`;
+    els.detailId.textContent = `\u56de\u7b54ID ${record.id}`;
     els.detailBadge.className = `badge ${status}`;
     els.detailBadge.textContent = statusLabel(status);
     const percentage = formatPercent(record.match_percentage);
     const threshold = Number.isInteger(record.match_threshold_percent) ? record.match_threshold_percent : MINIMUM_MATCH_PERCENT;
     if (status === 'review') {
-      const questionLabels = risks.map(n => CIRCLED_NUMBERS[n - 1]).join('\\u3001');
-      els.reasonArea.innerHTML = `<div class="reason"><div class="reason-title">\\u57fa\\u6e96\\u5024\\u4ee5\\u4e0b\\u306e\\u305f\\u3081\\u3001\\u8981\\u78ba\\u8a8d\\u3067\\u3059\\uff08\\u81ea\\u52d5\\u4e0d\\u5408\\u683c\\u3067\\u306f\\u3042\\u308a\\u307e\\u305b\\u3093\\uff09</div><div class="reason-questions">\\u7dcf\\u5408\\u4e00\\u81f4\\u7387\\uff1a${escapeHtml(percentage)} \\uff0f \\u5224\\u5b9a\\u57fa\\u6e96\\uff1a${threshold}\\uff05\\u4ee5\\u4e0b</div><div class="reason-note">\\u57fa\\u6e96\\u56de\\u7b54\\u3068\\u4e0d\\u4e00\\u81f4\\u306e\\u8a2d\\u554f\\uff1a${escapeHtml(questionLabels || '\\u306a\\u3057')}\\uff08${risks.length}/20\\u554f\\uff09\\u3002\\u6700\\u7d42\\u5224\\u65ad\\u306f\\u62c5\\u5f53\\u8005\\u304c\\u884c\\u3044\\u307e\\u3059\\u3002</div></div>`;
+      const questionLabels = risks.map(n => CIRCLED_NUMBERS[n - 1]).join('\u3001');
+      els.reasonArea.innerHTML = `<div class="reason"><div class="reason-title">\u57fa\u6e96\u5024\u4ee5\u4e0b\u306e\u305f\u3081\u3001\u8981\u78ba\u8a8d\u3067\u3059\uff08\u81ea\u52d5\u4e0d\u5408\u683c\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09</div><div class="reason-questions">\u7dcf\u5408\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)} \uff0f \u5224\u5b9a\u57fa\u6e96\uff1a${threshold}\uff05\u4ee5\u4e0b</div><div class="reason-note">\u57fa\u6e96\u56de\u7b54\u3068\u4e0d\u4e00\u81f4\u306e\u8a2d\u554f\uff1a${escapeHtml(questionLabels || '\u306a\u3057')}\uff08${risks.length}/20\u554f\uff09\u3002\u6700\u7d42\u5224\u65ad\u306f\u62c5\u5f53\u8005\u304c\u884c\u3044\u307e\u3059\u3002</div></div>`;
     } else {
-      els.reasonArea.innerHTML = `<div class="pass-reason"><strong>\\u7dcf\\u5408\\u4e00\\u81f4\\u7387\\uff1a${escapeHtml(percentage)}\\uff08\\u5224\\u5b9a\\u57fa\\u6e96\\uff1a${threshold}\\uff05\\uff09</strong><span>\\u5168;20\\u554f\\u306e\\u57fa\\u6e96\\u56de\\u7b54\\u306b\\u5bfe\\u3059\\u308b\\u8fd1\\u3055\\u3092\\u30b9\\u30b3\\u30a2\\u5316\\u3057\\u305f\\u5024\\u3067\\u3059\\u3002\\u6700\\u7d42\\u5224\\u65ad\\u306f\\u62c5\\u5f53\\u8005\\u304c\\u884c\\u3044\\u307e\\u3059\\u3002</span></div>`;
+      els.reasonArea.innerHTML = `<div class="pass-reason"><strong>\u7dcf\u5408\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)}\uff08\u5224\u5b9a\u57fa\u6e96\uff1a${threshold}\uff05\uff09</strong><span>\u516820\u554f\u306e\u57fa\u6e96\u56de\u7b54\u306b\u5bfe\u3059\u308b\u8fd1\u3055\u3092\u30b9\u30b3\u30a2\u5316\u3057\u305f\u5024\u3067\u3059\u3002\u6700\u7d42\u5224\u65ad\u306f\u62c5\u5f53\u8005\u304c\u884c\u3044\u307e\u3059\u3002</span></div>`;
     }
     els.reasonArea.insertAdjacentHTML('beforeend', `<div class="endpoint-summary" aria-label="Score summary">
       <div class="endpoint-item"><span>&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#xff08;&#x5168;20&#x554f;&#xff09;</span><strong>${escapeHtml(percentage)}</strong><small>&#x5404;&#x8a2d;&#x554f;&#x306e;&#x57fa;&#x6e96;&#x56de;&#x7b54;&#x3068;&#x306e;&#x5dee;&#x3067;&#x7b97;&#x51fa;</small></div>
@@ -783,7 +783,7 @@
         <div class="answer-impact">${value === null ? '&#x672a;&#x56de;&#x7b54;' : isMatch ? '&#x57fa;&#x6e96;&#x56de;&#x7b54;&#x3068;&#x4e00;&#x81f4;' : '&#x57fa;&#x6e96;&#x56de;&#x7b54;&#x3068;&#x4e0d;&#x4e00;&#x81f4;'}</div>
       </div>`;
     }).join('');
-    els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('\\u30fb');
+    els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('\u30fb');
   }
     async function saveMatchThreshold(event) {
     event.preventDefault();
