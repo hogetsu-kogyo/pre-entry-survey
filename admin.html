@@ -99,6 +99,8 @@
   .q-target { font-size: 9px; color: #58708e; border: 1px solid #d8e2ee; border-radius: 4px; padding: 1px 4px; white-space: nowrap; }
   .answer-value { display: flex; align-items: baseline; gap: 4px; font-weight: 800; font-size: 17px; color: #34445a; }
   .answer-value small { font-size: 10px; font-weight: 500; color: var(--muted); }
+  .answer-impact { margin-top: 6px; font-size: 10px; line-height: 1.35; color: var(--muted); }
+  .answer.flagged .answer-impact { color: var(--red); font-weight: 750; }
   .answer.flagged { border-color: #e5a19c; background: #fff1f0; box-shadow: inset 0 0 0 1px rgba(180,35,24,.04); }
   .answer.flagged .q-number, .answer.flagged .answer-value { color: var(--red); }
   .answer.flagged .q-target { background: #b42318; color: white; border-color: #b42318; }
@@ -270,7 +272,7 @@
     <div class="stat pass">
       <div class="stat-top"><span>&#x901a;&#x904e;</span><span class="stat-icon">&#x2713;</span></div>
       <div class="stat-num" id="statPass">&#x2014;</div>
-      <div class="stat-note">&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x306b;&#x300c;6&#x300d;&#x304c;&#x306a;&#x3044;</div>
+      <div class="stat-note">&#x4e00;&#x81f4;&#x7387;&#x304c;&#x8a2d;&#x5b9a;&#x3057;&#x305f;&#x57fa;&#x6e96;&#x5024;&#x3092;&#x4e0a;&#x56de;&#x308b;</div>
     </div>
     <div class="stat invalid">
       <div class="stat-top"><span>&#x8981;&#x78ba;&#x8a8d;</span><span class="stat-icon">!</span></div>
@@ -286,7 +288,7 @@
         <span class="threshold-current" id="thresholdCurrent">&#x73fe;&#x5728;&#x306e;&#x57fa;&#x6e96;&#xff1a;75&#xff05;</span>
       </div>
       <p class="threshold-description">&#x4e00;&#x81f4;&#x7387;&#x304c;&#x8a2d;&#x5b9a;&#x3057;&#x305f;&#x57fa;&#x6e96;&#x5024;&#x4ee5;&#x4e0b;&#x306e;&#x5834;&#x5408;&#x306f;&#x300c;&#x8981;&#x78ba;&#x8a8d;&#x300d;&#x3068;&#x8868;&#x793a;&#x3057;&#x307e;&#x3059;&#x3002;&#x81ea;&#x52d5;&#x3067;&#x4e0d;&#x5408;&#x683c;&#x306b;&#x306f;&#x305b;&#x305a;&#x3001;&#x6700;&#x7d42;&#x5224;&#x65ad;&#x306f;&#x62c5;&#x5f53;&#x8005;&#x304c;&#x884c;&#x3044;&#x307e;&#x3059;&#x3002;</p>
-      <p class="threshold-description">&#x4e00;&#x81f4;&#x7387;&#x306e;&#x8a08;&#x7b97;&#xff1a;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x306e;&#x3046;&#x3061;&#x300c;6&#x300d;&#x4ee5;&#x5916;&#x3092;&#x9078;&#x629e;&#x3057;&#x305f;&#x6570; &#xf7; &#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x6570; &#xd7; 100&#x3002;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#xff1a;<span id="targetSummarySetting">&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span></p>
+      <p class="threshold-description">&#x4e00;&#x81f4;&#x7387;&#x306e;&#x8a08;&#x7b97;&#xff1a;&#x5404;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#x3092;1=100%&#x3001;2=80%&#x3001;3=60%&#x3001;4=40%&#x3001;5=20%&#x3001;6=0%&#x3067;&#x8a55;&#x4fa1;&#x3057;&#x3001;&#x305d;&#x306e;&#x5e73;&#x5747;&#x3092;&#x4e00;&#x81f4;&#x7387;&#x3068;&#x3057;&#x3066;&#x8a08;&#x7b97;&#x3002;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#xff1a;<span id="targetSummarySetting">&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span></p>
     </div>
     <form id="thresholdForm" class="threshold-form">
       <div class="threshold-controls">
@@ -322,7 +324,7 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th scope="col">&#x6c0f;&#x540d;</th><th scope="col">&#x56de;&#x7b54;&#x65e5;</th><th scope="col">&#x5224;&#x5b9a;</th><th scope="col">&#x4e00;&#x81f4;&#x7387;</th><th scope="col">&#x8a72;&#x5f53;&#x8a2d;&#x554f;&#x6570;</th></tr>
+            <tr><th scope="col">&#x6c0f;&#x540d;</th><th scope="col">&#x56de;&#x7b54;&#x65e5;</th><th scope="col">&#x5224;&#x5b9a;</th><th scope="col">&#x4e00;&#x81f4;&#x7387;</th><th scope="col">&#x56de;&#x7b54;&#x300c;6&#x300d;&#x306e;&#x6570;</th></tr>
           </thead>
           <tbody id="applicantRows"></tbody>
         </table>
@@ -355,10 +357,10 @@
           <span>&#x56de;&#x7b54;&#x5c3a;&#x5ea6;&#xff1a;1&#x301c;6</span>
           <span>1 = &#x5168;&#x304f;&#x5e73;&#x6c17;</span>
           <span>6 = &#x3068;&#x3066;&#x3082;&#x5acc;&#x306a;&#x6c17;&#x6301;&#x3061;&#x306b;&#x306a;&#x308b;</span>
-          <span><i class="legend-swatch"></i>&#x5224;&#x5b9a;&#x7406;&#x7531;&#x306b;&#x8a72;&#x5f53;&#x3057;&#x305f;&#x56de;&#x7b54;</span>
+          <span><i class="legend-swatch"></i>&#x56de;&#x7b54;&#x300c;6&#x300d;&#x306e;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#xff08;&#x6700;&#x3082;&#x4e00;&#x81f4;&#x7387;&#x304c;&#x4e0b;&#x304c;&#x308b;&#x56de;&#x7b54;&#xff09;</span>
         </div>
         <div class="answers" id="answerGrid" aria-label="20&#x554f;&#x306e;&#x56de;&#x7b54;"></div>
-        <div class="detail-foot">&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#xff1a;<span id="targetSummary">&#x7ba1;&#x7406;&#x8a2d;&#x5b9a;&#x3092;&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span> &#xff0f; &#x30c7;&#x30fc;&#x30bf;&#x30d9;&#x30fc;&#x30b9;&#x306b;&#x4fdd;&#x5b58;&#x3055;&#x308c;&#x305f;&#x5224;&#x5b9a;&#x7d50;&#x679c;&#x3092;&#x8868;&#x793a;&#x3057;&#x3066;&#x3044;&#x307e;&#x3059;&#x3002;</div>
+        <div class="detail-foot">&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#xff1a;<span id="targetSummary">&#x7ba1;&#x7406;&#x8a2d;&#x5b9a;&#x3092;&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span> &#x5404;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#x3092;1=100%&#x3001;2=80%&#x3001;3=60%&#x3001;4=40%&#x3001;5=20%&#x3001;6=0%&#x3067;&#x8a55;&#x4fa1;&#x3057;&#x3001;&#x305d;&#x306e;&#x5e73;&#x5747;&#x3092;&#x4e00;&#x81f4;&#x7387;&#x306b;&#x3057;&#x3066;&#x3044;&#x307e;&#x3059;&#x3002;</div>
       </div>
     </section>
   </div>
@@ -734,10 +736,12 @@
     els.answerGrid.innerHTML = answers.map((value, index) => {
       const num = index + 1;
       const isTarget = targetSet.has(num);
+      const itemScore = value === null ? null : Math.round(((6 - value) / 5) * 100);
       const isFlagged = flaggedSet.has(num) && value === 6;
       return `<div class="answer ${isFlagged ? 'flagged' : ''}" ${isFlagged ? 'aria-label="\u5224\u5b9a\u5bfe\u8c61\u306e\u8a2d\u554f\u3067\u56de\u7b546"' : ''}>
         <div class="answer-top"><span class="q-number">${CIRCLED_NUMBERS[index]}</span>${isTarget ? '<span class="q-target">\u5224\u5b9a\u5bfe\u8c61</span>' : ''}</div>
         <div class="answer-value">${value ?? '\u2014'}<small>/ 6</small></div>
+        ${isTarget ? '<div class="answer-impact">\u8a2d\u554f\u8a55\u4fa1\uff1a' + (itemScore === null ? '\u2014' : itemScore + '\uff05') + '</div>' : ''}
       </div>`;
     }).join('');
     els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('\u30fb');
