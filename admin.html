@@ -100,7 +100,6 @@
   .answer-value { display: flex; align-items: baseline; gap: 4px; font-weight: 800; font-size: 17px; color: #34445a; }
   .answer-value small { font-size: 10px; font-weight: 500; color: var(--muted); }
   .answer-impact { margin-top: 6px; font-size: 10px; line-height: 1.35; color: var(--muted); }
-  .answer.flagged .answer-impact { color: var(--red); font-weight: 750; }
   .endpoint-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:10px; background:#f7faf8; }
   .endpoint-item { display:flex; flex-direction:column; gap:4px; min-width:0; }
   .endpoint-item span { color:var(--muted); font-size:11px; }
@@ -206,7 +205,6 @@
   .target-note { color: #0b756b; background: #e9f6f3; }
   .q-target { color: #0b756b; border-color: #c8ded8; background: #f3f8f6; }
   .answer { border-color: #e1e9e4; }
-  .answer.flagged .q-target { background: var(--red); color: #fff; border-color: var(--red); }
   .detail-foot { background: #f7faf8; }
   .no-selection .symbol, .bottom-note .info { background: #e9f6f3; color: #0b756b; }
   .login-card { box-shadow: 0 10px 30px rgba(36, 65, 57, .07); }
@@ -755,7 +753,7 @@
     const threshold = Number.isInteger(record.match_threshold_percent) ? record.match_threshold_percent : MINIMUM_MATCH_PERCENT;
     if (status === 'review') {
       const questionLabels = risks.map(n => CIRCLED_NUMBERS[n - 1]).join('\u3001');
-      els.reasonArea.innerHTML = `<div class="reason"><div class="reason-title">\u57fa\u6e96\u5024\u4ee5\u4e0b\u306e\u305f\u3081\u3001\u8981\u78ba\u8a8d\u3067\u3059\uff08\u81ea\u52d5\u4e0d\u5408\u683c\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09</div><div class="reason-questions">\u7dcf\u5408\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)} \uff0f \u5224\u5b9a\u57fa\u6e96\uff1a${threshold}\uff05\u4ee5\u4e0b</div><div class="reason-note">\u57fa\u6e96\u56de\u7b54\u3068\u4e0d\u4e00\u81f4\u306e\u8a2d\u554f\uff1a${escapeHtml(questionLabels || '\u306a\u3057')}\uff08${risks.length}/20\u554f\uff09\u3002\u6700\u7d42\u5224\u65ad\u306f\u62c5\u5f53\u8005\u304c\u884c\u3044\u307e\u3059\u3002</div></div>`;
+      els.reasonArea.innerHTML = `<div class="reason"><div class="reason-title">\u57fa\u6e96\u5024\u4ee5\u4e0b\u306e\u305f\u3081\u3001\u8981\u78ba\u8a8d\u3067\u3059\uff08\u81ea\u52d5\u4e0d\u5408\u683c\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09</div><div class="reason-questions">\u7dcf\u5408\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)} \uff0f \u5224\u5b9a\u57fa\u6e96\uff1a${threshold}\uff05\u4ee5\u4e0b</div><div class="reason-note">\u57fa\u6e96\u5024\u3068\u5dee\u304c\u3042\u308b\u8a2d\u554f\uff1a${escapeHtml(questionLabels || '\u306a\u3057')}\uff08${risks.length}/20\u554f\uff09\u3002\u6700\u7d42\u5224\u65ad\u306f\u62c5\u5f53\u8005\u304c\u884c\u3044\u307e\u3059\u3002</div></div>`;
     } else {
       els.reasonArea.innerHTML = `<div class="pass-reason"><strong>\u7dcf\u5408\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)}\uff08\u5224\u5b9a\u57fa\u6e96\uff1a${threshold}\uff05\uff09</strong><span>\u516820\u554f\u306e\u57fa\u6e96\u56de\u7b54\u306b\u5bfe\u3059\u308b\u8fd1\u3055\u3092\u30b9\u30b3\u30a2\u5316\u3057\u305f\u5024\u3067\u3059\u3002\u6700\u7d42\u5224\u65ad\u306f\u62c5\u5f53\u8005\u304c\u884c\u3044\u307e\u3059\u3002</span></div>`;
     }
