@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; connect-src https://rfqeftphtqlfsbcyibbm.supabase.co; img-src data:; base-uri 'none'; form-action 'self'; object-src 'none">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'unsafe-inline'; connect-src https://rfqeftphtqlfsbcyibbm.supabase.co; img-src data:; base-uri 'none'; form-action 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#f5f7f5">
-<title>入社前アンケート｜管理者画面</title>
+<title>&#x5165;&#x793e;&#x524d;&#x30a2;&#x30f3;&#x30b1;&#x30fc;&#x30c8;&#xff5c;&#x7ba1;&#x7406;&#x8005;&#x753b;&#x9762;</title>
 <style>
   :root {
     --bg: #f5f7f5;
@@ -108,6 +108,20 @@
   .no-selection strong { color: #354258; display: block; margin-bottom: 5px; }
   .bottom-note { margin-top: 16px; color: #667386; font-size: 11px; display: flex; align-items: start; gap: 7px; }
   .bottom-note .info { flex: 0 0 auto; width: 17px; height: 17px; display: grid; place-items: center; background: #e6ecf4; color: #465b76; border-radius: 50%; font-size: 11px; font-weight: 800; }
+  .badge.review { color:#8a5200; background:#fff4d6; border:1px solid #f1d596; }
+  .threshold-panel { margin:0 0 20px; }
+  .threshold-description { color:var(--muted); font-size:12px; line-height:1.75; margin:7px 0 0; }
+  .threshold-form { padding:0 20px 18px; }
+  .threshold-controls { display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:12px; }
+  .threshold-controls label { font-size:13px; font-weight:750; }
+  .threshold-controls input { width:110px; padding:11px 12px; border:1px solid #d8e5df; border-radius:10px; font:inherit; }
+  .threshold-controls .percent-symbol { margin-left:-7px; color:var(--muted); }
+  .threshold-save { border:0; border-radius:999px; padding:11px 18px; background:#15988c; color:#fff; font-weight:750; cursor:pointer; }
+  .threshold-save:disabled { opacity:.55; cursor:wait; }
+  .threshold-message { min-height:18px; margin:10px 0 0; font-size:12px; line-height:1.6; color:var(--muted); }
+  .threshold-message.error { color:var(--red); }
+  .threshold-current { font-size:12px; color:#0b756b; background:#e9f6f3; border-radius:999px; padding:6px 10px; font-weight:800; white-space:nowrap; }
+  @media(max-width:650px) { .threshold-form { padding:0 14px 15px; } .threshold-controls { align-items:stretch; } .threshold-controls input { width:88px; } .threshold-save { flex:1; } }
   @media (max-width: 1120px) {
     main { padding: 20px 16px 28px; }
     .topbar { padding: 16px; }
@@ -202,28 +216,28 @@
 <body>
 <section class="login-gate" id="loginGate" aria-labelledby="loginTitle">
   <div class="login-card">
-    <div class="login-brand"><div class="login-mark" aria-hidden="true">A</div><div><h1 id="loginTitle">入社前アンケート</h1><div class="login-sub">管理者ログイン</div></div></div>
-    <p style="color:var(--muted);margin:0;line-height:1.8">登録された管理者アカウントでログインしてください。回答データは管理者権限が確認された場合のみ表示されます。</p>
+    <div class="login-brand"><div class="login-mark" aria-hidden="true">A</div><div><h1 id="loginTitle">&#x5165;&#x793e;&#x524d;&#x30a2;&#x30f3;&#x30b1;&#x30fc;&#x30c8;</h1><div class="login-sub">&#x7ba1;&#x7406;&#x8005;&#x30ed;&#x30b0;&#x30a4;&#x30f3;</div></div></div>
+    <p style="color:var(--muted);margin:0;line-height:1.8">&#x767b;&#x9332;&#x3055;&#x308c;&#x305f;&#x7ba1;&#x7406;&#x8005;&#x30a2;&#x30ab;&#x30a6;&#x30f3;&#x30c8;&#x3067;&#x30ed;&#x30b0;&#x30a4;&#x30f3;&#x3057;&#x3066;&#x304f;&#x3060;&#x3055;&#x3044;&#x3002;&#x56de;&#x7b54;&#x30c7;&#x30fc;&#x30bf;&#x306f;&#x7ba1;&#x7406;&#x8005;&#x6a29;&#x9650;&#x304c;&#x78ba;&#x8a8d;&#x3055;&#x308c;&#x305f;&#x5834;&#x5408;&#x306e;&#x307f;&#x8868;&#x793a;&#x3055;&#x308c;&#x307e;&#x3059;&#x3002;</p>
     <form id="loginForm" autocomplete="on">
-      <label for="loginEmail">メールアドレス</label>
-      <input id="loginEmail" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="管理者メールアドレス">
-      <label for="loginPassword">パスワード</label>
-      <input id="loginPassword" name="password" type="password" autocomplete="current-password" required maxlength="1024" placeholder="パスワード">
-      <button class="login-submit" id="loginButton" type="submit">ログイン</button>
+      <label for="loginEmail">&#x30e1;&#x30fc;&#x30eb;&#x30a2;&#x30c9;&#x30ec;&#x30b9;</label>
+      <input id="loginEmail" name="email" type="email" autocomplete="username" required maxlength="254" placeholder="&#x7ba1;&#x7406;&#x8005;&#x30e1;&#x30fc;&#x30eb;&#x30a2;&#x30c9;&#x30ec;&#x30b9;">
+      <label for="loginPassword">&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;</label>
+      <input id="loginPassword" name="password" type="password" autocomplete="current-password" required maxlength="1024" placeholder="&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;">
+      <button class="login-submit" id="loginButton" type="submit">&#x30ed;&#x30b0;&#x30a4;&#x30f3;</button>
     </form>
-    <button class="login-secondary" id="passwordSetupButton" type="button">初回パスワード設定・再設定メールを送る</button>
-    <p class="login-help" id="passwordSetupHelp">上のメールアドレスを入力してから押してください。設定用リンクをメールで送ります。</p>
+    <button class="login-secondary" id="passwordSetupButton" type="button">&#x521d;&#x56de;&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;&#x8a2d;&#x5b9a;&#x30fb;&#x518d;&#x8a2d;&#x5b9a;&#x30e1;&#x30fc;&#x30eb;&#x3092;&#x9001;&#x308b;</button>
+    <p class="login-help" id="passwordSetupHelp">&#x4e0a;&#x306e;&#x30e1;&#x30fc;&#x30eb;&#x30a2;&#x30c9;&#x30ec;&#x30b9;&#x3092;&#x5165;&#x529b;&#x3057;&#x3066;&#x304b;&#x3089;&#x62bc;&#x3057;&#x3066;&#x304f;&#x3060;&#x3055;&#x3044;&#x3002;&#x8a2d;&#x5b9a;&#x7528;&#x30ea;&#x30f3;&#x30af;&#x3092;&#x30e1;&#x30fc;&#x30eb;&#x3067;&#x9001;&#x308a;&#x307e;&#x3059;&#x3002;</p>
     <form id="passwordForm" class="password-setup" hidden>
-      <h2>パスワードを設定</h2>
-      <p>管理者ログインに使う新しいパスワードを設定してください（8文字以上）。</p>
-      <label for="newPassword">新しいパスワード</label>
-      <input id="newPassword" name="newPassword" type="password" autocomplete="new-password" minlength="8" maxlength="1024" required placeholder="8文字以上">
-      <label for="confirmPassword">新しいパスワード（確認）</label>
-      <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="1024" required placeholder="もう一度入力">
-      <button class="login-submit" id="savePasswordButton" type="submit">パスワードを設定してログイン</button>
+      <h2>&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;&#x3092;&#x8a2d;&#x5b9a;</h2>
+      <p>&#x7ba1;&#x7406;&#x8005;&#x30ed;&#x30b0;&#x30a4;&#x30f3;&#x306b;&#x4f7f;&#x3046;&#x65b0;&#x3057;&#x3044;&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;&#x3092;&#x8a2d;&#x5b9a;&#x3057;&#x3066;&#x304f;&#x3060;&#x3055;&#x3044;&#xff08;8&#x6587;&#x5b57;&#x4ee5;&#x4e0a;&#xff09;&#x3002;</p>
+      <label for="newPassword">&#x65b0;&#x3057;&#x3044;&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;</label>
+      <input id="newPassword" name="newPassword" type="password" autocomplete="new-password" minlength="8" maxlength="1024" required placeholder="8&#x6587;&#x5b57;&#x4ee5;&#x4e0a;">
+      <label for="confirmPassword">&#x65b0;&#x3057;&#x3044;&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;&#xff08;&#x78ba;&#x8a8d;&#xff09;</label>
+      <input id="confirmPassword" name="confirmPassword" type="password" autocomplete="new-password" minlength="8" maxlength="1024" required placeholder="&#x3082;&#x3046;&#x4e00;&#x5ea6;&#x5165;&#x529b;">
+      <button class="login-submit" id="savePasswordButton" type="submit">&#x30d1;&#x30b9;&#x30ef;&#x30fc;&#x30c9;&#x3092;&#x8a2d;&#x5b9a;&#x3057;&#x3066;&#x30ed;&#x30b0;&#x30a4;&#x30f3;</button>
     </form>
     <div class="login-message" id="loginMessage" role="status" aria-live="polite"></div>
-    <div class="login-note">この画面は管理者専用です。利用を許可されていないアカウントでは回答一覧を閲覧できません。</div>
+    <div class="login-note">&#x3053;&#x306e;&#x753b;&#x9762;&#x306f;&#x7ba1;&#x7406;&#x8005;&#x5c02;&#x7528;&#x3067;&#x3059;&#x3002;&#x5229;&#x7528;&#x3092;&#x8a31;&#x53ef;&#x3055;&#x308c;&#x3066;&#x3044;&#x306a;&#x3044;&#x30a2;&#x30ab;&#x30a6;&#x30f3;&#x30c8;&#x3067;&#x306f;&#x56de;&#x7b54;&#x4e00;&#x89a7;&#x3092;&#x95b2;&#x89a7;&#x3067;&#x304d;&#x307e;&#x305b;&#x3093;&#x3002;</div>
   </div>
 </section>
 <header class="topbar" id="adminHeader" hidden>
@@ -231,104 +245,125 @@
     <div class="brand">
       <div class="brand-mark" aria-hidden="true">A</div>
       <div>
-        <h1>入社前アンケート</h1>
-        <div class="brand-sub">応募者管理・回答確認</div>
+        <h1>&#x5165;&#x793e;&#x524d;&#x30a2;&#x30f3;&#x30b1;&#x30fc;&#x30c8;</h1>
+        <div class="brand-sub">&#x5fdc;&#x52df;&#x8005;&#x7ba1;&#x7406;&#x30fb;&#x56de;&#x7b54;&#x78ba;&#x8a8d;</div>
       </div>
     </div>
-    <div class="top-actions"><span class="session-email" id="signedInEmail"></span><button class="signout-button" id="signoutButton" type="button">ログアウト</button></div>
+    <div class="top-actions"><span class="session-email" id="signedInEmail"></span><button class="signout-button" id="signoutButton" type="button">&#x30ed;&#x30b0;&#x30a2;&#x30a6;&#x30c8;</button></div>
   </div>
 </header>
 <main id="adminMain" hidden>
   <div class="page-heading">
     <div>
-      <h2>応募者一覧</h2>
-      <p>保存された回答を検索し、判定結果と20問すべての回答を確認できます。</p>
+      <h2>&#x5fdc;&#x52df;&#x8005;&#x4e00;&#x89a7;</h2>
+      <p>&#x4fdd;&#x5b58;&#x3055;&#x308c;&#x305f;&#x56de;&#x7b54;&#x3092;&#x691c;&#x7d22;&#x3057;&#x3001;&#x5224;&#x5b9a;&#x7d50;&#x679c;&#x3068;20&#x554f;&#x3059;&#x3079;&#x3066;&#x306e;&#x56de;&#x7b54;&#x3092;&#x78ba;&#x8a8d;&#x3067;&#x304d;&#x307e;&#x3059;&#x3002;</p>
     </div>
-    <div class="admin-verified">管理者認証済み</div>
+    <div class="admin-verified">&#x7ba1;&#x7406;&#x8005;&#x8a8d;&#x8a3c;&#x6e08;&#x307f;</div>
   </div>
 
-  <section class="stats" aria-label="応募者集計">
+  <section class="stats" aria-label="&#x5fdc;&#x52df;&#x8005;&#x96c6;&#x8a08;">
     <div class="stat">
-      <div class="stat-top"><span>回答者数</span><span class="stat-icon">人</span></div>
-      <div class="stat-num" id="statTotal">—</div>
-      <div class="stat-note">アンケート回答済み</div>
+      <div class="stat-top"><span>&#x56de;&#x7b54;&#x8005;&#x6570;</span><span class="stat-icon">&#x4eba;</span></div>
+      <div class="stat-num" id="statTotal">&#x2014;</div>
+      <div class="stat-note">&#x30a2;&#x30f3;&#x30b1;&#x30fc;&#x30c8;&#x56de;&#x7b54;&#x6e08;&#x307f;</div>
     </div>
     <div class="stat pass">
-      <div class="stat-top"><span>通過</span><span class="stat-icon">✓</span></div>
-      <div class="stat-num" id="statPass">—</div>
-      <div class="stat-note">判定対象の設問に「6」がない</div>
+      <div class="stat-top"><span>&#x901a;&#x904e;</span><span class="stat-icon">&#x2713;</span></div>
+      <div class="stat-num" id="statPass">&#x2014;</div>
+      <div class="stat-note">&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x306b;&#x300c;6&#x300d;&#x304c;&#x306a;&#x3044;</div>
     </div>
     <div class="stat invalid">
-      <div class="stat-top"><span>不適合</span><span class="stat-icon">!</span></div>
-      <div class="stat-num" id="statInvalid">—</div>
-      <div class="stat-note">保存された判定結果</div>
+      <div class="stat-top"><span>&#x8981;&#x78ba;&#x8a8d;</span><span class="stat-icon">!</span></div>
+      <div class="stat-num" id="statInvalid">&#x2014;</div>
+      <div class="stat-note">&#x4e00;&#x81f4;&#x7387;&#x304c;&#x8a2d;&#x5b9a;&#x3057;&#x305f;&#x57fa;&#x6e96;&#x5024;&#x4ee5;&#x4e0b;</div>
     </div>
+  </section>
+
+  <section class="panel threshold-panel" aria-labelledby="thresholdHeading">
+    <div class="panel-head">
+      <div class="panel-title-row">
+        <h3 id="thresholdHeading">&#x5224;&#x5b9a;&#x57fa;&#x6e96;&#x306e;&#x8a2d;&#x5b9a;</h3>
+        <span class="threshold-current" id="thresholdCurrent">&#x73fe;&#x5728;&#x306e;&#x57fa;&#x6e96;&#xff1a;75&#xff05;</span>
+      </div>
+      <p class="threshold-description">&#x4e00;&#x81f4;&#x7387;&#x304c;&#x8a2d;&#x5b9a;&#x3057;&#x305f;&#x57fa;&#x6e96;&#x5024;&#x4ee5;&#x4e0b;&#x306e;&#x5834;&#x5408;&#x306f;&#x300c;&#x8981;&#x78ba;&#x8a8d;&#x300d;&#x3068;&#x8868;&#x793a;&#x3057;&#x307e;&#x3059;&#x3002;&#x81ea;&#x52d5;&#x3067;&#x4e0d;&#x5408;&#x683c;&#x306b;&#x306f;&#x305b;&#x305a;&#x3001;&#x6700;&#x7d42;&#x5224;&#x65ad;&#x306f;&#x62c5;&#x5f53;&#x8005;&#x304c;&#x884c;&#x3044;&#x307e;&#x3059;&#x3002;</p>
+      <p class="threshold-description">&#x4e00;&#x81f4;&#x7387;&#x306e;&#x8a08;&#x7b97;&#xff1a;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x306e;&#x3046;&#x3061;&#x300c;6&#x300d;&#x4ee5;&#x5916;&#x3092;&#x9078;&#x629e;&#x3057;&#x305f;&#x6570; &#xf7; &#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x6570; &#xd7; 100&#x3002;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#xff1a;<span id="targetSummarySetting">&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span></p>
+    </div>
+    <form id="thresholdForm" class="threshold-form">
+      <div class="threshold-controls">
+        <label for="minimumMatchPercent">&#x8981;&#x78ba;&#x8a8d;&#x306b;&#x3059;&#x308b;&#x57fa;&#x6e96;&#x5024;</label>
+        <input id="minimumMatchPercent" type="number" min="0" max="100" step="1" value="75" required inputmode="numeric" aria-describedby="thresholdHelp">
+        <span class="percent-symbol">&#xff05;&#x4ee5;&#x4e0b;&#x3067;&#x8981;&#x78ba;&#x8a8d;</span>
+        <button class="threshold-save" id="saveThresholdButton" type="submit">&#x8a2d;&#x5b9a;&#x3092;&#x4fdd;&#x5b58;</button>
+      </div>
+      <p class="threshold-description" id="thresholdHelp">&#x8a2d;&#x5b9a;&#x7bc4;&#x56f2;&#x306f;0&#x301c;100&#xff05;&#x3002;&#x4fdd;&#x5b58;&#x5f8c;&#x306b;&#x65b0;&#x3057;&#x304f;&#x9001;&#x4fe1;&#x3055;&#x308c;&#x305f;&#x56de;&#x7b54;&#x304b;&#x3089;&#x9069;&#x7528;&#x3055;&#x308c;&#x307e;&#x3059;&#x3002;</p>
+      <p class="threshold-message" id="thresholdMessage" role="status" aria-live="polite"></p>
+    </form>
   </section>
 
   <div class="workspace">
     <section class="panel" aria-labelledby="listHeading">
       <div class="panel-head">
         <div class="panel-title-row">
-          <h3 id="listHeading">応募者</h3>
-          <span class="result-count" id="resultCount">10名を表示</span>
+          <h3 id="listHeading">&#x5fdc;&#x52df;&#x8005;</h3>
+          <span class="result-count" id="resultCount">10&#x540d;&#x3092;&#x8868;&#x793a;</span>
         </div>
         <div class="filters">
           <label class="search-wrap">
-            <span class="search-icon" aria-hidden="true">⌕</span>
-            <input id="nameSearch" type="search" placeholder="氏名で検索" aria-label="氏名で検索">
+            <span class="search-icon" aria-hidden="true">&#x2315;</span>
+            <input id="nameSearch" type="search" placeholder="&#x6c0f;&#x540d;&#x3067;&#x691c;&#x7d22;" aria-label="&#x6c0f;&#x540d;&#x3067;&#x691c;&#x7d22;">
           </label>
-          <select id="statusFilter" aria-label="判定で絞り込み">
-            <option value="all">すべての判定</option>
-            <option value="pass">通過</option>
-            <option value="invalid">不適合</option>
+          <select id="statusFilter" aria-label="&#x5224;&#x5b9a;&#x3067;&#x7d5e;&#x308a;&#x8fbc;&#x307f;">
+            <option value="all">&#x3059;&#x3079;&#x3066;&#x306e;&#x5224;&#x5b9a;</option>
+            <option value="pass">&#x901a;&#x904e;</option>
+            <option value="review">&#x8981;&#x78ba;&#x8a8d;</option>
           </select>
         </div>
       </div>
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th scope="col">氏名</th><th scope="col">回答日</th><th scope="col">判定</th><th scope="col">該当設問数</th></tr>
+            <tr><th scope="col">&#x6c0f;&#x540d;</th><th scope="col">&#x56de;&#x7b54;&#x65e5;</th><th scope="col">&#x5224;&#x5b9a;</th><th scope="col">&#x4e00;&#x81f4;&#x7387;</th><th scope="col">&#x8a72;&#x5f53;&#x8a2d;&#x554f;&#x6570;</th></tr>
           </thead>
           <tbody id="applicantRows"></tbody>
         </table>
-        <div class="empty" id="emptyState" hidden>条件に一致する応募者はいません。</div>
+        <div class="empty" id="emptyState" hidden>&#x6761;&#x4ef6;&#x306b;&#x4e00;&#x81f4;&#x3059;&#x308b;&#x5fdc;&#x52df;&#x8005;&#x306f;&#x3044;&#x307e;&#x305b;&#x3093;&#x3002;</div>
       </div>
-      <div class="pager" id="pager"><span id="pagerLabel">回答を読み込みます</span><div class="pager-actions"><button type="button" id="prevPage" disabled>前へ</button><button type="button" id="nextPage" disabled>次へ</button></div></div>
+      <div class="pager" id="pager"><span id="pagerLabel">&#x56de;&#x7b54;&#x3092;&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x307e;&#x3059;</span><div class="pager-actions"><button type="button" id="prevPage" disabled>&#x524d;&#x3078;</button><button type="button" id="nextPage" disabled>&#x6b21;&#x3078;</button></div></div>
     </section>
 
     <section class="panel" aria-labelledby="detailHeading" id="detailPanel">
       <div class="no-selection" id="noSelection">
         <div>
-          <div class="symbol" aria-hidden="true">↖</div>
-          <strong>応募者を選択してください</strong>
-          <span>左の一覧から名前をクリックすると、20問すべての回答を確認できます。</span>
+          <div class="symbol" aria-hidden="true">&#x2196;</div>
+          <strong>&#x5fdc;&#x52df;&#x8005;&#x3092;&#x9078;&#x629e;&#x3057;&#x3066;&#x304f;&#x3060;&#x3055;&#x3044;</strong>
+          <span>&#x5de6;&#x306e;&#x4e00;&#x89a7;&#x304b;&#x3089;&#x540d;&#x524d;&#x3092;&#x30af;&#x30ea;&#x30c3;&#x30af;&#x3059;&#x308b;&#x3068;&#x3001;20&#x554f;&#x3059;&#x3079;&#x3066;&#x306e;&#x56de;&#x7b54;&#x3092;&#x78ba;&#x8a8d;&#x3067;&#x304d;&#x307e;&#x3059;&#x3002;</span>
         </div>
       </div>
       <div id="detailContent" hidden>
         <div class="detail-head">
-          <div class="detail-kicker">応募者の回答詳細</div>
+          <div class="detail-kicker">&#x5fdc;&#x52df;&#x8005;&#x306e;&#x56de;&#x7b54;&#x8a73;&#x7d30;</div>
           <div class="detail-person-row">
             <div>
-              <h3 class="detail-name" id="detailName">—</h3>
-              <div class="detail-meta"><span id="detailDate">回答日 —</span><span id="detailId">応募者ID —</span></div>
+              <h3 class="detail-name" id="detailName">&#x2014;</h3>
+              <div class="detail-meta"><span id="detailDate">&#x56de;&#x7b54;&#x65e5; &#x2014;</span><span id="detailId">&#x5fdc;&#x52df;&#x8005;ID &#x2014;</span></div>
             </div>
-            <span class="badge" id="detailBadge">—</span>
+            <span class="badge" id="detailBadge">&#x2014;</span>
           </div>
           <div id="reasonArea"></div>
         </div>
         <div class="scale-legend">
-          <span>回答尺度：1〜6</span>
-          <span>1 = 全く平気</span>
-          <span>6 = とても嫌な気持ちになる</span>
-          <span><i class="legend-swatch"></i>判定理由に該当した回答</span>
+          <span>&#x56de;&#x7b54;&#x5c3a;&#x5ea6;&#xff1a;1&#x301c;6</span>
+          <span>1 = &#x5168;&#x304f;&#x5e73;&#x6c17;</span>
+          <span>6 = &#x3068;&#x3066;&#x3082;&#x5acc;&#x306a;&#x6c17;&#x6301;&#x3061;&#x306b;&#x306a;&#x308b;</span>
+          <span><i class="legend-swatch"></i>&#x5224;&#x5b9a;&#x7406;&#x7531;&#x306b;&#x8a72;&#x5f53;&#x3057;&#x305f;&#x56de;&#x7b54;</span>
         </div>
-        <div class="answers" id="answerGrid" aria-label="20問の回答"></div>
-        <div class="detail-foot">判定対象：<span id="targetSummary">管理設定を読み込み中</span> ／ データベースに保存された判定結果を表示しています。</div>
+        <div class="answers" id="answerGrid" aria-label="20&#x554f;&#x306e;&#x56de;&#x7b54;"></div>
+        <div class="detail-foot">&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#xff1a;<span id="targetSummary">&#x7ba1;&#x7406;&#x8a2d;&#x5b9a;&#x3092;&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span> &#xff0f; &#x30c7;&#x30fc;&#x30bf;&#x30d9;&#x30fc;&#x30b9;&#x306b;&#x4fdd;&#x5b58;&#x3055;&#x308c;&#x305f;&#x5224;&#x5b9a;&#x7d50;&#x679c;&#x3092;&#x8868;&#x793a;&#x3057;&#x3066;&#x3044;&#x307e;&#x3059;&#x3002;</div>
       </div>
     </section>
   </div>
 
-  <div class="bottom-note"><span class="info">i</span><span>判定はデータベースで保存された結果を表示しています。判定条件は管理設定に基づきサーバー側で処理されます。個人情報を含むため、必要な担当者のみで取り扱ってください。</span></div>
+  <div class="bottom-note"><span class="info">i</span><span>&#x5224;&#x5b9a;&#x306f;&#x30c7;&#x30fc;&#x30bf;&#x30d9;&#x30fc;&#x30b9;&#x3067;&#x4fdd;&#x5b58;&#x3055;&#x308c;&#x305f;&#x7d50;&#x679c;&#x3092;&#x8868;&#x793a;&#x3057;&#x3066;&#x3044;&#x307e;&#x3059;&#x3002;&#x5224;&#x5b9a;&#x6761;&#x4ef6;&#x306f;&#x7ba1;&#x7406;&#x8a2d;&#x5b9a;&#x306b;&#x57fa;&#x3065;&#x304d;&#x30b5;&#x30fc;&#x30d0;&#x30fc;&#x5074;&#x3067;&#x51e6;&#x7406;&#x3055;&#x308c;&#x307e;&#x3059;&#x3002;&#x500b;&#x4eba;&#x60c5;&#x5831;&#x3092;&#x542b;&#x3080;&#x305f;&#x3081;&#x3001;&#x5fc5;&#x8981;&#x306a;&#x62c5;&#x5f53;&#x8005;&#x306e;&#x307f;&#x3067;&#x53d6;&#x308a;&#x6271;&#x3063;&#x3066;&#x304f;&#x3060;&#x3055;&#x3044;&#x3002;</span></div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
 <script>
@@ -338,9 +373,11 @@
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_AWir5tre7LTuMFEhAUKo-g_ztHgdit-';
   const PAGE_SIZE = 25;
   let JUDGMENT_QUESTIONS = [];
-  const CIRCLED_NUMBERS = ['①','②','③','④','⑤','⑥','⑦','⑧','⑨','⑩','⑪','⑫','⑬','⑭','⑮','⑯','⑰','⑱','⑲','⑳'];
+  let MINIMUM_MATCH_PERCENT = 75;
+  const CIRCLED_NUMBERS = ['\u2460','\u2461','\u2462','\u2463','\u2464','\u2465','\u2466','\u2467','\u2468','\u2469','\u246a','\u246b','\u246c','\u246d','\u246e','\u246f','\u2470','\u2471','\u2472','\u2473'];
   const $ = id => document.getElementById(id);
   const els = {
+    thresholdForm: $('thresholdForm'), minimumMatchPercent: $('minimumMatchPercent'), saveThresholdButton: $('saveThresholdButton'), thresholdCurrent: $('thresholdCurrent'), thresholdMessage: $('thresholdMessage'), targetSummarySetting: $('targetSummarySetting'),
     loginGate: $('loginGate'), loginForm: $('loginForm'), loginEmail: $('loginEmail'), loginPassword: $('loginPassword'), loginButton: $('loginButton'), loginMessage: $('loginMessage'),
     passwordSetupButton: $('passwordSetupButton'), passwordSetupHelp: $('passwordSetupHelp'), passwordForm: $('passwordForm'), newPassword: $('newPassword'), confirmPassword: $('confirmPassword'), savePasswordButton: $('savePasswordButton'),
     adminHeader: $('adminHeader'), adminMain: $('adminMain'), signedInEmail: $('signedInEmail'), signoutButton: $('signoutButton'),
@@ -350,7 +387,7 @@
   };
 
   if (!window.supabase || !window.supabase.createClient) {
-    els.loginMessage.textContent = '認証ライブラリを読み込めませんでした。通信環境を確認して画面を再読み込みしてください。';
+    els.loginMessage.textContent = '\u8a8d\u8a3c\u30e9\u30a4\u30d6\u30e9\u30ea\u3092\u8aad\u307f\u8fbc\u3081\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u901a\u4fe1\u74b0\u5883\u3092\u78ba\u8a8d\u3057\u3066\u753b\u9762\u3092\u518d\u8aad\u307f\u8fbc\u307f\u3057\u3066\u304f\u3060\u3055\u3044\u3002';
     els.loginButton.disabled = true;
     return;
   }
@@ -385,17 +422,22 @@
       : [];
   }
   function getStatus(record) {
-    return record.judgment_status === '不適合' || getRiskQuestions(record).length ? 'invalid' : 'pass';
+    return record.judgment_status === '\u8981\u78ba\u8a8d' || record.judgment_status === '\u4e0d\u9069\u5408' ? 'review' : 'pass';
   }
-  function statusLabel(status) { return status === 'invalid' ? '不適合' : '通過'; }
+  function statusLabel(status) { return status === 'review' ? '\u8981\u78ba\u8a8d' : '\u901a\u904e'; }
+  function formatPercent(value) {
+    if (value === null || value === undefined || value === '') return '\u2014';
+    const n = Number(value);
+    return Number.isFinite(n) ? `${n.toFixed(1)}\uff05` : '\u2014';
+  }
   function dateLabel(value) {
-    if (!value) return '—';
+    if (!value) return '\u2014';
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return String(value);
     return date.toLocaleString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false});
   }
   function dateOnly(value) {
-    if (!value) return '—';
+    if (!value) return '\u2014';
     const date = new Date(value);
     if (Number.isNaN(date.getTime())) return String(value);
     return date.toLocaleDateString('ja-JP', {year:'numeric',month:'2-digit',day:'2-digit'});
@@ -406,16 +448,22 @@
   }
   async function loadJudgmentSettings() {
     const { data, error } = await client.from('survey_settings')
-      .select('judgment_questions')
+      .select('judgment_questions, minimum_match_percent')
       .eq('id', 'default')
       .single();
     if (error || !data || !Array.isArray(data.judgment_questions) ||
         data.judgment_questions.length < 1 ||
-        !data.judgment_questions.every(n => Number.isInteger(n) && n >= 1 && n <= 20)) {
-      throw new Error('判定設定を読み込めませんでした。管理者権限とSupabaseの設定を確認してください。');
+        !data.judgment_questions.every(n => Number.isInteger(n) && n >= 1 && n <= 20) ||
+        !Number.isInteger(data.minimum_match_percent) || data.minimum_match_percent < 0 || data.minimum_match_percent > 100) {
+      throw new Error('\u5224\u5b9a\u8a2d\u5b9a\u3092\u8aad\u307f\u8fbc\u3081\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u7ba1\u7406\u8005\u6a29\u9650\u3068Supabase\u306e\u8a2d\u5b9a\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
     }
     JUDGMENT_QUESTIONS = [...data.judgment_questions];
-    els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('・');
+    MINIMUM_MATCH_PERCENT = data.minimum_match_percent;
+    const targets = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('\u30fb');
+    els.targetSummary.textContent = targets;
+    els.targetSummarySetting.textContent = targets;
+    els.minimumMatchPercent.value = String(MINIMUM_MATCH_PERCENT);
+    els.thresholdCurrent.textContent = `\u73fe\u5728\u306e\u57fa\u6e96\uff1a${MINIMUM_MATCH_PERCENT}\uff05`;
   }
   async function setSignedIn(user) {
     // Judgment configuration is read from Supabase after admin authorization,
@@ -424,7 +472,7 @@
     els.loginGate.hidden = true;
     els.adminHeader.hidden = false;
     els.adminMain.hidden = false;
-    els.signedInEmail.textContent = user.email || '管理者';
+    els.signedInEmail.textContent = user.email || '\u7ba1\u7406\u8005';
     currentPage = 0;
     selectedRecord = null;
     clearDetail();
@@ -453,33 +501,33 @@
     els.passwordForm.hidden = false;
     els.newPassword.value = '';
     els.confirmPassword.value = '';
-    setLoginMessage('新しいパスワードを設定してください。', 'success');
+    setLoginMessage('\u65b0\u3057\u3044\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\u3002', 'success');
   }
   async function handlePasswordSetupRequest() {
     const email = els.loginEmail.value.trim();
     if (!email) {
-      setLoginMessage('先にメールアドレスを入力してください。');
+      setLoginMessage('\u5148\u306b\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3092\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
       els.loginEmail.focus();
       return;
     }
     if (!els.loginEmail.checkValidity()) {
-      setLoginMessage('メールアドレスの形式を確認してください。');
+      setLoginMessage('\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u306e\u5f62\u5f0f\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
       els.loginEmail.focus();
       return;
     }
     els.passwordSetupButton.disabled = true;
-    els.passwordSetupButton.textContent = '送信中…';
+    els.passwordSetupButton.textContent = '\u9001\u4fe1\u4e2d\u2026';
     try {
-      const redirectTo = `${window.location.origin}${window.location.pathname}`;
+      const redirectTo = 'https://hogetsu-kogyo.github.io/pre-entry-survey/admin.html';
       const { error } = await client.auth.resetPasswordForEmail(email, { redirectTo });
       if (error) throw error;
-      setLoginMessage('設定用メールを送信しました。メール内のリンクを同じブラウザで開き、パスワードを設定してください。メールが届かない場合は迷惑メールフォルダも確認してください。', 'success');
+      setLoginMessage('\u8a2d\u5b9a\u7528\u30e1\u30fc\u30eb\u3092\u9001\u4fe1\u3057\u307e\u3057\u305f\u3002\u30e1\u30fc\u30eb\u5185\u306e\u30ea\u30f3\u30af\u3092\u540c\u3058\u30d6\u30e9\u30a6\u30b6\u3067\u958b\u304d\u3001\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\u3002\u30e1\u30fc\u30eb\u304c\u5c4a\u304b\u306a\u3044\u5834\u5408\u306f\u8ff7\u60d1\u30e1\u30fc\u30eb\u30d5\u30a9\u30eb\u30c0\u3082\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002', 'success');
     } catch (error) {
       console.error('password setup email failed', error);
-      setLoginMessage('設定用メールを送信できませんでした。時間をおいて再試行するか、Supabaseのメール設定を確認してください。');
+      setLoginMessage('\u8a2d\u5b9a\u7528\u30e1\u30fc\u30eb\u3092\u9001\u4fe1\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u6642\u9593\u3092\u304a\u3044\u3066\u518d\u8a66\u884c\u3059\u308b\u304b\u3001Supabase\u306e\u30e1\u30fc\u30eb\u8a2d\u5b9a\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
     } finally {
       els.passwordSetupButton.disabled = false;
-      els.passwordSetupButton.textContent = '初回パスワード設定・再設定メールを送る';
+      els.passwordSetupButton.textContent = '\u521d\u56de\u30d1\u30b9\u30ef\u30fc\u30c9\u8a2d\u5b9a\u30fb\u518d\u8a2d\u5b9a\u30e1\u30fc\u30eb\u3092\u9001\u308b';
     }
   }
   async function handlePasswordSave(event) {
@@ -487,11 +535,11 @@
     const password = els.newPassword.value;
     const confirmation = els.confirmPassword.value;
     if (password.length < 8) {
-      setLoginMessage('パスワードは8文字以上で設定してください。');
+      setLoginMessage('\u30d1\u30b9\u30ef\u30fc\u30c9\u306f8\u6587\u5b57\u4ee5\u4e0a\u3067\u8a2d\u5b9a\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
       return;
     }
     if (password !== confirmation) {
-      setLoginMessage('2つのパスワードが一致していません。');
+      setLoginMessage('2\u3064\u306e\u30d1\u30b9\u30ef\u30fc\u30c9\u304c\u4e00\u81f4\u3057\u3066\u3044\u307e\u305b\u3093\u3002');
       els.confirmPassword.focus();
       return;
     }
@@ -500,25 +548,25 @@
       passwordSetupUser = data && data.session ? data.session.user : null;
     }
     if (!passwordSetupUser) {
-      showLogin('設定リンクが無効か期限切れです。もう一度、設定用メールを送ってください。');
+      showLogin('\u8a2d\u5b9a\u30ea\u30f3\u30af\u304c\u7121\u52b9\u304b\u671f\u9650\u5207\u308c\u3067\u3059\u3002\u3082\u3046\u4e00\u5ea6\u3001\u8a2d\u5b9a\u7528\u30e1\u30fc\u30eb\u3092\u9001\u3063\u3066\u304f\u3060\u3055\u3044\u3002');
       return;
     }
     els.savePasswordButton.disabled = true;
-    els.savePasswordButton.textContent = '設定中…';
+    els.savePasswordButton.textContent = '\u8a2d\u5b9a\u4e2d\u2026';
     try {
       const { data, error } = await client.auth.updateUser({ password });
       if (error) throw error;
       const user = data && data.user ? data.user : passwordSetupUser;
       passwordSetupUser = user;
       window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
-      setLoginMessage('パスワードを設定しました。管理者権限を確認しています。', 'success');
+      setLoginMessage('\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u307e\u3057\u305f\u3002\u7ba1\u7406\u8005\u6a29\u9650\u3092\u78ba\u8a8d\u3057\u3066\u3044\u307e\u3059\u3002', 'success');
       await verifyAdminOrSignOut(user);
     } catch (error) {
       console.error('password setup failed', error);
-      setLoginMessage('パスワードを設定できませんでした。8文字以上で入力し直すか、設定用メールからやり直してください。');
+      setLoginMessage('\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u8a2d\u5b9a\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u30028\u6587\u5b57\u4ee5\u4e0a\u3067\u5165\u529b\u3057\u76f4\u3059\u304b\u3001\u8a2d\u5b9a\u7528\u30e1\u30fc\u30eb\u304b\u3089\u3084\u308a\u76f4\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
     } finally {
       els.savePasswordButton.disabled = false;
-      els.savePasswordButton.textContent = 'パスワードを設定してログイン';
+      els.savePasswordButton.textContent = '\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u8a2d\u5b9a\u3057\u3066\u30ed\u30b0\u30a4\u30f3';
     }
   }
   async function verifyAdminOrSignOut(user) {
@@ -528,10 +576,10 @@
       .select('user_id')
       .eq('user_id', user.id)
       .maybeSingle();
-    if (error) throw new Error('管理者権限を確認できませんでした。管理者登録とデータベースの権限設定を確認してください。');
+    if (error) throw new Error('\u7ba1\u7406\u8005\u6a29\u9650\u3092\u78ba\u8a8d\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u7ba1\u7406\u8005\u767b\u9332\u3068\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u306e\u6a29\u9650\u8a2d\u5b9a\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
     if (!data || data.user_id !== user.id) {
       await client.auth.signOut();
-      throw new Error('このアカウントは管理者として登録されていません。管理者に登録を依頼してください。');
+      throw new Error('\u3053\u306e\u30a2\u30ab\u30a6\u30f3\u30c8\u306f\u7ba1\u7406\u8005\u3068\u3057\u3066\u767b\u9332\u3055\u308c\u3066\u3044\u307e\u305b\u3093\u3002\u7ba1\u7406\u8005\u306b\u767b\u9332\u3092\u4f9d\u983c\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
     }
     await setSignedIn(user);
   }
@@ -541,42 +589,42 @@
     const password = els.loginPassword.value;
     if (!email || !password) return;
     els.loginButton.disabled = true;
-    els.loginButton.textContent = '確認中…';
-    setLoginMessage('ログイン情報を確認しています。', 'success');
+    els.loginButton.textContent = '\u78ba\u8a8d\u4e2d\u2026';
+    setLoginMessage('\u30ed\u30b0\u30a4\u30f3\u60c5\u5831\u3092\u78ba\u8a8d\u3057\u3066\u3044\u307e\u3059\u3002', 'success');
     try {
       const { data, error } = await client.auth.signInWithPassword({ email, password });
-      if (error || !data.user) throw new Error('ログインできませんでした。メールアドレスとパスワードを確認してください。');
+      if (error || !data.user) throw new Error('\u30ed\u30b0\u30a4\u30f3\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u30e1\u30fc\u30eb\u30a2\u30c9\u30ec\u30b9\u3068\u30d1\u30b9\u30ef\u30fc\u30c9\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
       await verifyAdminOrSignOut(data.user);
     } catch (error) {
-      showLogin(error && error.message ? error.message : 'ログイン処理に失敗しました。');
+      showLogin(error && error.message ? error.message : '\u30ed\u30b0\u30a4\u30f3\u51e6\u7406\u306b\u5931\u6557\u3057\u307e\u3057\u305f\u3002');
     } finally {
       els.loginButton.disabled = false;
-      els.loginButton.textContent = 'ログイン';
+      els.loginButton.textContent = '\u30ed\u30b0\u30a4\u30f3';
     }
   }
   async function handleSignOut() {
     els.signoutButton.disabled = true;
     try { await client.auth.signOut(); } finally {
       els.signoutButton.disabled = false;
-      showLogin('ログアウトしました。');
+      showLogin('\u30ed\u30b0\u30a2\u30a6\u30c8\u3057\u307e\u3057\u305f\u3002');
     }
   }
   function applyFilters(query) {
     const search = els.nameSearch.value.trim();
     const status = els.statusFilter.value;
     if (search) query = query.ilike('applicant_name', `%${search}%`);
-    if (status === 'pass') query = query.eq('judgment_status', '通過');
-    if (status === 'invalid') query = query.eq('judgment_status', '不適合');
+    if (status === 'pass') query = query.eq('judgment_status', '\u901a\u904e');
+    if (status === 'review') query = query.in('judgment_status', ['\u8981\u78ba\u8a8d', '\u4e0d\u9069\u5408']);
     return query;
   }
   async function loadStats() {
     const results = await Promise.all([
       client.from('survey_responses').select('id', {count:'exact',head:true}),
-      client.from('survey_responses').select('id', {count:'exact',head:true}).eq('judgment_status','通過'),
-      client.from('survey_responses').select('id', {count:'exact',head:true}).eq('judgment_status','不適合')
+      client.from('survey_responses').select('id', {count:'exact',head:true}).eq('judgment_status','\u901a\u904e'),
+      client.from('survey_responses').select('id', {count:'exact',head:true}).in('judgment_status',['\u8981\u78ba\u8a8d','\u4e0d\u9069\u5408'])
     ]);
     if (results.some(r => r.error)) {
-      showDataMessage('集計を読み込めませんでした。ログイン状態または管理者権限を確認してください。', true);
+      showDataMessage('\u96c6\u8a08\u3092\u8aad\u307f\u8fbc\u3081\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u30ed\u30b0\u30a4\u30f3\u72b6\u614b\u307e\u305f\u306f\u7ba1\u7406\u8005\u6a29\u9650\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002', true);
       return;
     }
     els.statTotal.textContent = results[0].count ?? 0;
@@ -599,12 +647,12 @@
   async function loadRows() {
     const seq = ++requestSequence;
     const from = currentPage * PAGE_SIZE;
-    els.rows.innerHTML = '<tr><td colspan="4" class="empty">読み込み中…</td></tr>';
+    els.rows.innerHTML = '<tr><td colspan="5" class="empty">\u8aad\u307f\u8fbc\u307f\u4e2d\u2026</td></tr>';
     els.emptyState.hidden = true;
     els.prevPage.disabled = true;
     els.nextPage.disabled = true;
     try {
-      let query = client.from('survey_responses').select('id, applicant_name, answers, submitted_at, flagged_questions, judgment_status', {count:'exact'}).order('submitted_at',{ascending:false}).range(from, from + PAGE_SIZE - 1);
+      let query = client.from('survey_responses').select('id, applicant_name, answers, submitted_at, flagged_questions, judgment_status, match_percentage, match_threshold_percent', {count:'exact'}).order('submitted_at',{ascending:false}).range(from, from + PAGE_SIZE - 1);
       query = applyFilters(query);
       const { data, error, count } = await query;
       if (seq !== requestSequence) return;
@@ -614,19 +662,19 @@
       renderRows(records);
       const start = totalCount ? from + 1 : 0;
       const end = Math.min(from + records.length, totalCount);
-      els.pagerLabel.textContent = `${start}〜${end}件 / ${totalCount}件`;
+      els.pagerLabel.textContent = `${start}\u301c${end}\u4ef6 / ${totalCount}\u4ef6`;
       els.prevPage.disabled = currentPage <= 0;
       els.nextPage.disabled = from + records.length >= totalCount;
-      els.resultCount.textContent = `${totalCount}件`;
+      els.resultCount.textContent = `${totalCount}\u4ef6`;
       showDataMessage('');
       if (selectedRecord && !records.some(r => r.id === selectedRecord.id)) clearDetail();
     } catch (error) {
       if (seq !== requestSequence) return;
       els.rows.innerHTML = '';
       els.emptyState.hidden = false;
-      els.emptyState.textContent = '回答データを読み込めませんでした。管理者権限と通信状態を確認してください。';
-      els.pagerLabel.textContent = '読み込みに失敗';
-      showDataMessage('データ取得エラー：管理者として登録済みか、RLSとData APIの設定を確認してください。', true);
+      els.emptyState.textContent = '\u56de\u7b54\u30c7\u30fc\u30bf\u3092\u8aad\u307f\u8fbc\u3081\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u7ba1\u7406\u8005\u6a29\u9650\u3068\u901a\u4fe1\u72b6\u614b\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002';
+      els.pagerLabel.textContent = '\u8aad\u307f\u8fbc\u307f\u306b\u5931\u6557';
+      showDataMessage('\u30c7\u30fc\u30bf\u53d6\u5f97\u30a8\u30e9\u30fc\uff1a\u7ba1\u7406\u8005\u3068\u3057\u3066\u767b\u9332\u6e08\u307f\u304b\u3001RLS\u3068Data API\u306e\u8a2d\u5b9a\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002', true);
       console.error('survey response list failed', error);
     }
   }
@@ -640,11 +688,12 @@
       const status = getStatus(record);
       const risks = getRiskQuestions(record);
       const selected = selectedRecord && selectedRecord.id === record.id;
-      return `<tr data-id="${escapeHtml(record.id)}" class="${selected ? 'selected' : ''}" tabindex="0" aria-label="${escapeHtml(record.applicant_name)}の詳細を表示">
+      return `<tr data-id="${escapeHtml(record.id)}" class="${selected ? 'selected' : ''}" tabindex="0" aria-label="${escapeHtml(record.applicant_name)}\u306e\u8a73\u7d30\u3092\u8868\u793a">
         <td><span class="person">${escapeHtml(record.applicant_name)}</span><span class="person-sub">${escapeHtml(record.id.slice(0,8))}</span></td>
         <td>${escapeHtml(dateOnly(record.submitted_at))}</td>
         <td><span class="badge ${status}">${statusLabel(status)}</span></td>
-        <td><span class="count-chip ${risks.length ? 'has-risk' : ''}">${risks.length}問</span></td>
+        <td>${escapeHtml(formatPercent(record.match_percentage))}</td>
+        <td><span class="count-chip ${risks.length ? 'has-risk' : ''}">${risks.length}\u554f</span></td>
       </tr>`;
     }).join('');
     els.rows.querySelectorAll('tr[data-id]').forEach(row => {
@@ -667,16 +716,18 @@
     const answers = normalizeAnswers(record);
     els.noSelection.hidden = true;
     els.detailContent.hidden = false;
-    els.detailName.textContent = record.applicant_name || '氏名未登録';
-    els.detailDate.textContent = `回答日時 ${dateLabel(record.submitted_at)}`;
-    els.detailId.textContent = `回答ID ${record.id}`;
+    els.detailName.textContent = record.applicant_name || '\u6c0f\u540d\u672a\u767b\u9332';
+    els.detailDate.textContent = `\u56de\u7b54\u65e5\u6642 ${dateLabel(record.submitted_at)}`;
+    els.detailId.textContent = `\u56de\u7b54ID ${record.id}`;
     els.detailBadge.className = `badge ${status}`;
     els.detailBadge.textContent = statusLabel(status);
-    if (status === 'invalid') {
-      const questionLabels = risks.map(n => CIRCLED_NUMBERS[n - 1]).join('、');
-      els.reasonArea.innerHTML = `<div class="reason"><div class="reason-title">判定理由に該当した回答の回答があります</div><div class="reason-questions">該当設問：${escapeHtml(questionLabels || '—')}</div><div class="reason-note">該当設問数：${risks.length}問。下の回答欄で強調しています。</div></div>`;
+    const percentage = formatPercent(record.match_percentage);
+    const threshold = Number.isInteger(record.match_threshold_percent) ? record.match_threshold_percent : MINIMUM_MATCH_PERCENT;
+    if (status === 'review') {
+      const questionLabels = risks.map(n => CIRCLED_NUMBERS[n - 1]).join('\u3001');
+      els.reasonArea.innerHTML = `<div class="reason"><div class="reason-title">\u57fa\u6e96\u5024\u4ee5\u4e0b\u306e\u305f\u3081\u3001\u8981\u78ba\u8a8d\u3067\u3059\uff08\u81ea\u52d5\u4e0d\u5408\u683c\u3067\u306f\u3042\u308a\u307e\u305b\u3093\uff09</div><div class="reason-questions">\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)} \uff0f \u3053\u306e\u56de\u7b54\u306b\u9069\u7528\u3055\u308c\u305f\u57fa\u6e96\uff1a${threshold}\uff05\u4ee5\u4e0b</div><div class="reason-note">\u300c6\u300d\u3092\u9078\u629e\u3057\u305f\u5224\u5b9a\u5bfe\u8c61\uff1a${escapeHtml(questionLabels || '\u306a\u3057')}\uff08${risks.length}\u554f\uff09\u3002\u63a1\u7528\u306e\u6700\u7d42\u5224\u65ad\u306f\u62c5\u5f53\u8005\u304c\u884c\u3063\u3066\u304f\u3060\u3055\u3044\u3002</div></div>`;
     } else {
-      els.reasonArea.innerHTML = '<div class="pass-reason"><strong>判定理由に該当する回答はありません</strong><span>データベースに保存された判定結果を表示しています。</span></div>';
+      els.reasonArea.innerHTML = `<div class="pass-reason"><strong>\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)}\uff08\u57fa\u6e96\uff1a${threshold}\uff05\uff09</strong><span>\u57fa\u6e96\u3092\u4e0a\u56de\u3063\u3066\u3044\u307e\u3059\u3002\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u306b\u4fdd\u5b58\u3055\u308c\u305f\u5224\u5b9a\u7d50\u679c\u3092\u8868\u793a\u3057\u3066\u3044\u307e\u3059\u3002</span></div>`;
     }
     const targetSet = new Set(JUDGMENT_QUESTIONS);
     const flaggedSet = new Set(risks);
@@ -684,12 +735,45 @@
       const num = index + 1;
       const isTarget = targetSet.has(num);
       const isFlagged = flaggedSet.has(num) && value === 6;
-      return `<div class="answer ${isFlagged ? 'flagged' : ''}" ${isFlagged ? 'aria-label="判定対象の設問で回答6"' : ''}>
-        <div class="answer-top"><span class="q-number">${CIRCLED_NUMBERS[index]}</span>${isTarget ? '<span class="q-target">判定対象</span>' : ''}</div>
-        <div class="answer-value">${value ?? '—'}<small>/ 6</small></div>
+      return `<div class="answer ${isFlagged ? 'flagged' : ''}" ${isFlagged ? 'aria-label="\u5224\u5b9a\u5bfe\u8c61\u306e\u8a2d\u554f\u3067\u56de\u7b546"' : ''}>
+        <div class="answer-top"><span class="q-number">${CIRCLED_NUMBERS[index]}</span>${isTarget ? '<span class="q-target">\u5224\u5b9a\u5bfe\u8c61</span>' : ''}</div>
+        <div class="answer-value">${value ?? '\u2014'}<small>/ 6</small></div>
       </div>`;
     }).join('');
-    els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('・');
+    els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('\u30fb');
+  }
+  async function saveMatchThreshold(event) {
+    event.preventDefault();
+    const value = Number(els.minimumMatchPercent.value);
+    if (!Number.isInteger(value) || value < 0 || value > 100) {
+      els.thresholdMessage.textContent = '0\u301c100\u306e\u6574\u6570\u3067\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002';
+      els.thresholdMessage.classList.add('error');
+      return;
+    }
+    els.saveThresholdButton.disabled = true;
+    els.saveThresholdButton.textContent = '\u4fdd\u5b58\u4e2d\u2026';
+    els.thresholdMessage.classList.remove('error');
+    els.thresholdMessage.textContent = '\u8a2d\u5b9a\u3092\u4fdd\u5b58\u3057\u3066\u3044\u307e\u3059\u2026';
+    try {
+      const { data, error } = await client.from('survey_settings')
+        .update({ minimum_match_percent: value, updated_at: new Date().toISOString() })
+        .eq('id', 'default')
+        .select('minimum_match_percent')
+        .single();
+      if (error || !data) throw error || new Error('\u4fdd\u5b58\u7d50\u679c\u3092\u78ba\u8a8d\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002');
+      MINIMUM_MATCH_PERCENT = data.minimum_match_percent;
+      els.minimumMatchPercent.value = String(MINIMUM_MATCH_PERCENT);
+      els.thresholdCurrent.textContent = `\u73fe\u5728\u306e\u57fa\u6e96\uff1a${MINIMUM_MATCH_PERCENT}\uff05`;
+      els.thresholdMessage.textContent = `\u57fa\u6e96\u3092${MINIMUM_MATCH_PERCENT}\uff05\u306b\u4fdd\u5b58\u3057\u307e\u3057\u305f\u3002\u65b0\u3057\u304f\u9001\u4fe1\u3055\u308c\u308b\u56de\u7b54\u304b\u3089\u9069\u7528\u3055\u308c\u307e\u3059\u3002`;
+      els.thresholdMessage.classList.remove('error');
+    } catch (error) {
+      console.error('saving match threshold failed', error);
+      els.thresholdMessage.textContent = '\u8a2d\u5b9a\u3092\u4fdd\u5b58\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u7ba1\u7406\u8005\u6a29\u9650\u3068\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u306e\u66f4\u65b0\u6a29\u9650\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002';
+      els.thresholdMessage.classList.add('error');
+    } finally {
+      els.saveThresholdButton.disabled = false;
+      els.saveThresholdButton.textContent = '\u8a2d\u5b9a\u3092\u4fdd\u5b58';
+    }
   }
   function handleFilters() {
     currentPage = 0;
@@ -697,6 +781,7 @@
     clearDetail();
     loadRows();
   }
+  els.thresholdForm.addEventListener('submit', saveMatchThreshold);
   els.loginForm.addEventListener('submit', handleLogin);
   els.passwordSetupButton.addEventListener('click', handlePasswordSetupRequest);
   els.passwordForm.addEventListener('submit', handlePasswordSave);
@@ -724,14 +809,14 @@
       if (!data.session || !data.session.user) {
         showLogin();
         if (initialAuthFlowType === 'invite' || initialAuthFlowType === 'recovery') {
-          setLoginMessage('認証リンクを確認できませんでした。設定用メールをもう一度送信してください。');
+          setLoginMessage('\u8a8d\u8a3c\u30ea\u30f3\u30af\u3092\u78ba\u8a8d\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u8a2d\u5b9a\u7528\u30e1\u30fc\u30eb\u3092\u3082\u3046\u4e00\u5ea6\u9001\u4fe1\u3057\u3066\u304f\u3060\u3055\u3044\u3002');
           window.history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
         }
         return;
       }
       await verifyAdminOrSignOut(data.session.user);
     } catch (error) {
-      showLogin(error && error.message ? error.message : 'ログイン状態を確認できませんでした。');
+      showLogin(error && error.message ? error.message : '\u30ed\u30b0\u30a4\u30f3\u72b6\u614b\u3092\u78ba\u8a8d\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002');
     }
   })();
 })();
