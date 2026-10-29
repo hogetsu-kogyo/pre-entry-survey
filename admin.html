@@ -101,7 +101,7 @@
   .answer-value small { font-size: 10px; font-weight: 500; color: var(--muted); }
   .answer-impact { margin-top: 6px; font-size: 10px; line-height: 1.35; color: var(--muted); }
   .answer.flagged .answer-impact { color: var(--red); font-weight: 750; }
-  .endpoint-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:10px; background:#f7faf8; }
+  .endpoint-summary { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin-top:12px; padding:12px; border:1px solid var(--line); border-radius:10px; background:#f7faf8; }
   .endpoint-item { display:flex; flex-direction:column; gap:4px; min-width:0; }
   .endpoint-item span { color:var(--muted); font-size:11px; }
   .endpoint-item strong { color:var(--text); font-size:17px; }
@@ -298,8 +298,8 @@
       </div>
       <p class="threshold-description">&#x4e00;&#x81f4;&#x7387;&#x304c;&#x8a2d;&#x5b9a;&#x3057;&#x305f;&#x57fa;&#x6e96;&#x5024;&#x4ee5;&#x4e0b;&#x306e;&#x5834;&#x5408;&#x306f;&#x300c;&#x8981;&#x78ba;&#x8a8d;&#x300d;&#x3068;&#x8868;&#x793a;&#x3057;&#x307e;&#x3059;&#x3002;&#x81ea;&#x52d5;&#x3067;&#x4e0d;&#x5408;&#x683c;&#x306b;&#x306f;&#x305b;&#x305a;&#x3001;&#x6700;&#x7d42;&#x5224;&#x65ad;&#x306f;&#x62c5;&#x5f53;&#x8005;&#x304c;&#x884c;&#x3044;&#x307e;&#x3059;&#x3002;</p>
       <p class="threshold-description">&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#xff1a;&#x5404;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#x3092;1=100%&#x3001;2=80%&#x3001;3=60%&#x3001;4=40%&#x3001;5=20%&#x3001;6=0%&#x3067;&#x8a55;&#x4fa1;&#x3057;&#x3001;&#x305d;&#x306e;&#x5e73;&#x5747;&#x3067;&#x8a08;&#x7b97;&#x3002;&#x5bfe;&#x8c61;&#x8a2d;&#x554f;&#xff1a;<span id="targetSummarySetting">&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span></p>
-      <p class="threshold-description">&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;&#xff1a;1=0%&#x3001;2=20%&#x3001;3=40%&#x3001;4=60%&#x3001;5=80%&#x3001;6=100%&#x3002;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x304b;&#x3069;&#x3046;&#x304b;&#x306b;&#x95a2;&#x4fc2;&#x306a;&#x304f;&#x3001;&#x5168;20&#x554f;&#x306e;&#x5e73;&#x5747;&#x3067;&#x8a08;&#x7b97;&#x3057;&#x307e;&#x3059;&#x3002;&#x53c2;&#x8003;&#x6307;&#x6a19;&#x3067;&#x3042;&#x308a;&#x3001;&#x5224;&#x5b9a;&#x57fa;&#x6e96;&#x306b;&#x306f;&#x4f7f;&#x7528;&#x3057;&#x307e;&#x305b;&#x3093;&#x3002;</p>
-    </div>
+      <p class="threshold-description">&#x6b63;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;&#xff1a;1=100%&#x3001;2=80%&#x3001;3=60%&#x3001;4=40%&#x3001;5=20%&#x3001;6=0%&#x3002;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x304b;&#x3069;&#x3046;&#x304b;&#x306b;&#x95a2;&#x4fc2;&#x306a;&#x304f;&#x3001;&#x5168;20&#x554f;&#x306e;&#x5e73;&#x5747;&#x3067;&#x8a08;&#x7b97;&#x3057;&#x307e;&#x3059;&#x3002;</p>
+      <p class="threshold-description">&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;&#xff1a;1=0%&#x3001;2=20%&#x3001;3=40%&#x3001;4=60%&#x3001;5=80%&#x3001;6=100%&#x3002;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x304b;&#x3069;&#x3046;&#x304b;&#x306b;&#x95a2;&#x4fc2;&#x306a;&#x304f;&#x3001;&#x5168;20&#x554f;&#x306e;&#x5e73;&#x5747;&#x3067;&#x8a08;&#x7b97;&#x3057;&#x307e;&#x3059;&#x3002;&#x3069;&#x3061;&#x3089;&#x3082;&#x53c2;&#x8003;&#x6307;&#x6a19;&#x3067;&#x3001;&#x6b63;&#x65b9;&#x5411;&#x3068;&#x9006;&#x65b9;&#x5411;&#x306e;&#x5408;&#x8a08;&#x306f;100%&#x3067;&#x3059;&#x3002;&#x6b63;&#x5f0f;&#x5224;&#x5b9a;&#x306b;&#x306f;&#x4f7f;&#x7528;&#x3057;&#x307e;&#x305b;&#x3093;&#x3002;</p>    </div>
     <form id="thresholdForm" class="threshold-form">
       <div class="threshold-controls">
         <label for="minimumMatchPercent">&#x8981;&#x78ba;&#x8a8d;&#x306b;&#x3059;&#x308b;&#x57fa;&#x6e96;&#x5024;</label>
@@ -334,7 +334,7 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th scope="col">&#x6c0f;&#x540d;</th><th scope="col">&#x56de;&#x7b54;&#x65e5;</th><th scope="col">&#x5224;&#x5b9a;</th><th scope="col">&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;</th><th scope="col">&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;</th><th scope="col">&#x56de;&#x7b54;1&#x7387;&#xff08;&#x5168;&#x304f;&#x5e73;&#x6c17;&#xff09;</th><th scope="col">&#x56de;&#x7b54;6&#x7387;&#xff08;&#x3068;&#x3066;&#x3082;&#x5acc;&#xff09;</th></tr>
+            <tr><th scope="col">&#x6c0f;&#x540d;</th><th scope="col">&#x56de;&#x7b54;&#x65e5;</th><th scope="col">&#x5224;&#x5b9a;</th><th scope="col">&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;</th><th scope="col">&#x6b63;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;</th><th scope="col">&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;</th><th scope="col">&#x56de;&#x7b54;1&#x7387;&#xff08;&#x5168;&#x304f;&#x5e73;&#x6c17;&#xff09;</th><th scope="col">&#x56de;&#x7b54;6&#x7387;&#xff08;&#x3068;&#x3066;&#x3082;&#x5acc;&#xff09;</th></tr>
           </thead>
           <tbody id="applicantRows"></tbody>
         </table>
@@ -438,9 +438,13 @@
     const total = targetValues.length;
     const oneCount = targetValues.filter(value => value === 1).length;
     const sixCount = targetValues.filter(value => value === 6).length;
-    const reverseTotal = answers.length;
-    const reversePercent = reverseTotal && answers.every(value => value !== null)
-      ? answers.reduce((sum, value) => sum + ((value - 1) / 5) * 100, 0) / reverseTotal
+    const scoreTotal = answers.length;
+    const allAnswersComplete = answers.every(value => value !== null);
+    const positivePercent = scoreTotal && allAnswersComplete
+      ? answers.reduce((sum, value) => sum + ((6 - value) / 5) * 100, 0) / scoreTotal
+      : null;
+    const reversePercent = scoreTotal && allAnswersComplete
+      ? answers.reduce((sum, value) => sum + ((value - 1) / 5) * 100, 0) / scoreTotal
       : null;
     return {
       total,
@@ -448,8 +452,10 @@
       sixCount,
       onePercent: total ? (oneCount / total) * 100 : null,
       sixPercent: total ? (sixCount / total) * 100 : null,
+      positivePercent,
+      positiveTotal: scoreTotal,
       reversePercent,
-      reverseTotal
+      reverseTotal: scoreTotal
     };
   }
   function getStatus(record) {
@@ -724,6 +730,7 @@
         <td>${escapeHtml(dateOnly(record.submitted_at))}</td>
         <td><span class="badge ${status}">${statusLabel(status)}</span></td>
         <td>${escapeHtml(formatPercent(record.match_percentage))}</td>
+        <td>${escapeHtml(formatPercent(endpoints.positivePercent))}<span class="person-sub">${endpoints.positiveTotal}\u554f</span></td>
         <td>${escapeHtml(formatPercent(endpoints.reversePercent))}<span class="person-sub">${endpoints.reverseTotal}\u554f</span></td>
         <td>${escapeHtml(formatPercent(endpoints.onePercent))}<span class="person-sub">${endpoints.oneCount}/${endpoints.total}\u554f</span></td>
         <td>${escapeHtml(formatPercent(endpoints.sixPercent))}<span class="person-sub">${endpoints.sixCount}/${endpoints.total}\u554f</span></td>
@@ -763,24 +770,25 @@
       els.reasonArea.innerHTML = `<div class="pass-reason"><strong>\u4e00\u81f4\u7387\uff1a${escapeHtml(percentage)}\uff08\u57fa\u6e96\uff1a${threshold}\uff05\uff09</strong><span>\u57fa\u6e96\u3092\u4e0a\u56de\u3063\u3066\u3044\u307e\u3059\u3002\u30c7\u30fc\u30bf\u30d9\u30fc\u30b9\u306b\u4fdd\u5b58\u3055\u308c\u305f\u5224\u5b9a\u7d50\u679c\u3092\u8868\u793a\u3057\u3066\u3044\u307e\u3059\u3002</span></div>`;
     }
     const endpoints = getEndpointRates(record);
-    els.reasonArea.insertAdjacentHTML('beforeend', `<div class="endpoint-summary" aria-label="\u56de\u7b54 1 \u3068 6 \u306e\u56de\u7b54\u7387">
-      <div class="endpoint-item"><span>\u56de\u7b54 1\uff08\u5168\u304f\u5e73\u6c17\uff09\u7387</span><strong>${escapeHtml(formatPercent(endpoints.onePercent))} <small>${endpoints.oneCount}/${endpoints.total}\u554f</small></strong></div>
-      <div class="endpoint-item endpoint-negative"><span>\u56de\u7b54 6\uff08\u3068\u3066\u3082\u5acc\uff09\u7387</span><strong>${escapeHtml(formatPercent(endpoints.sixPercent))} <small>${endpoints.sixCount}/${endpoints.total}\u554f</small></strong></div>
+    els.reasonArea.insertAdjacentHTML('beforeend', `<div class="endpoint-summary" aria-label="Supplementary scores">
+      <div class="endpoint-item"><span>&#x56de;&#x7b54;1&#xff08;&#x5168;&#x304f;&#x5e73;&#x6c17;&#xff09;&#x7387;</span><strong>${escapeHtml(formatPercent(endpoints.onePercent))} <small>${endpoints.oneCount}/${endpoints.total}&#x554f;</small></strong></div>
+      <div class="endpoint-item endpoint-negative"><span>&#x56de;&#x7b54;6&#xff08;&#x3068;&#x3066;&#x3082;&#x5acc;&#xff09;&#x7387;</span><strong>${escapeHtml(formatPercent(endpoints.sixPercent))} <small>${endpoints.sixCount}/${endpoints.total}&#x554f;</small></strong></div>
+      <div class="endpoint-item"><span>&#x6b63;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;</span><strong>${escapeHtml(formatPercent(endpoints.positivePercent))}</strong><small>1=100% / 6=0%&#x30fb;&#x5168;20&#x554f;</small></div>
       <div class="endpoint-item"><span>&#x9006;&#x65b9;&#x5411;&#x30b9;&#x30b3;&#x30a2;&#xff08;&#x5168;20&#x554f;&#xff09;</span><strong>${escapeHtml(formatPercent(endpoints.reversePercent))}</strong><small>1=0% / 6=100%&#x30fb;&#x5168;20&#x554f;</small></div>
-      <p class="endpoint-note">\u3053\u306e2\u3064\u306f\u56de\u7b54\u306e\u4e21\u7aef\u306e\u5272\u5408\u3067\u3059\u3002\u7dcf\u5408\u4e00\u81f4\u7387\u306f1\u301c6\u306e\u5168\u6bb5\u968e\u3092\u4f7f\u3063\u3066\u8a08\u7b97\u3057\u307e\u3059\u3002</p>
+      <p class="endpoint-note">&#x6b63;&#x65b9;&#x5411;&#x30fb;&#x9006;&#x65b9;&#x5411;&#x306f;&#x5168;20&#x554f;&#x306e;&#x53c2;&#x8003;&#x6307;&#x6a19;&#x3067;&#x3001;&#x4e21;&#x8005;&#x306e;&#x5408;&#x8a08;&#x306f;100%&#x3067;&#x3059;&#x3002;&#x6b63;&#x5f0f;&#x5224;&#x5b9a;&#x3068;&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#x306f;&#x5f93;&#x6765;&#x3069;&#x304a;&#x308a;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x3067;&#x7b97;&#x51fa;&#x3057;&#x307e;&#x3059;&#x3002;&#x56de;&#x7b54;1/6&#x7387;&#x3082;&#x5224;&#x5b9a;&#x5bfe;&#x8c61;&#x306e;&#x8a2d;&#x554f;&#x3092;&#x5bfe;&#x8c61;&#x3068;&#x3057;&#x307e;&#x3059;&#x3002</p>
     </div>`);
     const targetSet = new Set(JUDGMENT_QUESTIONS);
     const flaggedSet = new Set(risks);
     els.answerGrid.innerHTML = answers.map((value, index) => {
       const num = index + 1;
       const isTarget = targetSet.has(num);
-      const itemScore = value === null ? null : Math.round(((6 - value) / 5) * 100);
+      const positiveItemScore = value === null ? null : Math.round(((6 - value) / 5) * 100);
       const reverseItemScore = value === null ? null : Math.round(((value - 1) / 5) * 100);
       const isFlagged = flaggedSet.has(num) && value === 6;
       return `<div class="answer ${isFlagged ? 'flagged' : ''}" ${isFlagged ? 'aria-label="\u5224\u5b9a\u5bfe\u8c61\u306e\u8a2d\u554f\u3067\u56de\u7b546"' : ''}>
         <div class="answer-top"><span class="q-number">${CIRCLED_NUMBERS[index]}</span>${isTarget ? '<span class="q-target">\u5224\u5b9a\u5bfe\u8c61</span>' : ''}</div>
         <div class="answer-value">${value ?? '\u2014'}<small>/ 6</small></div>
-        ${isTarget ? '<div class="answer-impact">&#x4e00;&#x81f4;&#x8a55;&#x4fa1;&#xff1a;' + (itemScore === null ? '\u2014' : itemScore + '\uff05') + '</div>' : ''}<div class="answer-impact">&#x9006;&#x65b9;&#x5411;&#x8a55;&#x4fa1;&#xff1a;' + (reverseItemScore === null ? '\u2014' : reverseItemScore + '\uff05') + '</div>
+        <div class="answer-impact">&#x6b63;&#x65b9;&#x5411;&#x8a55;&#x4fa1;&#xff1a;' + (positiveItemScore === null ? '\u2014' : positiveItemScore + '\uff05') + '</div><div class="answer-impact">&#x9006;&#x65b9;&#x5411;&#x8a55;&#x4fa1;&#xff1a;' + (reverseItemScore === null ? '\u2014' : reverseItemScore + '\uff05') + '</div>
       </div>`;
     }).join('');
     els.targetSummary.textContent = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('\u30fb');
