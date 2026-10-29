@@ -94,6 +94,12 @@
   .target-note { color: #48617f; background: #f2f6fb; padding: 2px 6px; border-radius: 5px; font-weight: 650; }
   .answers { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 9px; padding: 14px 20px 20px; }
   .answer { position: relative; border: 1px solid #e0e6ed; border-radius: 10px; padding: 10px 9px; min-height: 74px; background: #fff; }
+  .answer.distance-match { border-color:#9ed2b4; background:#eef8f1; }
+  .answer.distance-near { border-color:#e8cc77; background:#fff8df; }
+  .answer.distance-far { border-color:#e6a09b; background:#fff0ee; }
+  .answer.distance-match .answer-impact { color:#17623f; font-weight:750; }
+  .answer.distance-near .answer-impact { color:#805b00; font-weight:750; }
+  .answer.distance-far .answer-impact { color:#a12620; font-weight:750; }
   .answer-top { display: flex; justify-content: space-between; align-items: center; gap: 5px; margin-bottom: 8px; }
   .q-number { font-size: 12px; font-weight: 800; color: #41516a; }
   .q-target { font-size: 9px; color: #58708e; border: 1px solid #d8e2ee; border-radius: 4px; padding: 1px 4px; white-space: nowrap; }
@@ -361,7 +367,7 @@
           <span>&#x56de;&#x7b54;&#x5c3a;&#x5ea6;&#xff1a;1&#x301c;6</span>
           <span>1 = &#x5168;&#x304f;&#x5e73;&#x6c17;</span>
           <span>6 = &#x3068;&#x3066;&#x3082;&#x5acc;&#x306a;&#x6c17;&#x6301;&#x3061;&#x306b;&#x306a;&#x308b;</span>
-          <span class="target-note">基準値は設問ごとに異なります。基準値6の設問は、強い不快感を感じることが基準です。差は回答の正誤ではなく、基準値からの段階差を表します。</span>
+          <span class="target-note">色分け：緑＝基準値と一致／黄＝1〜2段階差／赤＝3段階以上差。基準値6は「強い不快感」を示す値で、緑でも適性が良いという意味ではありません。</span>
         </div>
         <div class="answers" id="answerGrid" aria-label="20&#x554f;&#x306e;&#x56de;&#x7b54;"></div>
         <div class="detail-foot">&#x57fa;&#x6e96;&#x56de;&#x7b54;6&#x306e;&#x8a2d;&#x554f;&#xff1a;<span id="targetSummary">&#x8aad;&#x307f;&#x8fbc;&#x307f;&#x4e2d;</span>&#x3002;&#x305d;&#x308c;&#x4ee5;&#x5916;&#x306e;&#x8a2d;&#x554f;&#x306f;&#x57fa;&#x6e96;&#x56de;&#x7b54;1&#x3067;&#x3059;&#x3002;&#x7dcf;&#x5408;&#x4e00;&#x81f4;&#x7387;&#x306f;&#x5168;20&#x554f;&#x3067;&#x7b97;&#x51fa;&#x3057;&#x307e;&#x3059;&#x3002;</div>
@@ -772,12 +778,13 @@
       const baselineLabel = baselineValue === 6
         ? '基準値：6（強い不快感）'
         : '基準値：1（全く平気）';
+      const toneClass = value === null ? '' : difference === 0 ? 'distance-match' : difference <= 2 ? 'distance-near' : 'distance-far';
       const impactLabel = value === null
         ? '未回答'
         : difference === 0
-          ? '基準値と一致'
+          ? (baselineValue === 6 ? '基準値と一致（強い不快感）' : '基準値と一致')
           : '基準値との差：' + difference + '段階';
-      return `<div class="answer" aria-label="${CIRCLED_NUMBERS[index]}">
+      return `<div class="answer ${toneClass}" aria-label="${CIRCLED_NUMBERS[index]}">
         <div class="answer-top"><span class="q-number">${CIRCLED_NUMBERS[index]}</span><span class="q-target">${baselineLabel}</span></div>
         <div class="answer-value">${value === null ? '—' : value}<small>/ 6</small></div>
         <div class="answer-impact">${impactLabel}</div>
