@@ -300,7 +300,7 @@
       <p class="threshold-description">各設問は、基準値からの差を0〜5点で加点します。基準値が1の設問は「回答1＝0点、回答6＝5点」、基準値が6の設問は「回答6＝0点、回答1＝5点」です。</p>
       <p class="threshold-description">全20問の差異点は0〜100点で、差異点が低いほど基準値との一致度が高くなります。基準値6の設問：<span id="targetSummarySetting">読み込み中</span>。それ以外の12問は基準値1です。</p>
       <div class="rank-range-list" aria-label="ランク区分">
-        <span><strong>S</strong> 0〜16点</span><span><strong>A</strong> 17〜33点</span><span><strong>B</strong> 34〜50点</span><span><strong>C</strong> 51〜67点</span><span><strong>D</strong> 68〜84点</span><span><strong>E</strong> 85〜100点</span>
+        <span><strong>S</strong> 0〜5点</span><span><strong>A</strong> 6〜20点</span><span><strong>B</strong> 21〜55点</span><span><strong>C</strong> 56〜79点</span><span><strong>D</strong> 80〜94点</span><span><strong>E</strong> 95〜100点</span>
       </div>
       <p class="threshold-description">※ランク範囲は、共有画像の表内の数字が読み取れなかったため、現時点では0〜100点を6区分に分けた仮設定です。正式な区分が確認できたら差し替えます。ランクは参考情報であり、採否を自動決定するものではありません。</p>
       <p class="interpretation-note">本結果は、応募者の能力や人間性の優劣を示すものではありません。抱月工業の職場環境や価値観との相性を検討するための参考情報です。回答結果だけで判断せず、本人の希望や適性、職場環境なども踏まえて総合的にご確認ください。</p>
@@ -378,7 +378,7 @@
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_AWir5tre7LTuMFEhAUKo-g_ztHgdit-';
   const PAGE_SIZE = 25;
   let JUDGMENT_QUESTIONS = [];
-  const RANK_LIMITS = { S:16, A:33, B:50, C:67, D:84, E:100 };
+  const RANK_LIMITS = { S:5, A:20, B:55, C:79, D:94, E:100 };
   const CIRCLED_NUMBERS = ['\u2460','\u2461','\u2462','\u2463','\u2464','\u2465','\u2466','\u2467','\u2468','\u2469','\u246a','\u246b','\u246c','\u246d','\u246e','\u246f','\u2470','\u2471','\u2472','\u2473'];
   const $ = id => document.getElementById(id);
   const els = {
