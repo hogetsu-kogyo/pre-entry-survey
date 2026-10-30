@@ -157,7 +157,7 @@
   <div class="name-field"><label for="applicantName">お名前 <span class="required">必須</span></label><input id="applicantName" type="text" maxlength="100" autocomplete="name" placeholder="例：山田 花子" required><small>回答を送信するために必要です。</small></div>
   <label class="consent-check"><input id="privacyConsent" type="checkbox"><span class="consent-checkmark" aria-hidden="true"></span><span>プライバシーポリシーを確認し、個人情報の取り扱いに同意します。</span></label>
   <button id="beginSurveyButton" type="button" class="next consent-start" disabled>同意して回答を始める <span aria-hidden="true">→</span></button>
-  <p class="consent-footnote">同意して開始すると回答画面に進みます。回答は最後の設問の送信時に保存されます。</p>
+  <p class="consent-footnote" id="consentFootnote">同意して開始すると回答画面に進みます。回答は最後の設問の送信時に保存されます。</p>
 </section>
 <section id="questionScreen" class="question-screen" hidden aria-labelledby="questionText">
 <section class="progress-area"><div class="progress-meta"><span id="progressText">1 / 3</span><span id="progressPercent" class="progress-percent">33%</span></div><div class="progress-track" id="progressTrack" role="progressbar" aria-label="回答の進み具合" aria-valuemin="1" aria-valuemax="3" aria-valuenow="1"><div class="progress-fill" id="progressFill"></div></div></section>
@@ -433,29 +433,36 @@ function updateConsentState() {
   beginSurveyButton.disabled = !consentCheckbox.checked || !$('applicantName').value.trim();
 }
 async function beginSurvey() {
-  if (!consentCheckbox.checked || !$('applicantName').value.trim()) return;
+  if (!consentCheckbox.checked || !$('applicantName').value.trim() || beginSurveyButton.disabled) return;
+
+  // Keep the applicant on the consent screen until every question is ready.
+  // The question screen must never show a per-question loading state in normal use.
+  const originalButtonLabel = beginSurveyButton.innerHTML;
+  const footnote = $('consentFootnote');
+  const originalFootnote = footnote ? footnote.textContent : '';
+  beginSurveyButton.disabled = true;
+  beginSurveyButton.textContent = '設問を準備しています…';
+  if (footnote) footnote.textContent = '質問を準備しています。準備ができると回答画面に進みます。';
+
+  try {
+    await loadQuestionBank();
+    if (!QUESTIONS.every(question => typeof question === 'string' && question.trim())) {
+      throw new Error('20問すべての設問を確認できませんでした。');
+    }
+  } catch (error) {
+    console.error('question bank was not ready at survey start', error);
+    beginSurveyButton.disabled = false;
+    beginSurveyButton.innerHTML = originalButtonLabel;
+    if (footnote) footnote.textContent = '設問を読み込めませんでした。通信状況を確認して、もう一度お試しください。';
+    return;
+  }
+
   homeScreen.hidden = true;
   consentScreen.hidden = true;
   complete.hidden = true;
   screen.hidden = false;
-
-  if (!QUESTIONS.every(question => typeof question === 'string' && question.trim())) {
-    loadingQuestionIndex = state.index;
-    questionLoadFailedIndex = null;
-    render();
-    try {
-      await loadQuestionBank();
-    } catch (error) {
-      console.warn('bulk question load failed; falling back to individual question fetch', error);
-      loadingQuestionIndex = null;
-      await loadQuestion(state.index);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    loadingQuestionIndex = null;
-    questionLoadFailedIndex = null;
-  }
-
+  loadingQuestionIndex = null;
+  questionLoadFailedIndex = null;
   await loadQuestion(state.index);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
