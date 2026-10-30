@@ -292,11 +292,11 @@
 
   <section class="stats" aria-label="応募者集計">
     <div class="stat"><div class="stat-top"><span>回答者数</span><span class="stat-icon">人</span></div><div class="stat-num" id="statTotal">—</div><div class="stat-note">アンケート回答済み</div></div>
-    <div class="stat pass"><div class="stat-top"><span>S・Aランク</span><span class="stat-icon">S</span></div><div class="stat-num" id="statPass">—</div><div class="stat-note">合計点が低い上位2区分</div></div>
-    <div class="stat invalid"><div class="stat-top"><span>D・Eランク</span><span class="stat-icon">E</span></div><div class="stat-num" id="statInvalid">—</div><div class="stat-note">合計点が高い下位2区分</div></div>
+    <div class="stat pass"><div class="stat-top"><span>S・Aランク</span><span class="stat-icon">S</span></div><div class="stat-num" id="statPass">—</div><div class="stat-note">差異点が低い上位2区分</div></div>
+    <div class="stat invalid"><div class="stat-top"><span>D・Eランク</span><span class="stat-icon">E</span></div><div class="stat-num" id="statInvalid">—</div><div class="stat-note">差異点が高い下位2区分</div></div>
   </section>
   <section class="panel threshold-panel" aria-labelledby="rankHeading">
-    <div class="panel-head"><div class="panel-title-row"><h3 id="rankHeading">合計点とランク区分</h3><span class="threshold-current" id="rankCurrent">0〜100点</span></div>
+    <div class="panel-head"><div class="panel-title-row"><h3 id="rankHeading">差異点とランク区分</h3><span class="threshold-current" id="rankCurrent">0〜100点</span></div>
       <p class="threshold-description">各設問は、基準値からの差を0〜5点で加点します。基準値が1の設問は「回答1＝0点、回答6＝5点」、基準値が6の設問は「回答6＝0点、回答1＝5点」です。</p>
       <p class="threshold-description">全20問の合計は0〜100点で、点数が低いほど基準値との一致度が高くなります。基準値6の設問：<span id="targetSummarySetting">読み込み中</span>。それ以外の12問は基準値1です。</p>
       <div class="rank-range-list" aria-label="ランク区分">
@@ -324,7 +324,7 @@
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th scope="col">氏名</th><th scope="col">回答日</th><th scope="col">総合ランク</th><th scope="col">合計点（全20問）</th><th scope="col">基準値との一致状況</th></tr>
+            <tr><th scope="col">氏名</th><th scope="col">回答日</th><th scope="col">総合ランク</th><th scope="col">差異点（全20問）</th><th scope="col">基準値との一致状況</th></tr>
           </thead>
           <tbody id="applicantRows"></tbody>
         </table>
@@ -368,7 +368,7 @@
     </section>
   </div>
 
-  <div class="bottom-note"><span class="info">i</span><span>合計点とS〜Eランクは、データベース側で保存された結果を表示しています。点数が低いほど基準値との一致度が高くなります。個人情報を含むため、必要な担当者のみで取り扱ってください。ランクだけで採否を自動決定せず、回答内容と併せて確認してください。</span></div>
+  <div class="bottom-note"><span class="info">i</span><span>差異点とS〜Eランクは、データベース側で保存された結果を表示しています。点数が低いほど基準値との一致度が高くなります。個人情報を含むため、必要な担当者のみで取り扱ってください。ランクだけで採否を自動決定せず、回答内容と併せて確認してください。</span></div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
 <script>
@@ -737,16 +737,16 @@
     const questionLabels = risks.map(n => CIRCLED_NUMBERS[n - 1]).join('・');
     els.reasonArea.innerHTML = `<div class="reason">
       <div class="reason-title">総合判定：${escapeHtml(rank)}ランク</div>
-      <div class="reason-questions">合計点：${scores.totalPoints === null ? '—' : escapeHtml(scores.totalPoints)}点 ／ 100点</div>
+      <div class="reason-questions">差異点：${scores.totalPoints === null ? '—' : escapeHtml(scores.totalPoints)}点 ／ 100点</div>
       <div class="reason-note">ランク区分：${escapeHtml(scores.rankRange)}。点数が低いほど、各設問の基準値に近い結果です。</div>
       <div class="reason-note">基準値と異なる設問：${escapeHtml(questionLabels || 'なし')}（${risks.length}/20問）。最終判断は担当者が行います。</div>
     </div>`;
     els.reasonArea.insertAdjacentHTML('beforeend', `<div class="endpoint-summary" aria-label="得点の内訳">
-      <div class="endpoint-item"><span>合計点（全20問）</span><strong>${scores.totalPoints === null ? '—' : `${scores.totalPoints}点`}</strong><small>低いほど基準値に近い</small></div>
+      <div class="endpoint-item"><span>差異点（全20問）</span><strong>${scores.totalPoints === null ? '—' : `${scores.totalPoints}点`}</strong><small>低いほど基準値に近い</small></div>
       <div class="endpoint-item"><span>総合ランク</span><strong>${escapeHtml(rank)}</strong><small>${escapeHtml(scores.rankRange)}</small></div>
       <div class="endpoint-item"><span>基準値1との一致</span><strong>${scores.baselineOneMatchCount}/${scores.baselineOneTotal}問</strong><small>1（全く平気）を選択</small></div>
       <div class="endpoint-item"><span>基準値6との一致</span><strong>${scores.baselineSixMatchCount}/${scores.baselineSixTotal}問</strong><small>6（強い不快感）を選択</small></div>
-      <p class="endpoint-note">各設問の加点は基準値との差（0〜5点）です。合計点とランクは参考指標であり、採否を自動決定するものではありません。</p>
+      <p class="endpoint-note">各設問の加点は基準値との差（0〜5点）です。差異点とランクは参考指標であり、採否を自動決定するものではありません。</p>
     </div>`);
     const targetSet = new Set(JUDGMENT_QUESTIONS);
     els.answerGrid.innerHTML = answers.map((value, index) => {
