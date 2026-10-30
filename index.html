@@ -187,6 +187,8 @@ const state = { index: 0, answers: Array(QUESTION_COUNT).fill(null), timer: null
 let questionRequestSequence = 0;
 let loadingQuestionIndex = null;
 let questionLoadFailedIndex = null;
+// Share one in-flight request per question so prefetch and navigation never duplicate DB reads.
+const questionFetches = new Map();
 const $ = (id) => document.getElementById(id);
 const screen = $('questionScreen');
 const complete = $('completeScreen');
@@ -232,20 +234,15 @@ function render() {
         : `${state.answers[state.index]} を選択しました`;
   $('retryQuestionButton').hidden = !loadFailed;
 }
-async function loadQuestion(index, forceReload = false) {
-  // Every navigation invalidates any slower request for a previous question.
-  const requestId = ++questionRequestSequence;
+async function fetchQuestionData(index, forceReload = false) {
   if (!forceReload && typeof QUESTIONS[index] === 'string' && QUESTIONS[index].trim()) {
-    loadingQuestionIndex = null;
-    questionLoadFailedIndex = null;
-    if (state.index === index) render();
-    return;
+    return QUESTIONS[index];
   }
-  loadingQuestionIndex = index;
-  questionLoadFailedIndex = null;
-  if (state.index === index) render();
-  try {
-    const response = await fetch(`${QUESTION_API_URL}?number=${index + 1}`, {
+  const inFlight = questionFetches.get(index);
+  if (inFlight) return inFlight;
+
+  const request = (async () => {
+    const response = await fetch(QUESTION_API_URL + '?number=' + (index + 1), {
       method: 'GET',
       headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Accept': 'application/json' },
       cache: 'no-store'
@@ -255,11 +252,48 @@ async function loadQuestion(index, forceReload = false) {
     if (!response.ok || !payload || payload.number !== index + 1 || typeof payload.question !== 'string' || !payload.question.trim()) {
       throw new Error((payload && payload.error) || '質問データを確認できませんでした。');
     }
-    if (requestId !== questionRequestSequence) return;
     QUESTIONS[index] = payload.question;
+    return payload.question;
+  })();
+
+  questionFetches.set(index, request);
+  try {
+    return await request;
+  } finally {
+    if (questionFetches.get(index) === request) questionFetches.delete(index);
+  }
+}
+
+function prefetchNextQuestion(index) {
+  const nextIndex = index + 1;
+  if (nextIndex >= count || (typeof QUESTIONS[nextIndex] === 'string' && QUESTIONS[nextIndex].trim())) return;
+  fetchQuestionData(nextIndex).catch(error => {
+    // Prefetch is best-effort; navigation retries and shows the retry control if needed.
+    console.warn('next question prefetch failed', error);
+  });
+}
+
+async function loadQuestion(index, forceReload = false) {
+  // Only the visible screen uses this sequence guard. Background prefetches still cache their result.
+  const requestId = ++questionRequestSequence;
+  if (!forceReload && typeof QUESTIONS[index] === 'string' && QUESTIONS[index].trim()) {
     loadingQuestionIndex = null;
     questionLoadFailedIndex = null;
     if (state.index === index) render();
+    prefetchNextQuestion(index);
+    return;
+  }
+
+  loadingQuestionIndex = index;
+  questionLoadFailedIndex = null;
+  if (state.index === index) render();
+  try {
+    await fetchQuestionData(index, forceReload);
+    if (requestId !== questionRequestSequence) return;
+    loadingQuestionIndex = null;
+    questionLoadFailedIndex = null;
+    if (state.index === index) render();
+    prefetchNextQuestion(index);
   } catch (error) {
     if (requestId !== questionRequestSequence) return;
     loadingQuestionIndex = null;
