@@ -298,7 +298,7 @@
   <section class="panel threshold-panel" aria-labelledby="rankHeading">
     <div class="panel-head"><div class="panel-title-row"><h3 id="rankHeading">差異点とランク区分</h3><span class="threshold-current" id="rankCurrent">0〜100点</span></div>
       <p class="threshold-description">各設問は、基準値からの差を0〜5点で加点します。基準値が1の設問は「回答1＝0点、回答6＝5点」、基準値が6の設問は「回答6＝0点、回答1＝5点」です。</p>
-      <p class="threshold-description">全20問の合計は0〜100点で、点数が低いほど基準値との一致度が高くなります。基準値6の設問：<span id="targetSummarySetting">読み込み中</span>。それ以外の12問は基準値1です。</p>
+      <p class="threshold-description">全20問の差異点は0〜100点で、差異点が低いほど基準値との一致度が高くなります。基準値6の設問：<span id="targetSummarySetting">読み込み中</span>。それ以外の12問は基準値1です。</p>
       <div class="rank-range-list" aria-label="ランク区分">
         <span><strong>S</strong> 0〜16点</span><span><strong>A</strong> 17〜33点</span><span><strong>B</strong> 34〜50点</span><span><strong>C</strong> 51〜67点</span><span><strong>D</strong> 68〜84点</span><span><strong>E</strong> 85〜100点</span>
       </div>
@@ -363,12 +363,12 @@
           <span class="target-note">基準値6の設問で6を選ぶことも、基準値1の設問で1を選ぶことも、それぞれ基準値と一致した回答です。色は基準値との差を示すもので、回答の良し悪しを示すものではありません。</span>
         </div>
         <div class="answers" id="answerGrid" aria-label="20&#x554f;&#x306e;&#x56de;&#x7b54;"></div>
-        <div class="detail-foot">基準値6の設問：<span id="targetSummary">読み込み中</span>。それ以外の設問は基準値1です。各問0〜5点、全20問で合計0〜100点。低いほど基準値に近い結果です。最終判断は担当者が行います。</div>
+        <div class="detail-foot">基準値6の設問：<span id="targetSummary">読み込み中</span>。それ以外の設問は基準値1です。各問0〜5点、全20問で差異点0〜100点。低いほど基準値に近い結果です。最終判断は担当者が行います。</div>
       </div>
     </section>
   </div>
 
-  <div class="bottom-note"><span class="info">i</span><span>差異点とS〜Eランクは、データベース側で保存された結果を表示しています。点数が低いほど基準値との一致度が高くなります。個人情報を含むため、必要な担当者のみで取り扱ってください。ランクだけで採否を自動決定せず、回答内容と併せて確認してください。</span></div>
+  <div class="bottom-note"><span class="info">i</span><span>差異点とS〜Eランクは、データベース側で保存された結果を表示しています。差異点が低いほど基準値との一致度が高くなります。個人情報を含むため、必要な担当者のみで取り扱ってください。ランクだけで採否を自動決定せず、回答内容と併せて確認してください。</span></div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.min.js" crossorigin="anonymous"></script>
 <script>
@@ -481,7 +481,7 @@
     const targets = JUDGMENT_QUESTIONS.map(n => CIRCLED_NUMBERS[n - 1]).join('・');
     els.targetSummary.textContent = targets;
     els.targetSummarySetting.textContent = targets;
-    els.rankCurrent.textContent = '合計0〜100点';
+    els.rankCurrent.textContent = '差異点0〜100点';
   }
   async function setSignedIn(user) {
     // Judgment configuration is read from Supabase after admin authorization,
