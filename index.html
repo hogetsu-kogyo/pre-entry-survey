@@ -187,7 +187,8 @@ const state = { index: 0, answers: Array(QUESTION_COUNT).fill(null), timer: null
 let questionRequestSequence = 0;
 let loadingQuestionIndex = null;
 let questionLoadFailedIndex = null;
-// Share one in-flight request per question so prefetch and navigation never duplicate DB reads.
+let questionBankPromise = null;
+// Shared request map remains as a fallback if the bulk question-bank request fails.
 const questionFetches = new Map();
 const $ = (id) => document.getElementById(id);
 const screen = $('questionScreen');
@@ -234,6 +235,45 @@ function render() {
         : `${state.answers[state.index]} を選択しました`;
   $('retryQuestionButton').hidden = !loadFailed;
 }
+async function loadQuestionBank() {
+  if (QUESTIONS.every(question => typeof question === 'string' && question.trim())) {
+    return QUESTIONS;
+  }
+  if (questionBankPromise) return questionBankPromise;
+
+  const request = (async () => {
+    const response = await fetch(QUESTION_API_URL + '?all=1', {
+      method: 'GET',
+      headers: { 'apikey': SUPABASE_PUBLISHABLE_KEY, 'Accept': 'application/json' },
+      cache: 'no-store'
+    });
+    let payload = null;
+    try { payload = await response.json(); } catch (_) {}
+    if (!response.ok || !payload || !Array.isArray(payload.questions) ||
+        payload.questions.length !== QUESTION_COUNT ||
+        !payload.questions.every(question => typeof question === 'string' && question.trim())) {
+      throw new Error((payload && payload.error) || '質問一覧を読み込めませんでした。');
+    }
+    QUESTIONS.splice(0, QUESTION_COUNT, ...payload.questions);
+    return QUESTIONS;
+  })();
+
+  questionBankPromise = request;
+  try {
+    return await request;
+  } catch (error) {
+    if (questionBankPromise === request) questionBankPromise = null;
+    throw error;
+  }
+}
+
+function startQuestionBankPreload() {
+  // Fetch while the applicant is reading the introduction and entering their name.
+  loadQuestionBank().catch(error => {
+    console.warn('question bank preload failed; per-question loading will be used', error);
+  });
+}
+
 async function fetchQuestionData(index, forceReload = false) {
   if (!forceReload && typeof QUESTIONS[index] === 'string' && QUESTIONS[index].trim()) {
     return QUESTIONS[index];
@@ -398,6 +438,24 @@ async function beginSurvey() {
   consentScreen.hidden = true;
   complete.hidden = true;
   screen.hidden = false;
+
+  if (!QUESTIONS.every(question => typeof question === 'string' && question.trim())) {
+    loadingQuestionIndex = state.index;
+    questionLoadFailedIndex = null;
+    render();
+    try {
+      await loadQuestionBank();
+    } catch (error) {
+      console.warn('bulk question load failed; falling back to individual question fetch', error);
+      loadingQuestionIndex = null;
+      await loadQuestion(state.index);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    loadingQuestionIndex = null;
+    questionLoadFailedIndex = null;
+  }
+
   await loadQuestion(state.index);
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -422,6 +480,7 @@ consentScreen.hidden = true;
 screen.hidden = true;
 complete.hidden = true;
 render();
+startQuestionBankPreload();
 </script>
 </body>
 </html>
