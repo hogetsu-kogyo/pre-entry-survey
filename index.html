@@ -273,8 +273,7 @@ function choose(value) {
   cancelTimer();
   state.answers[state.index] = value;
   render();
-  $('statusText').textContent = `${value} を選択しました。次の設問へ進みます`;
-  state.timer = window.setTimeout(advance, 650);
+  $('statusText').textContent = `${value} を選択しました。「次へ進む」を押して次の設問へ進んでください`;
 }
 async function advance() {
   cancelTimer();
